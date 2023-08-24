@@ -55,16 +55,13 @@ disciplinas = dict()
 for idx,aula in enumerate(range(len(vet_aulas))):
     disciplinas["Disciplina_{}".format(idx+1)]=vet_aulas[idx]
 
-
 # Inicializa Salas
 
-vet_salas = [Sala(30),Sala(45),Sala(50),Sala(40)]
+vet_salas = [Sala(30,"101 - A"),Sala(45,"102 - A"),Sala(50,"103 - A"),Sala(40,"104 - A")]
 
 salas = dict()
 for idx,sala in enumerate(range(len(vet_salas))):
     salas["Sala_{}".format(idx+1)]=vet_salas[idx]
-
-
 
 # Criando o modelo
 m = gp.Model()
@@ -107,7 +104,6 @@ c5 = m.addConstrs(
 
 m.optimize()
 
-
 print("Alocações")
 print("Disciplina  | Horário | Sala | Capacidade restante")
 for d in disciplinas:
@@ -116,6 +112,3 @@ for d in disciplinas:
             #print(x[d,s,h].X)
             if(round(x[d,s,h].X))==1:
                 print(d,h,s,(salas[s].capacidade-disciplinas[d].alunos))
-
-
-
