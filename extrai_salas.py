@@ -1,7 +1,7 @@
 import pandas as pd
 from Sala import Sala
 
-dados = pd.read_csv("salas.csv", encoding="UTF-8" , sep = ",", usecols=["BLOCO","CADEIRAS"])
+dados = pd.read_csv("./dados/salas.csv", encoding="UTF-8" , sep = ",", usecols=["BLOCO","CADEIRAS"])
 blocoAtual = ""
 numeroSala = ""
 vet_salas=[]
