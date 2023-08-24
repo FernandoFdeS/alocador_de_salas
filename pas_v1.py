@@ -49,7 +49,7 @@ vet_aulas.append(aula3)
 
 horarios_aula4 = dict()
 for idx,horario in enumerate(range(4,6)):
-    horarios_aula4["Horário_{}".format(idx+1)]=vet_horarios[idx]
+    horarios_aula4["Horário_{}".format(idx+5)]=vet_horarios[idx]
 
 aula4 = Aula(30,horarios_aula4)
 vet_aulas.append(aula4)

@@ -46,7 +46,7 @@ vet_aulas.append(aula3)
 
 horarios_aula4 = dict()
 for idx,horario in enumerate(range(4,6)):
-    horarios_aula4["Horário_{}".format(idx+1)]=vet_horarios[idx]
+    horarios_aula4["Horário_{}".format(idx+5)]=vet_horarios[idx]
 
 aula4 = Aula(30,horarios_aula4)
 vet_aulas.append(aula4)
@@ -81,7 +81,6 @@ m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas),
 # Restricoes
 
 # No máximo uma disciplina (turma) pode ser alocada a uma sala em um determinado horário:
-# Como pode ter o h dentro e fora do quicksum?
 c1 = m.addConstrs(
     gp.quicksum(x[d, s, h] for d in disciplinas if h in disciplinas[d].horarios) <= 1
     for s in salas for h in horarios
@@ -106,15 +105,14 @@ c4 = m.addConstrs(
 c5 = m.addConstrs(
     y[d,s] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
 
-m.update()
 m.optimize()
 
 
 print("Alocações")
-print("Aula  | Horário | Sala | Capacidade restante")
+print("Disciplina  | Horário | Sala | Capacidade restante")
 for d in disciplinas:
-    for h in horarios:
-        for s in salas:
+    for s in salas:
+        for h in horarios:
             #print(x[d,s,h].X)
             if(round(x[d,s,h].X))==1:
                 print(d,h,s,(salas[s].capacidade-disciplinas[d].alunos))
