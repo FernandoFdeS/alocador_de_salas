@@ -97,6 +97,7 @@ c3 = m.addConstrs(
 m.optimize()
 
 print("Alocações")
+print("Aula  | Horário | Sala | Capacidade restante")
 for a in aulas:    
     for h in horarios:
         for s in salas:
