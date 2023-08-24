@@ -82,8 +82,9 @@ m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas),
 
 # No máximo uma disciplina (turma) pode ser alocada a uma sala em um determinado horário:
 # Como pode ter o h dentro e fora do quicksum?
-c1 = m.addConstrs( 
-    gp.quicksum(x[d,s,h] for d in disciplinas ) <= 1 for s in salas for h in horarios 
+c1 = m.addConstrs(
+    gp.quicksum(x[d, s, h] for d in disciplinas if h in disciplinas[d].horarios) <= 1
+    for s in salas for h in horarios
 )
 
 # No máximo uma sala pode ser alocada a uma disciplina em um determinado horário
