@@ -1,8 +1,7 @@
 from Horario import Horario
 
 class Sala:
-    def __init__(self, capacidade, descricao):
+    def __init__(self, capacidade):
         self.capacidade = capacidade
-        self.descricao = descricao
     pass
 

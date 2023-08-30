@@ -57,7 +57,7 @@ for idx,aula in enumerate(range(len(vet_aulas))):
 
 # Inicializa Salas
 
-vet_salas = [Sala(30,"101 - A"),Sala(45,"102 - A"),Sala(50,"103 - A"),Sala(40,"104 - A")]
+vet_salas = [Sala(30),Sala(45),Sala(50),Sala(40)]
 
 salas = dict()
 for idx,sala in enumerate(range(len(vet_salas))):
