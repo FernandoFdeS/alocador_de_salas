@@ -31,7 +31,6 @@ periodo_map["N"]=12
 disciplinas = dict()
 
 for nome_curso, horario_disciplina in zip(nomes_cursos,horarios_disciplina):
-    print(nome_curso.split)
     cod_aula = horario_disciplina.split("-")
     cod_aula = cod_aula[0]
     cod_aula = cod_aula[:-1]
