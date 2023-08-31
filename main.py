@@ -1,5 +1,5 @@
 from Horario import Horario
-from Aula import Aula
+from Disciplina import Disciplina
 from Sala import Sala
 import extrai_horarios_aula as h_a
 import extrai_salas as s
@@ -22,10 +22,23 @@ for d in disciplinas:
             x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
 y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
 
+
+# Descomenta daqui pra baixo --------------
+
+vet_salas_preferenciais=[]
+
+for d in disciplinas:
+    for h in disciplinas[d].horarios:
+        for s in salas:
+            if s not in disciplinas[d].salasPreferenciais:
+                vet_salas_preferenciais.append(x[d,s,h])
+
 # Funcao obj
-m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas),
+m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas) +
+               gp.quicksum(vet_salas_preferenciais),
    sense=gp.GRB.MINIMIZE
 )
+
 
 # Restricoes
 
@@ -67,10 +80,10 @@ if m.status == gp.GRB.OPTIMAL:
                 #print(x[d,s,h].X)
                 if(round(x[d,s,h].X))==1:
                     #print(d,h,s,(salas[s].capacidade-disciplinas[d].alunos))
-                    alocacoes.append([d, h, s, (salas[s].capacidade-disciplinas[d].alunos)])
+                    alocacoes.append([disciplinas[d].curso,d, h, s, (salas[s].capacidade-disciplinas[d].alunos)])
 
     # Criar um DataFrame com as informações
-    df = pd.DataFrame(alocacoes, columns=["Disciplina", "Horario", "Sala", "Capacidade Restante"])
+    df = pd.DataFrame(alocacoes, columns=["Curso", "Disciplina", "Horario", "Sala", "Capacidade Restante"])
 
     # Salvar o DataFrame em um arquivo CSV
     nome_arquivo = "alocacoes.csv"
