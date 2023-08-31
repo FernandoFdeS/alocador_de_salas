@@ -5,6 +5,7 @@ from Sala import Sala
 import gurobipy as gp
 from gurobipy import GRB
 
+
 # Modelo de resolução do PAS com restrições e dados de entrada do exemplo dado
 # na página 18 do TCC
 
@@ -67,7 +68,12 @@ for idx,sala in enumerate(range(len(vet_salas))):
 m = gp.Model()
 
 # Variaveis
-x = m.addVars(disciplinas,salas,horarios,vtype=gp.GRB.BINARY, name="x")
+x = {}
+for d in disciplinas:
+    for h in disciplinas[d].horarios:
+        for s in salas:
+            x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
+
 y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
 
 # Funcao obj
@@ -108,7 +114,7 @@ print("Alocações")
 print("Disciplina  | Horário | Sala | Capacidade restante")
 for d in disciplinas:
     for s in salas:
-        for h in horarios:
+        for h in disciplinas[d].horarios:
             #print(x[d,s,h].X)
             if(round(x[d,s,h].X))==1:
                 print(d,h,s,(salas[s].capacidade-disciplinas[d].alunos))
