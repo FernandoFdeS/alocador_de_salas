@@ -1,11 +1,10 @@
-- Aloca até a aula nº 389, passando dela o modelo é "inviável", isso sem utilizar os espaços ajeitados
-- Utilizando os espaços ajeitados a alocação é feita com sucesso até a aula nº 438
+- Aloca até a aula nº 423, passando dela o modelo é "inviável", isso sem utilizar os espaços ajeitados
+- Utilizando os espaços ajeitados todas as alocações são feitas*
 
-- O Arquivo salas.csv foi levemente modificado.
-    - Foi adicionado o cabeçalho "Blocos" na coluna das salas
+* O Arquivo salas.csv foi levemente modificado.
+    - Foi adicionado o cabeçalho "Salas" na coluna das salas
     - Foi adicionado um número de cadeiras (30) para os "Espaços Ajeitados"
-
-- O Arquivo de onde são extraidas as disciplinas/horários não contém um número de alunos
-    - As disciplinas foram criadas com um número fixo de alunos por disciplina (30)
+* O Arquivo de onde são extraidas as disciplinas/horários não contém um número de alunos
+    - As disciplinas foram criadas com um número fixo de alunos por disciplina (25)
 
 - Possíveis restrições fracas (parte das observações) no arquivo salas.csv

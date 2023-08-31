@@ -62,7 +62,7 @@ for dado in dados:
                     horario_aula["Horario_{}_{}".format(dia_horario,faixa_horario)]=Horario(dia_horario,faixa_horario)
         
 
-    aula = Aula(30,horario_aula) #não tem o tamanho da turma nos horários
+    aula = Aula(25,horario_aula) #não tem o tamanho da turma nos horários
     disciplinas[cod_aula+"_"+n_turma]=aula
 
 # for d in disciplinas:

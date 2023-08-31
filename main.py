@@ -10,8 +10,6 @@ from gurobipy import GRB
 disciplinas = h_a.disciplinas
 horarios = h_a.horarios_fixos
 salas = s.salas
-
-
 # Criando o modelo
 m = gp.Model()
 m.setParam('TimeLimit',300)
