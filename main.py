@@ -31,14 +31,12 @@ def cria_csv(disciplinas,salas,horaraios,x):
 def exporta_alocacoes(disciplinas,salas,horarios,x):
     alocacoes=[]
     linhas=[]
+
+    coluna_horarios=["SEG-M","TER-M","QUA-M","QUI-M","SEX-M","SAB-M","SEG-V","TER-V","QUA-V","QUI-V","SEX-V","SAB-V","SEG-N","TER-N","QUA-N","QUI-N","SEX-N","SAB-N"]
+
     linha_salas=[]
     for s in salas:
-        linha_salas.append(s)
-    
-
-    coluna_horarios=[]
-    for h in horarios:
-        coluna_horarios.append(h)
+        linha_salas.append(s)    
 
     matriz = [['-' for coluna in range(len(coluna_horarios))] for linha in range(len(linha_salas))]
 
@@ -47,7 +45,7 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
             for h in disciplinas[d].horarios:
                 if(round(x[d,s,h].X))==1:
                     linha = linha_salas.index(s)
-                    coluna = coluna_horarios.index(h)
+                    coluna=(coluna_horarios.index(horarios[h].converte_horario()))
                     matriz[linha][coluna] = d
 
     # print(coluna_horarios)

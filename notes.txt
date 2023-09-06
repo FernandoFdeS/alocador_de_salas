@@ -8,3 +8,5 @@
     - As disciplinas foram criadas com um número fixo de alunos por disciplina (25)
 
 - Possíveis restrições fracas (parte das observações) no arquivo salas.csv
+
+- E as aulas de graduação?
