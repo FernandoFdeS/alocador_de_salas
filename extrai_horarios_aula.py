@@ -54,7 +54,7 @@ class ExtraiHorariosAula:
             horarios = horarios[1]
             horarios = horarios[:-3]
             horarios = horarios.split()
-            print(cod_aula+"_"+n_turma)
+            #print(cod_aula+"_"+n_turma)
             horario_aula=dict()
             for horario in horarios:
                 dias=""
