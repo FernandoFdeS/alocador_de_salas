@@ -1,31 +1,37 @@
 import pandas as pd
 from Sala import Sala
 
-dados = pd.read_csv("./dados/salas.csv", encoding="UTF-8" , sep = ",", usecols=["SALAS","CADEIRAS"])
-blocoAtual = ""
-numeroSala = ""
-vet_salas=[]
-nome_salas=[]
+class ExtraiSalas:
+    def __init__ (self, arquivo):
+        self.arquivo =arquivo
 
-for index, row in dados.iterrows():
-    sala = str(row["SALAS"])
+    def extrai_salas(self):
+        dados = pd.read_csv(self.arquivo, encoding="UTF-8" , sep = ",", usecols=["SALAS","CADEIRAS"])
+        blocoAtual = ""
+        numeroSala = ""
+        vet_salas=[]
+        nome_salas=[]
 
-    if(sala.find("BLOCO")==0):
-        blocoAtual=sala.split(" ")[1] # Pegando o Bloco da Sala
-    else:        
-        numeroSala=sala.split(" ")[0]
+        for index, row in dados.iterrows():
+            sala = str(row["SALAS"])
 
-    cadeiras = row["CADEIRAS"]
-    if(pd.isna(sala) or pd.isna(cadeiras)):
-        continue
-    # Salas especiais ("Espaços Ajeitados") originalmente não tem número de cadeiras definidas no csv, então são ignoradas.
-    cadeiras=int(cadeiras)
-    vet_salas.append(Sala(cadeiras))
-    nome_salas.append((numeroSala+"-"+blocoAtual))
+            if(sala.find("BLOCO")==0):
+                blocoAtual=sala.split(" ")[1] # Pegando o Bloco da Sala
+            else:        
+                numeroSala=sala.split(" ")[0]
 
-salas = dict()
-for idx,sala in enumerate(range(len(vet_salas))):
-    salas[nome_salas[idx]]=vet_salas[idx]
+            cadeiras = row["CADEIRAS"]
+            if(pd.isna(sala) or pd.isna(cadeiras)):
+                continue
+            # Salas especiais ("Espaços Ajeitados") originalmente não tem número de cadeiras definidas no csv, então são ignoradas.
+            cadeiras=int(cadeiras)
+            vet_salas.append(Sala(cadeiras))
+            nome_salas.append((numeroSala+"-"+blocoAtual))
 
-# for sala in salas:
-#     print (sala, salas[sala].capacidade)
+        salas = dict()
+        for idx,sala in enumerate(range(len(vet_salas))):
+            salas[nome_salas[idx]]=vet_salas[idx]
+
+        # for sala in salas:
+        #     print (sala, salas[sala].capacidade)
+        return salas
