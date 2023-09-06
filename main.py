@@ -65,12 +65,11 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
     nome_arquivo = "alocacoes_v2.csv"
     df.to_csv(nome_arquivo, index=True)
     print("Alocações realizadas com sucesso!")
-    
-            
+         
 
 def main():
     salas = ExtraiSalas("./dados/salas.csv").extrai_salas()
-    disciplinas, horarios = ExtraiHorariosAula("./dados/horarios_teste.xlsx").extrai_horarios_aula()
+    disciplinas, horarios = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
 
     # Criando o modelo
     m = gp.Model()
