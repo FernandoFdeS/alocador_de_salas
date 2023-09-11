@@ -8,7 +8,8 @@ import gurobipy as gp
 import numpy as np
 from gurobipy import GRB
 
-def cria_csv(disciplinas,salas,horaraios,x):
+# Utilizado mais pra "debug".
+def cria_csv_alocacoes(disciplinas,salas,horaraios,x):
 
     alocacoes=[]
     #print("Disciplina  | Horário | Sala | Capacidade restante")
@@ -26,8 +27,8 @@ def cria_csv(disciplinas,salas,horaraios,x):
     # Salvar o DataFrame em um arquivo CSV
     nome_arquivo = "alocacoes.csv"
     df.to_csv(nome_arquivo, index=False)
-    print("Alocações realizadas com sucesso!")
 
+# Gera arquivo de saida final.
 def exporta_alocacoes(disciplinas,salas,horarios,x):
     alocacoes=[]
     linhas=[]
@@ -46,13 +47,10 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
                 if(round(x[d,s,h].X))==1:
                     linha = linha_salas.index(s)
                     coluna=(coluna_horarios.index(horarios[h].converte_horario()))
-                    matriz[linha][coluna] = d
-
-    # print(coluna_horarios)
-    # for i in range(len(linha_salas)):
-    #     for j in range(len(coluna_horarios)):
-    #         print (matriz[i][j],end=" ")
-    #     print("")
+                    if(matriz[linha][coluna]=='-'):
+                        matriz[linha][coluna] = d
+                    elif (d not in matriz[linha][coluna]):
+                        matriz[linha][coluna] = matriz[linha][coluna] +" | "+d
         
     df = pd.DataFrame(matriz)
 
@@ -60,7 +58,7 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
     df = pd.DataFrame(matriz, columns=coluna_horarios, index=linha_salas)
 
     # Exibir o DataFrame personalizado
-    nome_arquivo = "alocacoes_v2.csv"
+    nome_arquivo = "alocacoes_final.csv"
     df.to_csv(nome_arquivo, index=True)
     print("Alocações realizadas com sucesso!")
          
@@ -90,7 +88,7 @@ def main():
                     vet_salas_preferenciais.append(x[d,s,h])
 
     # Funcao obj
-    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas) +
+    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*2 +
                 gp.quicksum(vet_salas_preferenciais),
     sense=gp.GRB.MINIMIZE
     )
@@ -127,7 +125,7 @@ def main():
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")
-        #cria_csv(disciplinas,salas,horarios,x)
+        cria_csv_alocacoes(disciplinas,salas,horarios,x)
         exporta_alocacoes(disciplinas,salas,horarios,x)
     else:
         print("O modelo é inviável.")
