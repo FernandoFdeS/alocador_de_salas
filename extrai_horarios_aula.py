@@ -19,6 +19,10 @@ class ExtraiHorariosAula:
         salas_preferenciais = dict()
         salas_preferenciais["MEDICINA"]=["302-A","303-A","304-A"]
         salas_preferenciais["CIÊNCIA DA COMPUTAÇÃO"]=["308-B","309-B","310-B"]
+        salas_preferenciais["ADMINISTRAÇÃO"]=["206-B","207-B","208-B","209-B","210-B"]
+        salas_preferenciais["ENGENHARIA AMBIENTAL E SANITÁRIA"]=["201-A","202-A","203-A","204-A","205-A"]
+        salas_preferenciais["MATEMÁTICA"]=["206-A","207-A","208-A","209-A"]
+
         return salas_preferenciais
 
 
