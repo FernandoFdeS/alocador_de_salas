@@ -10,12 +10,7 @@
 - Possíveis restrições fracas (parte das observações) no arquivo salas.csv
 -> "Salas do mesmo curso devem ser preferencialmente contiguas"
 
-- E as aulas de graduação?
-- Definição das salas preferenciais?
-- Aulas do mesmo curso precisam acontecer na mesma sala?
-- Quantidade de alunos?
-- Salas utilizdas atualmente (com capacidades).
-- Arquivo de saída dividido em turnos e não em horários.
+- Aulas do mesmo curso&fase precisam acontecer na mesma sala?
 
 =========================
 
@@ -25,4 +20,9 @@ GSA296 - 2T56
 GSA193 - 2T1
 GSA280 - 2T123 (Alocando a faixa 2T1 em uma sala e o 2T23 na 302-A)
 
-Ta alocando em 2 salas diferentes. Por causa das salas preferenciais?
+Ta alocando em 2 salas diferentes. Por causa da restrição das salas preferenciais?
+
+=========================
+
+Tristes notícias:
+- Utilizando apenas 3 salas do Bloco C o modelo é inviável
