@@ -36,14 +36,13 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
     alocacoes=[]
     linhas=[]
 
-    coluna_horarios=["SEG-M","TER-M","QUA-M","QUI-M","SEX-M","SAB-M","SEG-V","TER-V","QUA-V","QUI-V","SEX-V","SAB-V","SEG-N","TER-N","QUA-N","QUI-N","SEX-N","SAB-N"]
+    coluna_horarios=["SEG-M","TER-M","QUA-M","QUI-M","SEX-M","SAB-M","SEG-V","TER-V","QUA-V","QUI-V","SEX-V","SAB-V","SEG-N","TER-N","QUA-N","QUI-N","SEX-N","SAB-N","Não Alocadas"]
 
     linha_salas=[]
     for s in salas:
         linha_salas.append(s)    
 
     matriz = [['-' for coluna in range(len(coluna_horarios))] for linha in range(len(linha_salas))]
-
 
     for d in disciplinas:
         for s in salas:
@@ -57,6 +56,9 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
                         matriz[linha][coluna] = d
                     elif (d not in matriz[linha][coluna]):
                         matriz[linha][coluna] = matriz[linha][coluna] +" | "+d
+    
+    for index,d in enumerate(disciplinas_nao_alocadas):
+        matriz[index][coluna_horarios.index("Não Alocadas")]=d                    
         
     df = pd.DataFrame(matriz)
 
