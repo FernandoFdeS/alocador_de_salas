@@ -1,0 +1,84 @@
+SALAS,MATUTINO,,,,,,VESPERTINO,,,,,,NOTURNO,,,,,,SÁBADO,CADEIRAS
+,SEG,TER,QUA,QUI,SEX,,SEG,TER,QUA,QUI,SEX,,SEG,TER,QUA,QUI,SEX,,,
+BLOCO A,,,,,,,,,,,,,,,,,,,,
+201 – 2 quadros,EAS 2º + PED 2°,,,,,,EAS – 2ª,EAS – 2ª,EAS – 2ª,EAS – 2ª,EAS – 2ª,,,CS – 8°,CS OPT,CS – 8°,CS – 8°+ MAT – 6° + PED – 7°,,CS – 8°,50
+202 – 2 quadros,EAS – 4ª,EAS – 4ª,EAS – 4ª,EAS – 4ª,EAS – 4ª,,EAS – 4ª,EAS – 4ª,EAS – 9°,EAS – 9° | EAS – OPT,,,MAT – 8°,ADM OPT,MAT – 8°,MAT OPT,,,MAT OPT,50
+203 – 2 quadros,,EAS – 6ª,,EAS – 6ª,,,EAS – 6ª,EAS – 6ª,EAS – 6ª,EAS – 6ª,EAS – 6ª,,MAT – 6°,MAT – 6°,MAT – 6°,PED – 7°,,,MAT – 6°,50
+204 – 2 quadros,EAS – OPT | EAS – 8ª,EAS – 8ª,EAS – 8ª,EAS – 8ª,EAS – 8ª,,EAS – OPT,CS – 8°,EAS – OPT,EAS – 8ª,,,,MAT – 4°,MAT – 4° + FIL – 4° + CS – 4°,MAT – 4°,MAT – 4°,,CS – 9°,50
+205 – 2 quadros,,,EAS – 10ª,EAS – 10ª,EAS – 10ª,,EAS – 10ª,EAS – OPT,LETRAS PROIMIGRANTE,EAS – 10ª,EAS – 10ª,,MAT – 2°,MAT – 2°,MAT – 2°,MAT – 2° + FIL – 4°,MAT – 2°,,MAT – 2°,50
+206 – 2 quadros,,,,,,,LET – 10°,LET – 10°,LET – 10°,,LET – 10°,,LET – 10°,LET – 10°,LET – 10°,LET – 10°,LET – 10°,,,50
+207 – 2 quadros,,,,,,,,,,,,,LET – 8°,LET – 8°,LET – 8°,LET – 8°,LET – 8°,,,50
+208 – 2 quadros,,,,,,,LET – 6°,,,,,,LET – 6°,LET – 6°,LET – 6°,LET – 6°,LET – 6°,,,50
+209 – 2 quadros,,ENF – 10ª,,HIS – 8°,,,ENF – 10ª,ENF – 10ª,ENF – 10ª,ENF – 10ª,ENF – 10ª,,LET – 4°,FIL – 4° + LET – 4°,LET – 4°,LET – 4°,LET – 4°,,,50
+210,,,,,,,,,LETRAS ESPECIAL TODOS OS CURSOS,LET – 2°,,,,LET – 2°,LET – 2°,LET – 2°,LET – 2°,,,50
+301,AGRO – 3° | AGRO – 2°,,AGRO – 2°,AGRO – 2°,AGRO – 2°,,AGRO – 3°,AGRO – 2°,,AGRO – 1°,AGRO – 2°,,,,MED OPT,MED – 3°,MED – 1°,,,50
+302,AGRO – 4°,AGRO OPT,AGRO – 4°,AGRO – 4°,AGRO – 4°,,AGRO – 4°,AGRO – 4°,AGRO – 4°,AGRO – 4°,AGRO OPT,,,MED – 7°,MED – 5°,MED – 7°,,,,50
+303,AGRO – 6°,AGRO – 6°,AGRO – 6°,AGRO – 6°,AGRO OPT,,AGRO – 6°,AGRO – 6°,AGRO – 6°,AGRO – 6°,AGRO – 7°,,CS – 6°,CS – 6°,CS – 6°,CS – 6°,CS – 6°,,,50
+304,AGRO – 8°,AGRO – 8°,AGRO – 8°,AGRO – 8°,AGRO OPT,,AGRO – 8°,AGRO – 8°,AGRO – 8°,AGRO – 8°,,,CS – 4°,CS – 4°,CS OPT,CS – 4°,CS – 4°,,,50
+305,,,,,,,,,,,,,CS – 2°,CS – 2°,CS – 2°,CS – 2°,CS – 2°,,,50
+306 (100)  – 2 quadros,ENF – 8ª,ENF – 8ª,ENF – 8ª,ENF – 8ª,ENF – 8ª,,ENF – 8ª,ENF – 8ª,ENF – 8ª,ENF – 8ª,ENF – 8ª,,HIS – 8°,HIS – 8°,LETRAS PIN,HIS – 8°,HIS – 8°,,,100
+307,ENF – 6ª,ENF – 6ª,ENF – 6ª,ENF – 6ª,,,ENF – 6ª,ENF – 6ª,ENF – 6ª,ENF – 6ª,ENF – 6ª,,HIS – 6°,HIS – 7°,HIS OPT ,HIS – 6°,,,HIS – 6°,50
+308,ENF – 4ª,ENF – 4ª,ENF – 4ª,ENF – 4ª,,,ENF – 4ª,ENF – 4ª,ENF – 4ª,ENF – 4ª,ENF – 4ª,,HIS – 4° + CS – 8°,HIS – 4°,HIS OPT ,HIS – 4°,HIS – 4°,,HIS – 4°,50
+309,HIS – 6°,ENF – 2ª,ENF – 2ª,ENF – 2ª,,,ENF – 2ª,ENF – 2ª,ENF – 2ª,ENF – 2ª,,,LETRAS PIN,LETRAS PIN,LETRAS PIN,LETRAS PIN,,,,50
+401,--------,--------,--------,--------,--------,,MAT – 8°,--------,--------,--------,--------,,--------,MAT – 8°,--------,--------,MAT – 8°,,--------,50
+407 (Lab Info II),,,LET – OPT,,PED – 4°,,,,,,,,,,PED – 9°,MAT – 6°,,,MAT – 6°,26
+408 (Lab Info I),,,,AGRO – 6°,,,AGRO – 3°,,EAS – 2ª,,EAS – 2ª,,MAT – 4°,,ADM – 3°,LETRAS PIN,,,,26
+BLOCO B,,,,,,,,,,,,,,,,,,,,50
+105,GEO – 8°,--------,--------,--------,--------,,--------,--------,--------,--------,--------,,GEO – 8°,GEO – 6°,GEO – 6°,--------,--------,,--------,50
+108,--------,--------,--------,ADM – 6°,--------,,--------,--------,--------,--------,--------,,ADM – 9°,--------,--------,--------,--------,,--------,50
+201,,,PED OPT,,,,PED OPT,MAT – 6°,,MAT – 6°,,,PED – 9°,PED – 9°,PED – 9°,PED OPT,PED – 9°,,,50
+202,PED – 10°,,,PED – 10°,PED – 10°,,,PED – 7°,PED – 7°,CS – 8°,,,PED – 7°,PED – 7°,PED – 7°,PED – 7°,PED OPT,,,50
+203,PED – 8°,PED – 8°,,PED – 8°,PED – 8°,,LET – OPT,LET – OPT,LET – OPT,LET – OPT,LET – OPT,,PED – 5°,PED – 5° + MAT – 6°,PED – 5°,PED – 5°,PED – 5°,,,50
+204,PED – 6°,PED – 6°,PED – 6°,PED – 6°,PED – 6°,,,,,LET – ESPECIAL,,,PED – 3°,PED – 3°,PED – 3°,PED – 3°,PED – 3°,,,50
+205 – 2 quadros,PED – 4°,PED – 4°,PED – 4°,PED – 4°,PED – 4°,,,,,,,,PED – 1°,PED – 1°,PED – 1°,PED – 1°,PED – 1°,,,50
+206,,PED – 2°,PED – 2°,PED – 2°,PED – 2°,,AGRO – PÓS COLHEITA,,,,,,, ADM OPT | ADM – 9°,ADM – 9°,ADM OPT,ADM – 9°,,,50
+207 – 2 quadros,ADM – 8°,ADM – 8°,ADM – 8° | ADM OPT,ADM – 8°,ADM – 8°,,,,,,,,ADM – 7°,ADM – 7°,ADM – 7°,ADM – 7°,ADM – 7°,,,50
+208,ADM – 6°,ADM – 6°,ADM – 6°,,ADM – 6°,,,,,,,,ADM – 5°,ADM – 5°,ADM – 5°,ADM – 5°,ADM – 5°,,,50
+209 – 2 quadros,ADM – 4°,ADM – 4°,ADM – 4°,ADM – 4°,ADM – 4°,,,,,,,,ADM – 3°,ADM – 3°,ADM – 3°,ADM – 3°,ADM – 3°,,,50
+210,ADM – 2°,ADM – 2°,ADM – 2°,ADM – 2°,ADM – 2°,,CC – 8°,,,,,,ADM – 1°,ADM – 1°,ADM – 1°,ADM – 1°,ADM – 1°,,ADM – 1°,50
+301 – 2 quadros,MED – 1°,MED – 1°,MED – 1°,MED – 1°,MED – 1°,,MED – 1°,MED – 1°,MED – 1°,MED – 1°,MED – 1°,,GEO - 2°,CC – 1°,GEO - 2°,GEO - 2°,,,GEO - 2°,50
+302 – 2 quadros,,,,,,,,,,,,,CC – 3°,GEO – 4°,GEO – 4° + HIS – 4°,GEO – 4°,GEO – 4°,,GEO – 4°,50
+303 – 2 quadros,MED – 5°,MED – 5°,MED – 5°,MED – 5°,MED – 5°,,MED – 5°,MED – 5°,MED – 5°,MED – 5°,MED – 5°,,CC OPT,AGRO – 7°,CC – 4°,GEO – 6°,GEO – 6° + HIS – 6°,,GEO – 6°,50
+304 – 2 quadros,MED – 7°,MED – 7°,,MED – 7°,MED – 7°,,MED – 7°,MED – 7°,MED – 7°,MED – 7°,MED – 7°,,CC – 2°,GEO – 8°,CC – 2°,GEO – 8°,,,GEO – 8° | GEO – 9°,50
+305 – 2 quadros,,,,,AGRO OPT,,| CC – 4°,GEO – 8°,CC OPT |,| CC OPT,CC – 4° |,,CC – 7°,CC – 7°,CC – 7°,CC – 7°,CC – 7°,,CC – 7°,50
+308,,,,,AGRO OPT,,CC – 6°,CC – 6°,CC – 6°,CC – 6°,CC – 6°,,CC – 5°,CC – 5°,CC – 5°,CC – 5°,CC – 5°,,CC – 5°,50
+309 – 2 quadros,CC – 4°,CC – 4°,,CC – 9°,CC – 9°,,CC – 4°,CC – 4°,CC – 4°,CC – 4°,CC – 4°,,CC – 3°,CC – 3°,CC – 3°,CC – 3°,CC – 3°,,CC – 3° | CC – 9°,50
+310 – 2 quadros,,,,CC – 8°,CC – 8°,,CC – 2°,CC – 2°,CC – 2°,CC – 2°,CC – 2°,,CC – 1°,CC – 1°,CC – 1°,CC – 1°,CC – 1°,,CC – 1° | CC – 8°,50
+BLOCO C,,,,,,,,,,,,,,,,,,,,
+103 (105 lugares),MED – 3°,MED – 3°,MED – 3°,MED – 3°,,,MED – 3°,MED – 3°,MED – 3°,MED – 3°,,,HIS - 2°,,PED OPT |,CC – 1°,,,CC – 1°,105
+105 (105 lugares),,,,,,,,,,,,,FIL – 4°,,LET – OPT,LET – OPT,FIL – 4°,,CC – 1°,105
+215,Monitoria química e física,,Monitoria química e física,Monitoria química e física,,,Monitoria química e física,Monitoria química e física,Monitoria química e física,Monitoria química e física,Monitoria química e física,,FIL – 8°,,FIL – 8°,CC OPT,FIL – 8°,,CC OPT,50
+216,,,,,,,LETRAS PIN,,,,,,LET – 2°,HIS - 2°,HIS - 2°,HIS - 2°,HIS - 2°,,HIS - 2°,50
+217,,,,,,,,FIL – 6°,,,,,FIL – 6°,FIL – 6°,FIL – 6°,FIL – 6°,GEO – 8°,,,50
+218,,,,,,,,FIL – 2°,,FIL – 2°,FIL – 2°,,FIL – 2°,FIL – 2°,FIL – 2°,FIL – 2°,FIL – 2°,,,50
+302,--------,--------,--------,--------,--------,,--------,--------,--------,--------,--------,,--------,--------,--------,CS – 8°,--------,,--------,50
+311,--------,--------,--------,--------,--------,,--------,--------,--------,--------,--------,,--------,--------,--------,MED – 5°,--------,,--------,50
+BLOCOS DE LABORATÓRIOS,,,,,,,,,,,,,,,,,,,,50
+"109 BLOCO LAB. 04 
+(CARTOGRAFIA)",--------,--------,PED – 8°,--------,--------,,GEO – 6°,--------,--------,--------,--------,,GEO – 6°,GEO – 2°,GEO – 8°,PED – 7°,--------,,--------,50
+"110 BLOCO LAB. 04
+(HIDROCLIMATOLOGIA)",--------,--------,--------,--------,--------,,--------,--------,--------,--------,--------,,--------,--------,--------,--------,GEO – 2°,,--------,50
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,Legenda:,,Fusão de turmas,,,,,,,,,,,,,,,,,
+,,,Compartilhamento de sala,,,,,,,,,,,,,,,,,
+,,,"Aulas exclusivas em laboratórios 
+(dispensando sala de aula)",,,,,,,,,,,,,,,,,
+,,,Duas turmas com datas e horários diferentes,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,Observações sobre os Cursos que precisam ser seguidas:,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,Engenharia Ambiental,"Necessita de dois quadros por sala para os cálculos, logo pegar as 4: 201 e 205A, 301 e 305B de manha e de tarde",,,,,,,,,,,,,,,,,
+,,Matemática,"Necessita de dois quadros por sala para os cálculos, logo pegar as 4: 201 e 205A, 301 e 305B de noite",,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,
+,,Geografia," GISELE LEITE DE LIMA PRIMAM solicita que suas aulas sejam dadas no bloco B, devido a problemas auditivos que ela enfrenta",,,,,,,,,,,,,,,,,
+,,Ciência da Computação,"Todas as salas do 4º piso do bloco B (menos a 401) pertencem ao curso , alem disso, os professores gostariam que as reservas fossem feitas no 3 piso, para ficar mais próximo dos laboratorios",,,,,,,,,,,,,,,,,
+,,Salas do mesmo curso devem ser preferencialmente contíguas.,,,,,,,,,,,,,,,,,,

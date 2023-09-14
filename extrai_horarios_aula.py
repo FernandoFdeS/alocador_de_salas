@@ -14,16 +14,20 @@ class ExtraiHorariosAula:
                 horarios_fixos["Horario_"+(str(i+2))+"_"+(str(j+1))]=(Horario(i+2,j+1))
         return horarios_fixos
 
-    # Função provisória que determina/pega as salas preferenciais
-    def cria_salas_preferenciais(self):
-        salas_preferenciais = dict()
-        salas_preferenciais["MEDICINA"]=["302-A","303-A","304-A"]
-        salas_preferenciais["CIÊNCIA DA COMPUTAÇÃO"]=["308-B","309-B","310-B"]
-        salas_preferenciais["ADMINISTRAÇÃO"]=["206-B","207-B","208-B","209-B","210-B"]
-        salas_preferenciais["ENGENHARIA AMBIENTAL E SANITÁRIA"]=["201-A","202-A","203-A","204-A","205-A"]
-        salas_preferenciais["MATEMÁTICA"]=["206-A","207-A","208-A","209-A"]
+    # Pega as salas preferenciais do arquivo.
+    def cria_salas_preferenciais(self):        
+        salas_preferenciais_dict = dict()
+        dados = pd.read_excel("./dados/salas_preferenciais.xlsx");
+        indices = dados.iloc[:, 0]
+        salas_preferenciais = dados.iloc[:, 1]
 
-        return salas_preferenciais
+        for indice, salas in zip(indices,salas_preferenciais):
+            salas_preferenciais_dict[indice]=salas.split(",")
+
+        # for salas in salas_preferenciais_dict:
+        #     print(salas, salas_preferenciais_dict[salas])        
+
+        return salas_preferenciais_dict
 
 
     def extrai_horarios_aula(self):
@@ -79,6 +83,7 @@ class ExtraiHorariosAula:
             sp = []
             if nome_curso in salas_preferenciais:
                 sp = salas_preferenciais[nome_curso]
+
 
             disciplina = Disciplina(nome_curso,25,horario_aula,sp) # não tem o tamanho da turma nos horários
             disciplinas[cod_aula+"_"+n_turma]=disciplina

@@ -64,7 +64,7 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
          
 
 def main():
-    salas = ExtraiSalas("./dados/salas.csv").extrai_salas()
+    salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
     disciplinas, horarios = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
 
     # Criando o modelo

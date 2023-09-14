@@ -23,7 +23,6 @@ class ExtraiSalas:
             cadeiras = row["CADEIRAS"]
             if(pd.isna(sala) or pd.isna(cadeiras)):
                 continue
-            # Salas especiais ("Espaços Ajeitados") originalmente não tem número de cadeiras definidas no csv, então são ignoradas.
             cadeiras=int(cadeiras)
             vet_salas.append(Sala(cadeiras))
             nome_salas.append((numeroSala+"-"+blocoAtual))

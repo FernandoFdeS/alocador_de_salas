@@ -11,6 +11,7 @@
 -> "Salas do mesmo curso devem ser preferencialmente contiguas"
 
 - Aulas do mesmo curso&fase precisam acontecer na mesma sala?
+R: Sim
 
 =========================
 
@@ -26,3 +27,18 @@ Ta alocando em 2 salas diferentes. Por causa da restrição das salas preferenci
 
 Tristes notícias:
 - Utilizando apenas 3 salas do Bloco C o modelo é inviável
+
+========================
+
+Definir arquivo de entrada.
+- "Turma de todos os cursos.ods"
+-- Melhor formatado
+-- Tem capacidade de alunos p/ turmas
+-- NÃO possui a fase da disciplina/turma
+-- NÃO tem as fusões das turmas (é necessário identificar pelo código da disciplina + professor + horário)
+
+- "horarios.xlsx"
+-- Possui as fusões
+-- Possui as fases de cada disciplina
+-- Informações bagunçadas para fazer o parsing
+-- NÃO possui a quantidade de alunos por turma
