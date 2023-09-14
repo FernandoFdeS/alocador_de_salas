@@ -30,6 +30,9 @@ def cria_csv_alocacoes(disciplinas,salas,horaraios,x):
 
 # Gera arquivo de saida final.
 def exporta_alocacoes(disciplinas,salas,horarios,x):
+    
+    disciplinas_nao_alocadas = disciplinas.copy()
+    
     alocacoes=[]
     linhas=[]
 
@@ -41,10 +44,13 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
 
     matriz = [['-' for coluna in range(len(coluna_horarios))] for linha in range(len(linha_salas))]
 
+
     for d in disciplinas:
         for s in salas:
             for h in disciplinas[d].horarios:
                 if(round(x[d,s,h].X))==1:
+                    if d in disciplinas_nao_alocadas:
+                        del disciplinas_nao_alocadas[d]
                     linha = linha_salas.index(s)
                     coluna=(coluna_horarios.index(horarios[h].converte_horario()))
                     if(matriz[linha][coluna]=='-'):
@@ -60,15 +66,21 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
     # Exibir o DataFrame personalizado
     nome_arquivo = "alocacoes_final.csv"
     df.to_csv(nome_arquivo, index=True)
-    print("Alocações realizadas com sucesso!")
+
+    if(len(disciplinas_nao_alocadas))==0:
+        print("Alocações realizadas com sucesso!")
+    else:
+        print("Disciplinas alocadas: "+str((len(disciplinas)-len(disciplinas_nao_alocadas)))+"/"+str(len(disciplinas)))
          
 
 def main():
-    salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
+    salas = ExtraiSalas("./dados/salas_teste.csv").extrai_salas()
     disciplinas, horarios = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
 
     # Criando o modelo
     m = gp.Model()
+
+    M = 1000
 
     # Variaveis
     x = {}
@@ -86,10 +98,21 @@ def main():
             for s in salas:
                 if s not in disciplinas[d].salasPreferenciais:
                     vet_salas_preferenciais.append(x[d,s,h])
+    
+    # Cria vetor das alocacoes das salas
+    vet_alocacoes=[]
+    for d in disciplinas:
+        for h in disciplinas[d].horarios:
+            vet_alocacoes.append(M*(1 - gp.quicksum(x[d,s,h] for s in salas)))
+    
+    # print(vet_alocacoes)
+
+
 
     # Funcao obj
     m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*2 +
-                gp.quicksum(vet_salas_preferenciais),
+                gp.quicksum(vet_salas_preferenciais) +
+                gp.quicksum(vet_alocacoes),
     sense=gp.GRB.MINIMIZE
     )
 
@@ -108,9 +131,9 @@ def main():
     )
 
     # No mínimo uma sala deve ser alocada a uma disciplina em um determinado horário
-    c3 = m.addConstrs( 
-        gp.quicksum(x[d,s,h] for s in salas ) >= 1 for d in disciplinas for h in disciplinas[d].horarios
-    )
+    #c3 = m.addConstrs( 
+    #    gp.quicksum(x[d,s,h] for s in salas ) >= 1 for d in disciplinas for h in disciplinas[d].horarios
+    #)
 
     # Uma sala não pode ser alocada a uma disciplina cujo número de alunos ultrapasse a sua capacidade:
     c4 = m.addConstrs(
