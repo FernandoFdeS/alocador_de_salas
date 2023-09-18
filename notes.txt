@@ -1,3 +1,7 @@
+=========================
+
+Observações:
+
 - Aloca até a aula nº 423, passando dela o modelo é "inviável", isso sem utilizar os espaços ajeitados
 - Utilizando os espaços ajeitados todas as alocações são feitas*
 
@@ -6,14 +10,6 @@
     - Foi adicionado um número de cadeiras (30) para os "Espaços Ajeitados"
 * O Arquivo de onde são extraidas as disciplinas/horários não contém um número de alunos
     - As disciplinas foram criadas com um número fixo de alunos por disciplina (25)
-
-- Possíveis restrições fracas (parte das observações) no arquivo salas.csv
--> "Salas do mesmo curso devem ser preferencialmente contiguas"
-
-- Aulas do mesmo curso&fase precisam acontecer na mesma sala?
-R: Sim
-
-=========================
 
 Aulas alocadas na mesma Sala (302-A | Segunda-feira de tarde)
 
@@ -25,14 +21,15 @@ Ta alocando em 2 salas diferentes. Por causa da restrição das salas preferenci
 
 =========================
 
-Tristes notícias:
-- Utilizando apenas 3 salas do Bloco C o modelo é inviável
+Todo:
 
-========================
+Criar classe de "Fase", composta por: curso - fase
+-- Precisa inicializar uma lista com todas as fases (?)
+Adicionar um atributo "fase" na classe "Disciplina" que, pasme, vai receber um objeto de "Fase"
 
 Definir arquivo de entrada.
 - "Turma de todos os cursos.ods"
--- Melhor formatado
+-- Formatado bonitinho
 -- Tem capacidade de alunos p/ turmas
 -- NÃO possui a fase da disciplina/turma
 -- NÃO tem as fusões das turmas (é necessário identificar pelo código da disciplina + professor + horário)
@@ -41,4 +38,4 @@ Definir arquivo de entrada.
 -- Possui as fusões
 -- Possui as fases de cada disciplina
 -- Informações bagunçadas para fazer o parsing
--- NÃO possui a quantidade de alunos por turma
+-- NÃO possui a quantidade de alunos por turma (o que, sinceramente, é mais fácil de arrumar do que os outros problemas)
