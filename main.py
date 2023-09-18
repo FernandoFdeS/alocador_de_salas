@@ -32,6 +32,7 @@ def cria_csv_alocacoes(disciplinas,salas,horaraios,x):
 def exporta_alocacoes(disciplinas,salas,horarios,x):
     
     disciplinas_nao_alocadas = disciplinas.copy()
+    disciplinas_qtd_alocacoes = dict()
     
     alocacoes=[]
     linhas=[]
@@ -45,11 +46,24 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
     matriz = [['-' for coluna in range(len(coluna_horarios))] for linha in range(len(linha_salas))]
 
     for d in disciplinas:
+        disciplinas_qtd_alocacoes[d]=0
         for s in salas:
             for h in disciplinas[d].horarios:
                 if(round(x[d,s,h].X))==1:
-                    if d in disciplinas_nao_alocadas:
-                        del disciplinas_nao_alocadas[d]
+                    disciplinas_qtd_alocacoes[d] += 1
+
+    ## Mostra a relação entre alocações feitas/ quantidade de horarios  
+    # for d in disciplinas:
+    #     print(d+" "+str(disciplinas_qtd_alocacoes[d])+"/"+str(len(disciplinas[d].horarios)))
+
+    for d in disciplinas:
+        if disciplinas_qtd_alocacoes[d] != len(disciplinas[d].horarios):
+            continue
+        else:
+            del disciplinas_nao_alocadas[d]
+        for s in salas:
+            for h in disciplinas[d].horarios:
+                if(round(x[d,s,h].X))==1:
                     linha = linha_salas.index(s)
                     coluna=(coluna_horarios.index(horarios[h].converte_horario()))
                     if(matriz[linha][coluna]=='-'):
@@ -58,7 +72,9 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
                         matriz[linha][coluna] = matriz[linha][coluna] +" | "+d
     
     for index,d in enumerate(disciplinas_nao_alocadas):
-        matriz[index][coluna_horarios.index("Não Alocadas")]=d                    
+        matriz[index][coluna_horarios.index("Não Alocadas")]=d
+
+    coluna_horarios[coluna_horarios.index("Não Alocadas")]=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")") 
         
     df = pd.DataFrame(matriz)
 
@@ -112,7 +128,7 @@ def main():
 
 
     # Funcao obj
-    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*2 +
+    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M +
                 gp.quicksum(vet_salas_preferenciais) +
                 gp.quicksum(vet_alocacoes),
     sense=gp.GRB.MINIMIZE
