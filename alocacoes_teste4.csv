@@ -1,0 +1,47 @@
+,SEG-M,TER-M,QUA-M,QUI-M,SEX-M,SAB-M,SEG-V,TER-V,QUA-V,QUI-V,SEX-V,SAB-V,SEG-N,TER-N,QUA-N,QUI-N,SEX-N,SAB-N,Não Alocadas (13)
+201-A,EAS - 4,EAS - 4 | EAS - 6,EAS - 4,EAS - 4 | EAS - 8,EAS - 4,-,EAS - 10 | EAS - opt,EAS - 6 | EAS - opt,EAS - 6,EAS - 8 | EAS - 10,EAS - 10,-,LETRAS - PIN - opt,ADM - 7,EAS - 10,EAS - 8,EAS - 10,-,GCS530_1
+202-A,-,-,AGRO - 4,-,AGRO - 2,-,-,AGRO - 6,-,-,-,-,MAT - 8,MAT - 2,MAT - 2,PED - 7,MAT - 4,-,GCS536_1
+203-A,AGRO - 8,-,-,-,-,-,MAT - 8,-,-,-,-,-,MAT - 8,MAT - 8,MAT - 6,MAT - 6,MAT - 2,-,GCS550_1
+204-A,-,-,-,-,-,-,-,-,-,-,-,-,MAT - 4,MAT - 4,MAT - 8,MAT - 4,MAT - 8,-,GEX213_1
+205-A,-,-,-,AGRO - 2,-,-,-,AGRO - 2,-,ENF - 4,-,-,MAT - 6,CS - 6,CS - opt,MAT - opt,PED - 3,-,GCH1402_1
+206-A,-,EAS - 4,-,-,-,LET - 2,LET - 6,LET - 10,-,-,-,-,LET - 6,LET - 2,LET - 2,LET - 2,LET - 4,-,GSA190_1
+207-A,ADM - 4,ADM - 6,ADM - opt,ADM - 2,ADM - 8,-,-,LET - 9,ADM - 9,ADM - 9,-,-,ADM - 5,LET - 2,LET - 8,LET - 6,ADM - 5,-,GSA268_1
+208-A,ADM - 6,ADM - 2,ADM - 2,ADM - 6,ADM - 4,ADM - 3,LET - opt,LET - opt,LET - opt,LET - opt,LET - opt,-,LET - 6,ADM - 3,LET - 4,ADM - 3,ADM - 9,-,GSA281_1
+209-A,ADM - 8,ADM - 4,ADM - 8,ADM - 8,ADM - 6,-,-,AGRO - 8,LET - 10,-,-,-,ADM - 7,LET - 6,LET - 10,LET - 10,ADM - 3,-,GSA283_1
+210-A,ADM - 2,ADM - 8,ADM - 4,ADM - 4,ADM - 2,LET - 6,-,-,LET - opt,-,-,LET - 6,ADM - 1,LET - 8,LET - 6,ADM - 7,LET - 6,-,GSA284_1
+301-A,AGRO - 2 | AGRO - 3,AGRO - 8,AGRO - 6,AGRO - 6,AGRO - opt,AGRO - 10,MED - 1 | MED - 9,AGRO - 10,AGRO - 8,MED - 7,AGRO - 9 | AGRO - 7,AGRO - 10,MED - 9,AGRO - 7,MED - opt,MED - 7,AGRO - 9,AGRO - 10,GSA287_1
+302-A,-,ENF - 2,AGRO - 8,-,-,-,-,AGRO - 6,ENF - 4,AGRO - 8,AGRO - 2,-,CC - opt,-FUSÃO: FILOSOFIA + LETRAS - 4,PED - 1,LETRAS - PIN - opt,-FUSÃO: GEOGRAFIA + HISTÓRIA - 6,-,GCH1035_1
+303-A,-,-,ADM - 6,EAS - 4,-,CS - 8,-,CS - 8,-,-,-,CS - 9,CS - 2,CS - 8,CS - opt,CS - 8,CS - 2,CS - 9,GCH1110_1
+304-A,-,-,-,-,-,-,-,-,-,-,-,-,CS - 2,CS - 4,CS - 2,CS - 2,CS - 6,-,-
+305-A,-,-,-,-,AGRO - opt,-,CC - 8,-,LETRAS - PROIMIGRANTE - opt,AGRO - 4,-,-,CS - 4,CS - 2,CS - 6,CS - 4,CS - 4,-,-
+306-A,ENF - 8,ENF - 10,ENF - 2,ENF - 8,-,HIS - 6,ENF - 4,ENF - 8,ENF - 8,ENF - 4,ENF - 8,-,HIS - 2,HIS - 7,HIS - opt,HIS - 6,HIS - 8,-,-
+307-A,ENF - 4,ENF - 4,ENF - 4,ENF - 4,-,-,ENF - 10,ENF - 10,ENF - 10,ENF - 10,ENF - 10,-,HIS - 8,HIS - 4,HIS - opt,HIS - 4,HIS - 4,-,-
+308-A,HIS - 6,ENF - 8,ENF - 8,HIS - 8,-,-,ENF - 8,ENF - 2,ENF - 2,ENF - 8,ENF - 4,-,HIS - 6,HIS - 2,HIS - 2,HIS - 8,HIS - 2,-,-
+309-A,ENF - 6,ENF - 6,ENF - 6,ENF - 6,-,LET - opt,ENF - 6,ENF - 6,ENF - 6,ENF - 6,ENF - 6,-,LET - 10,LET - 8,LET - opt,LET - 4,LET - 2,-,-
+407-A,AGRO - 4,-,-,-,PED - 8,-,-,-,-,-,-,-,LET - 2,ADM - 1,CC - 4,CC - 3,-,-,-
+408-A,-,-,-,-,-,-,-,-,-,-,-,-,CC - 3,-FUSÃO: MATEMÁTICA + PEDAGOGIA - 6,-FUSÃO: GEOGRAFIA + HISTÓRIA - 4,LET - 8,CC - 1,-,-
+201-B,-,EAS - 8,EAS - 8,MED - 7,-,-,LETRAS - PIN - opt,-,-,-,-,-,-FUSÃO: CIÊNCIAS SOCIAIS + HISTÓRIA - 8,ADM - 5,ADM - 9,LET - opt,ADM - 7,-,-
+202-B,PED - 4,PED - 6,PED - opt,PED - 6,PED - 6,-,AGRO - 4,EAS - 2,MED - 3,EAS - 2,-,-,PED - 7,PED - 5,PED - opt,PED - 7,PED - 5,-,-
+203-B,PED - 8,PED - 4,PED - opt,PED - 2,PED - 6,PED - 2,-,AGRO - 4,EAS - 2,-,EAS - 2,-,PED - 1,PED - 7,PED - 9,PED - 7,PED - 9,-,-
+204-B,PED - 4,PED - 2,PED - 4,PED - 10,PED - 4,PED - 9,EAS - 6,-,-,EAS - 6,-,PED - 9,PED - 9,PED - 9,PED - 9,PED - opt,PED - opt,-,-
+205-B,PED - 6,PED - 8,PED - 8,PED - 8,PED - 10,PED - 7,AGRO - 4,-,EAS - opt,-,-,PED - 7,PED - 1,PED - 1,PED - 7,PED - 3,PED - 1,-,-
+206-B,PED - 10,PED - 2,PED - 4,PED - 6,PED - 8,PED - 8,-,-,-,AGRO - 6,-,-,PED - 5,PED - 9,PED - 3,PED - 5,PED - 5,-,-
+207-B,EAS - 8,-,-,AGRO - 4,EAS - 8,-,AGRO - 6,ENF - 4,AGRO - 4,EAS - 6,-,-,CC - 1,ADM - opt,CC - 7,ADM - opt,LET - 6,-,-
+208-B,EAS - opt,-,AGRO - 2,-,-,-,AGRO - 3,-,-,AGRO - 1,-,-,MAT - 2,CC - 1,ADM - 3,CS - 6,ADM - 1,-,-
+209-B,AGRO - 6,EAS - 8,-,AGRO - 2,PED - 2,-,EAS - 4,AGRO - 2 | EAS - 4,AGRO - 6,-,-,-,CC - 3,PED - 7,PED - 7,HIS - 2,-,-,-
+210-B,MED - 7,-,-,ENF - 2,AGRO - opt,-,-,-,-,-,-,-,LET - 4,MED - 7,ADM - 7,-FUSÃO: FILOSOFIA + MATEMÁTICA - 4,CC - 7,-,-
+301-B,MED - 5,MED - 7,MED - 3,MED - 1,MED - 5,GEO - 2,MED - 5,MED - 3 | MED - 7,MED - 5,MED - 3,MED - 1,GEO - 9,GEO - 2,GEO - 2,MED - 5,GEO - 8,MED - 1,-,-
+302-B,-,-,-,-,AGRO - 2,EAS - opt,GEO - 6,GEO - 8,-,EAS - opt,-,-,GEO - 6,GEO - 8,GEO - 2,GEO - 2,GEO - 2,-,-
+303-B,MED - 1,MED - 1,MED - 1,MED - 5,MED - 1,GEO - 4,MED - 7,MED - 1,MED - 1,MED - 1,MED - 5,-,GEO - 8,GEO - 4,GEO - 8,GEO - 4,GEO - 8,-,-
+304-B,MED - 3,MED - 3,-,MED - 3,MED - 7,-,MED - 3 | MED - opt,MED - 3,MED - 7,-,MED - 7,-,MED - opt,GEO - 6,GEO - 6,GEO - 6,GEO - 4,-,-
+305-B,-,AGRO - opt,-,CC - 8,CC - 8,CC - 8,CC - 2,CC - 2,CC - 6,CC - 2,CC - 2,-,FIL - 2,CC - 5,FIL - 6,CC - 7,CC - 3,-,-
+308-B,CC - 4,CC - 4,-,CC - 9,CC - 9,CC - 9,CC - 6 | CC - 4,CC - 6,CC - 4,CC - 6,CC - 4 | CC - 6,-,FIL - 4,CC - 1,CC - 3,CC - 1,FIL - 8,-,-
+309-B,-FUSÃO: ENGENHARIA AMBIENTAL E SANITÁRIA + PEDAGOGIA - 2,-,-,-,AGRO - 4,-,CC - 2 | CC - 4,CC - 4,CC - 2,CC - 4,CC - 2 | CC - 4,-,FIL - 6,CC - 3,CC - 2,CC - 1,FIL - 4,-,-
+310-B,FIL - 8,-,-,EAS - 8,-,FIL - 6,CC - 6 | CC - 4,CC - 2,CC - opt,CC - opt | CC - 2,CC - 6 | CC - 4,FIL - 8,CC - 7,CC - 7,FIL - 8,FIL - 6,CC - 5,-,-
+105-C,-,-,-,-,-,-,FIL - 9,FIL - 6,-,EAS - 9 | FIL - 2,-,-,FIL - 8,FIL - 6,FIL - 2,FIL - 2,FIL - 3,-,-
+220-C,-,-,EAS - 8,-,EAS - 8,-,-,-,-,EAS - 2,EAS - 2,-,LET - 4,ADM - 3,ADM - 1,PED - 9,LET - 10,-,-
+301-C,-,MED - 5,AGRO - 4,AGRO - 2,AGRO - opt,-,EAS - 6,EAS - 6 | MED - 5,-,-,-,-,CC - 2,LETRAS - PIN - opt,CC - 5,CS - 8,LET - 8,-,-
+LAB-CARTOGRAFIA-C,AGRO - 4,AGRO - 6,-,AGRO - 8,-,-,ENF - 2,-,-,-,EAS - 6,-,CC - 5,PED - 3,LET - 2,CC - 5,-,-,-
+LAB-HIDRO-C,-,-,-,PED - 4,-,-,EAS - 2,EAS - 2,EAS - 2,-,-,-,PED - 3,ADM - 9,LETRAS - PIN - opt,ADM - 1,-,-,-
+MINIAUDITÓRIO-C,-,-,PED - 2,AGRO - 2 | EAS - 6,-,-,AGRO - 8,-,-,-,EAS - 6,-,EAS - 6,HIS - 8,-FUSÃO: CIÊNCIAS SOCIAIS + FILOSOFIA + MATEMÁTICA - 4,ADM - 5,-FUSÃO: CIÊNCIAS SOCIAIS + MATEMÁTICA + PEDAGOGIA  - 8,-,-
+LAB-EST-C,-,-,PED - 6,AGRO - 4,PED - 10,-,-,-,EAS - 9,ENF - 2,AGRO - opt,-,LET - 8,FIL - 2,LETRAS - PIN - opt,CC - opt,PED - 3,-,-

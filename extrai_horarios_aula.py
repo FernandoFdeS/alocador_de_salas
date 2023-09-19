@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 from Disciplina import Disciplina
+from Fase import Fase
 from Horario import Horario
 
 class ExtraiHorariosAula:
@@ -13,6 +14,14 @@ class ExtraiHorariosAula:
             for j in range(16):
                 horarios_fixos["Horario_"+(str(i+2))+"_"+(str(j+1))]=(Horario(i+2,j+1))
         return horarios_fixos
+    
+    def cria_fases(self):
+        fases=dict()
+        cursos=["ADMINISTRAÇÃO","AGRONOMIA","CIÊNCIA DA COMPUTAÇÃO","CIÊNCIAS SOCIAIS","ENFERMAGEM","ENGENHARIA AMBIENTAL E SANITÁRIA","FILOSOFIA","GEOGRAFIA","HISTÓRIA","LETRAS","MATEMÁTICA","MEDICINA","PEDAGOGIA"]
+        for curso in cursos:
+            for i in range(11):
+                fases[curso+"_"+str(i)]=Fase(curso,i)
+        return fases
 
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
@@ -35,6 +44,7 @@ class ExtraiHorariosAula:
 
         salas_preferenciais = self.cria_salas_preferenciais()
         horarios_fixos = self.cria_horarios()
+        fases=self.cria_fases()
 
         nomes_cursos = dados.iloc[:, 0]
         horarios_disciplina = dados.iloc[:, 1]
@@ -43,6 +53,7 @@ class ExtraiHorariosAula:
         n_turma = ""
         padrao = r"(\d+)([A-Za-z]+)(\d+)"
         padrao_n_turma = r"Turma:(\d+)"
+        padrao_n_fase = r'(\d+)º'
         periodo_map = dict()
         periodo_map["M"]=0
         periodo_map["T"]=6
@@ -51,6 +62,12 @@ class ExtraiHorariosAula:
         disciplinas = dict()
 
         for nome_curso, horario_disciplina in zip(nomes_cursos,horarios_disciplina):
+            fase=re.search(padrao_n_fase,horario_disciplina)
+            if fase:
+                fase=int(fase.group(1))
+            else:
+                fase=0 # optativas não tem fase, então serão colocadas como fase 0
+        
             cod_aula = horario_disciplina.split("-")
             cod_aula = cod_aula[0]
             cod_aula = cod_aula[:-1]
@@ -62,7 +79,7 @@ class ExtraiHorariosAula:
             horarios = horarios[1]
             horarios = horarios[:-3]
             horarios = horarios.split()
-            #print(cod_aula+"_"+n_turma)
+            #print(cod_aula+"_"+n_turma+" "+str(fase))
             horario_aula=dict()
             for horario in horarios:
                 dias=""
@@ -85,8 +102,8 @@ class ExtraiHorariosAula:
                 sp = salas_preferenciais[nome_curso]
 
 
-            disciplina = Disciplina(nome_curso,25,horario_aula,sp) # não tem o tamanho da turma nos horários
+            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase) # não tem o tamanho da turma nos horários
             disciplinas[cod_aula+"_"+n_turma]=disciplina
 
-        return disciplinas,horarios_fixos
+        return disciplinas,horarios_fixos,fases
 

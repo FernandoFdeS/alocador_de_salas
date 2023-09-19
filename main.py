@@ -67,12 +67,13 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
                     linha = linha_salas.index(s)
                     coluna=(coluna_horarios.index(horarios[h].converte_horario()))
                     if(matriz[linha][coluna]=='-'):
-                        matriz[linha][coluna] = d
-                    elif (d not in matriz[linha][coluna]):
-                        matriz[linha][coluna] = matriz[linha][coluna] +" | "+d
+                        matriz[linha][coluna] = disciplinas[d].formata_saida()
+                    elif (disciplinas[d].formata_saida() not in matriz[linha][coluna]):
+                        matriz[linha][coluna] = matriz[linha][coluna] +" | "+disciplinas[d].formata_saida()
     
     for index,d in enumerate(disciplinas_nao_alocadas):
-        matriz[index][coluna_horarios.index("Não Alocadas")]=d
+        if(index<len(linha_salas)):
+            matriz[index][coluna_horarios.index("Não Alocadas")]=d
 
     coluna_horarios[coluna_horarios.index("Não Alocadas")]=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")") 
         
@@ -93,11 +94,10 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
 
 def main():
     salas = ExtraiSalas("./dados/salas_teste.csv").extrai_salas()
-    disciplinas, horarios = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
+    disciplinas, horarios,fases = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
 
     # Criando o modelo
     m = gp.Model()
-
     M = 1000
 
     # Variaveis
@@ -107,6 +107,7 @@ def main():
             for s in salas:
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
+    z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -130,7 +131,8 @@ def main():
     # Funcao obj
     m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M +
                 gp.quicksum(vet_salas_preferenciais) +
-                gp.quicksum(vet_alocacoes),
+                gp.quicksum(vet_alocacoes) +
+                gp.quicksum(z[s,f]for s in salas for f in fases),
     sense=gp.GRB.MINIMIZE
     )
 
@@ -148,7 +150,7 @@ def main():
         gp.quicksum(x[d,s,h] for s in salas ) <= 1 for d in disciplinas for h in disciplinas[d].horarios
     )
 
-    # No mínimo uma sala deve ser alocada a uma disciplina em um determinado horário
+    # No mínimo uma sala deve ser alocada a uma disciplina em um determinado horário - Movida para a função objetivo
     #c3 = m.addConstrs( 
     #    gp.quicksum(x[d,s,h] for s in salas ) >= 1 for d in disciplinas for h in disciplinas[d].horarios
     #)
@@ -161,7 +163,12 @@ def main():
     # Uma sala é alocada a uma disciplina se a sala é alocada à disciplina em algum horário:
     c5 = m.addConstrs(
         y[d,s] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
+    
+    # Contagem de alocações
+    c6 = m.addConstrs(
+        z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase)
 
+    m.Params.MIPGap = 0.038 # pra ver se o safado para de rodar
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:

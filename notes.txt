@@ -24,8 +24,8 @@ Ta alocando em 2 salas diferentes. Por causa da restrição das salas preferenci
 Todo:
 
 Criar classe de "Fase", composta por: curso - fase
--- Precisa inicializar uma lista com todas as fases (?)
-Adicionar um atributo "fase" na classe "Disciplina" que, pasme, vai receber um objeto de "Fase"
+-- Como ficam as fusões?
+-- Optativas não tem fase, como lidar?.
 
 Definir arquivo de entrada.
 - "Turma de todos os cursos.ods"
