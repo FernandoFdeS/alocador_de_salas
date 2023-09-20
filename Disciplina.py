@@ -1,10 +1,11 @@
 class Disciplina:
-    def __init__(self,curso,alunos,horarios,salasPreferenciais,fase):
+    def __init__(self,curso,alunos,horarios,salasPreferenciais,fase,cod):
         self.curso = curso
         self.alunos = alunos
         self.horarios = horarios
         self.salasPreferenciais = salasPreferenciais
         self.fase = fase
+        self.cod = cod
     
     def abreviacao(self):
         abreviacao = dict()
@@ -28,7 +29,7 @@ class Disciplina:
     
     def formata_saida(self):
         if self.fase != 0:
-            return (self.abreviacao()+" - "+str(self.fase))
+            return (self.abreviacao()+" - "+str(self.fase)+" ("+self.cod+")")
         else:
-            return (self.abreviacao()+" - opt")
+            return (self.abreviacao()+" - opt ("+self.cod+")")
         

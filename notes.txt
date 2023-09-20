@@ -34,7 +34,7 @@ Definir arquivo de entrada.
 -- NÃO possui a fase da disciplina/turma
 -- NÃO tem as fusões das turmas (é necessário identificar pelo código da disciplina + professor + horário)
 
-- "horarios.xlsx"
+- "horarios.xlsx" <--- Acho que vou ficar com esse aqui.
 -- Possui as fusões
 -- Possui as fases de cada disciplina
 -- Informações bagunçadas para fazer o parsing

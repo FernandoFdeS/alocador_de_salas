@@ -102,7 +102,7 @@ class ExtraiHorariosAula:
                 sp = salas_preferenciais[nome_curso]
 
 
-            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase) # não tem o tamanho da turma nos horários
+            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma)) # não tem o tamanho da turma nos horários
             disciplinas[cod_aula+"_"+n_turma]=disciplina
 
         return disciplinas,horarios_fixos,fases

@@ -73,7 +73,7 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
     
     for index,d in enumerate(disciplinas_nao_alocadas):
         if(index<len(linha_salas)):
-            matriz[index][coluna_horarios.index("Não Alocadas")]=d
+            matriz[index][coluna_horarios.index("Não Alocadas")]=disciplinas[d].formata_saida()
 
     coluna_horarios[coluna_horarios.index("Não Alocadas")]=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")") 
         
@@ -93,7 +93,7 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
          
 
 def main():
-    salas = ExtraiSalas("./dados/salas_teste.csv").extrai_salas()
+    salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
     disciplinas, horarios,fases = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
 
     # Criando o modelo
