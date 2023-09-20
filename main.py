@@ -107,7 +107,7 @@ def main():
             for s in salas:
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
-    z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
+    z = m.addVars(salas,fases,vtype=gp.GRB.INTEGER,name="z")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -166,9 +166,9 @@ def main():
     
     # Contagem de alocações
     c6 = m.addConstrs(
-        z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase)
+        z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso)
 
-    m.Params.MIPGap = 0.038 # pra ver se o safado para de rodar
+    # m.Params.MIPGap = 0.038 # pra ver se o safado para de rodar
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
