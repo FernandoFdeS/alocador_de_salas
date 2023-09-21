@@ -23,9 +23,10 @@ Ta alocando em 2 salas diferentes. Por causa da restrição das salas preferenci
 
 Todo:
 
-Criar classe de "Fase", composta por: curso - fase
--- Como ficam as fusões?
--- Optativas não tem fase, como lidar?.
+Arquivo de saida:
+    Melhorar a impressão das fusões no arquivo de saída
+    -- Considerar o fomrato breviação_materia - fase + abreviacao_materia - fase + ... (codigo)
+    Tentar dar um jeito de mesclar as células no header
 
 Definir arquivo de entrada.
 - "Turma de todos os cursos.ods"
