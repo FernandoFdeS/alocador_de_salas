@@ -1,6 +1,6 @@
-from Horario import Horario
-from Disciplina import Disciplina
-from Sala import Sala
+from classes.Horario import Horario
+from classes.Disciplina import Disciplina
+from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
 from extrai_horarios_aula import ExtraiHorariosAula
 import pandas as pd
@@ -95,7 +95,6 @@ def exporta_alocacoes(disciplinas,salas,horarios,x):
         print("Alocações realizadas com sucesso!")
     else:
         print("Disciplinas alocadas: "+str((len(disciplinas)-len(disciplinas_nao_alocadas)))+"/"+str(len(disciplinas)))
-         
 
 def main():
     salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
@@ -130,7 +129,7 @@ def main():
             vet_alocacoes.append(M*(1 - gp.quicksum(x[d,s,h] for s in salas)))
 
     # Funcao objetivo
-    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M +
+    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas) +
                 gp.quicksum(vet_salas_preferenciais) +
                 gp.quicksum(vet_alocacoes) +
                 gp.quicksum(z[s,f]for s in salas for f in fases),

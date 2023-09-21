@@ -1,8 +1,8 @@
 import pandas as pd
 import re
-from Disciplina import Disciplina
-from Fase import Fase
-from Horario import Horario
+from classes.Disciplina import Disciplina
+from classes.Fase import Fase
+from classes.Horario import Horario
 
 class ExtraiHorariosAula:
     def __init__ (self, arquivo):
@@ -26,7 +26,7 @@ class ExtraiHorariosAula:
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
         salas_preferenciais_dict = dict()
-        dados = pd.read_excel("./dados/salas_preferenciais.xlsx");
+        dados = pd.read_excel("dados/salas_preferenciais_2023.2.xlsx");
         indices = dados.iloc[:, 0]
         salas_preferenciais = dados.iloc[:, 1]
 

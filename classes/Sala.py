@@ -1,4 +1,4 @@
-from Horario import Horario
+from classes.Horario import Horario
 
 class Sala:
     def __init__(self, capacidade):
