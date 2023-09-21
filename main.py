@@ -125,7 +125,7 @@ def main():
             vet_alocacoes.append(M*(1 - gp.quicksum(x[d,s,h] for s in salas)))
 
     # Funcao obj
-    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M +
+    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas) +
                 gp.quicksum(vet_salas_preferenciais) +
                 gp.quicksum(vet_alocacoes) +
                 gp.quicksum(z[s,f]for s in salas for f in fases),
