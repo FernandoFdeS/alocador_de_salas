@@ -123,10 +123,6 @@ def main():
     for d in disciplinas:
         for h in disciplinas[d].horarios:
             vet_alocacoes.append(M*(1 - gp.quicksum(x[d,s,h] for s in salas)))
-    
-    # print(vet_alocacoes)
-
-
 
     # Funcao obj
     m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M +
@@ -164,11 +160,10 @@ def main():
     c5 = m.addConstrs(
         y[d,s] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
     
-    # Contagem de alocações
+    # Contagem de alocações por fase de curso
     c6 = m.addConstrs(
         z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso)
 
-    # m.Params.MIPGap = 0.038 # pra ver se o safado para de rodar
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
