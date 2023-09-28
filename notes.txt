@@ -27,6 +27,9 @@ Arquivo de saida:
     Melhorar a impressão das fusões no arquivo de saída
     -- Considerar o fomrato breviação_materia - fase + abreviacao_materia - fase + ... (codigo)
     Tentar dar um jeito de mesclar as células no header
+    Modificar pra xlsx o arquivo de saida
+    Usar este cara: https://xlsxwriter.readthedocs.io/example_merge1.html para modificar o arquivo gerado e mesclar as células
+    Tirar as coisas de criação do aqruivo de saida do main.py
 
 Definir arquivo de entrada.
 - "Turma de todos os cursos.ods"
@@ -40,3 +43,8 @@ Definir arquivo de entrada.
 -- Possui as fases de cada disciplina
 -- Informações bagunçadas para fazer o parsing
 -- NÃO possui a quantidade de alunos por turma (o que, sinceramente, é mais fácil de arrumar do que os outros problemas)
+
+
+
+
+Demorando aproximadamente 8495.14 segundos pra fazer as alocações
