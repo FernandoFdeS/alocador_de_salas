@@ -21,7 +21,7 @@ class ExtraiHorariosAula:
         for curso in cursos:
             for i in range(11):
                 fases[curso+"_"+str(i)]=Fase(curso,i)
-        return fases
+        return fases,cursos
 
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
@@ -44,7 +44,7 @@ class ExtraiHorariosAula:
 
         salas_preferenciais = self.cria_salas_preferenciais()
         horarios_fixos = self.cria_horarios()
-        fases=self.cria_fases()
+        fases,cursos=self.cria_fases()
 
         nomes_cursos = dados.iloc[:, 0]
         horarios_disciplina = dados.iloc[:, 1]
@@ -110,5 +110,5 @@ class ExtraiHorariosAula:
             disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
             disciplinas[cod_aula+"_"+n_turma]=disciplina
 
-        return disciplinas,horarios_fixos,fases
+        return disciplinas,horarios_fixos,fases,cursos
 

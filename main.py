@@ -3,106 +3,29 @@ from classes.Disciplina import Disciplina
 from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
 from extrai_horarios_aula import ExtraiHorariosAula
-import pandas as pd
+from gera_mariz_distancia import GeraMatrizDistancia
+from gera_planilha_saida import GeraPlanilhaSaida
 import gurobipy as gp
-import numpy as np
 from gurobipy import GRB
-
-# Utilizado pra "debug".
-def cria_csv_alocacoes(disciplinas,salas,horaraios,x):
-
-    alocacoes=[]
-    #print("Disciplina  | Horário | Sala | Capacidade restante")
-    for d in disciplinas:
-        for s in salas:
-            for h in disciplinas[d].horarios:
-                #print(x[d,s,h].X)
-                if(round(x[d,s,h].X))==1:
-                    #print(d,h,s,(salas[s].capacidade-disciplinas[d].alunos))
-                    alocacoes.append([disciplinas[d].curso,d, h, s, (salas[s].capacidade-disciplinas[d].alunos)])
-
-    # Criar um DataFrame com as informações
-    df = pd.DataFrame(alocacoes, columns=["Curso", "Disciplina", "Horario", "Sala", "Capacidade Restante"])
-
-    # Salvar o DataFrame em um arquivo CSV
-    nome_arquivo = "tabela_alocacoes.csv"
-    df.to_csv(nome_arquivo, index=False)
-
-# Gera arquivo de saida final.
-def exporta_alocacoes(disciplinas,salas,horarios,x): 
-    disciplinas_nao_alocadas = disciplinas.copy()
-    disciplinas_qtd_alocacoes = dict()
-    
-    alocacoes=[]
-
-    # Coluna de horarios utilizado para criação da matriz usada para geração do aqruivo final
-    coluna_horarios=["SEG-M","TER-M","QUA-M","QUI-M","SEX-M","SAB-M","SEG-V","TER-V","QUA-V","QUI-V","SEX-V","SAB-V","SEG-N","TER-N","QUA-N","QUI-N","SEX-N","SAB-N"]
-    
-    # Coluna de horarios utilizados como header no arquivo de saída para facilitar a compreensão
-    coluna_horarios_csv=[["MATUTINO","-","-","-","-","-","VESPERTINO","-","-","-","-","-","NOTURNO","-","-","-","-","-"],
-                     ["SEG","TER","QUA","QUI","SEX","SAB","SEG","TER","QUA","QUI","SEX","SAB","SEG","TER","QUA","QUI","SEX","SAB"]]
-
-    linha_salas=[]
-    for s in salas:
-        linha_salas.append(s)    
-
-    matriz = [['-' for coluna in range(len(coluna_horarios))] for linha in range(len(linha_salas))]
-
-    for d in disciplinas:
-        disciplinas_qtd_alocacoes[d]=0
-        for s in salas:
-            for h in disciplinas[d].horarios:
-                if(round(x[d,s,h].X))==1:
-                    disciplinas_qtd_alocacoes[d] += 1
-
-    ## Mostra a relação entre alocações feitas/ quantidade de horarios  
-    # for d in disciplinas:
-    #     print(d+" "+str(disciplinas_qtd_alocacoes[d])+"/"+str(len(disciplinas[d].horarios)))
-
-    # Preenche a matriz das alocacções que sera utilizada no arquivo de saida
-    for d in disciplinas:
-        if disciplinas_qtd_alocacoes[d] != len(disciplinas[d].horarios):
-            continue
-        else:
-            del disciplinas_nao_alocadas[d]
-        for s in salas:
-            for h in disciplinas[d].horarios:
-                if(round(x[d,s,h].X))==1:
-                    linha = linha_salas.index(s)
-                    coluna=(coluna_horarios.index(horarios[h].converte_horario()))
-                    if(matriz[linha][coluna]=='-'):
-                        matriz[linha][coluna] = disciplinas[d].formata_saida()
-                    elif (disciplinas[d].formata_saida() not in matriz[linha][coluna]):
-                        matriz[linha][coluna] = matriz[linha][coluna] +" | "+disciplinas[d].formata_saida()
-    
-    # Gera vetor de disciplinas não alocadas para ser usado no arquivo de saida
-    vet_nao_alocadas=[]
-    for d in disciplinas_nao_alocadas:
-        vet_nao_alocadas.append(disciplinas[d].formata_saida())
-    qtdNaoAlocadas=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")") 
-    
-    
-    # Cria um DataFrame com rótulos personalizados
-    while(len(vet_nao_alocadas)!=len(salas)):
-        vet_nao_alocadas.append("-")
-    indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,salas],names=[qtdNaoAlocadas,'Salas'])
-    df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)
-    nome_arquivo = "planilha_alocacoes.csv"
-    df.to_csv(nome_arquivo, index=True)
-
-    # Verifica se todas as disciplinas foram alocadas
-    if(len(disciplinas_nao_alocadas))==0:
-        print("Alocações realizadas com sucesso!")
-    else:
-        print("Disciplinas alocadas: "+str((len(disciplinas)-len(disciplinas_nao_alocadas)))+"/"+str(len(disciplinas)))
 
 def main():
     salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
-    disciplinas, horarios,fases = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
+    # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
+    matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
+    disciplinas, horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
+    # for salai in salas:
+    #     for salaj in salas:
+    #         print(salai,salaj,matriz_dist[list(salas).index(salai)][list(salas).index(salaj)])
 
     # Criando o modelo
     m = gp.Model()
-    M = 1000
+
+    # Variaveis de ajuste de peso
+    M1 = 1
+    M2 = 1
+    M3 = 1000
+    M4 = 1
+    M5 = 1
 
     # Variaveis
     x = {}
@@ -111,7 +34,9 @@ def main():
             for s in salas:
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
-    z = m.addVars(salas,fases,vtype=gp.GRB.INTEGER,name="z")
+    z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
+    w = m.addVars(salas,cursos,vtype=gp.GRB.BINARY,name="w")
+    t = m.addVars(salas,salas,cursos,vtype=gp.GRB.BINARY,name="t")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -126,13 +51,15 @@ def main():
     vet_alocacoes=[]
     for d in disciplinas:
         for h in disciplinas[d].horarios:
-            vet_alocacoes.append(M*(1 - gp.quicksum(x[d,s,h] for s in salas)))
+            vet_alocacoes.append(M3*(1 - gp.quicksum(x[d,s,h] for s in salas)))
 
     # Funcao objetivo
-    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas) +
-                gp.quicksum(vet_salas_preferenciais) +
+    m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M1 +
+                gp.quicksum(vet_salas_preferenciais)*M2 +
                 gp.quicksum(vet_alocacoes) +
-                gp.quicksum(z[s,f]for s in salas for f in fases),
+                gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
+                gp.quicksum(matriz_dist[list(salas).index(si)][list(salas).index(sj)] * t[si,sj,c] for si in salas for sj in salas 
+                            if list(salas).index(si) < list(salas).index(sj) for c in cursos ), # acho que essa é a coisa mais feia que eu já escrevi
     sense=gp.GRB.MINIMIZE
     )
 
@@ -163,12 +90,21 @@ def main():
     c6 = m.addConstrs(
          z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso)
 
+    # Uma sala é alocada a um cusro se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
+    c7 = m.addConstrs(
+            w[s,c] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for c in cursos
+    )
+
+    c8 = m.addConstrs(
+        t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salas for sj in salas if list(salas).index(si) < list(salas).index(sj) for c in cursos
+    )
+
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")
         #(disciplinas,salas,horarios,x)
-        exporta_alocacoes(disciplinas,salas,horarios,x)
+        GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
     else:
         print("O modelo é inviável.")
 
