@@ -8,16 +8,18 @@ class Disciplina:
         self.cod = cod
         self.fusao=fusao
         if(fusao==1): # Tratando o "nome" das Fusoes
-            cursos_fusao=''
             nome_curso=curso.split(":")
             nome_curso=nome_curso[1]
             nome_curso=nome_curso.split("+")
+            self.curso=nome_curso[0]
             for index,c in enumerate(nome_curso):
                 if index == 0:
                     cursos_fusao = self.abreviacao(c.strip())+" - "+fase[index]
                 else:
                     cursos_fusao=cursos_fusao+" + "+self.abreviacao(c.strip())+" - "+fase[index]
-            self.curso = cursos_fusao
+            self.nome = cursos_fusao
+        else:
+            self.nome=self.curso
             
     
     def abreviacao(self,curso):
@@ -41,8 +43,8 @@ class Disciplina:
             return curso
     
     def formata_saida(self):
-        if (self.abreviacao(self.curso)==self.curso): # Para as fusões.
-            return (self.curso+" ("+self.cod+")")
+        if (self.fusao==1): # Para as fusões.
+            return (self.nome+" ("+self.cod+")")
         if self.fase != 0:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
         else:
