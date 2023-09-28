@@ -62,11 +62,6 @@ class ExtraiHorariosAula:
         disciplinas = dict()
 
         for nome_curso, horario_disciplina in zip(nomes_cursos,horarios_disciplina):
-            fase=re.search(padrao_n_fase,horario_disciplina)
-            if fase:
-                fase=int(fase.group(1))
-            else:
-                fase=0 # optativas não tem fase, então serão colocadas como fase 0
         
             cod_aula = horario_disciplina.split("-")
             cod_aula = cod_aula[0]
@@ -98,11 +93,21 @@ class ExtraiHorariosAula:
                             horario_aula["Horario_{}_{}".format(dia_horario,faixa_horario)]=Horario(dia_horario,faixa_horario)
                 
             sp = []
+            fusao=0
             if nome_curso in salas_preferenciais:
                 sp = salas_preferenciais[nome_curso]
 
+            if "FUSÃO" in nome_curso:
+                fusao=1
+            
+            fase_disciplina=re.findall(padrao_n_fase,horario_disciplina)
+            if fase_disciplina:
+                fase=fase_disciplina
+            else:
+                fase=[0] # optativas não tem fase, então serão colocadas como fase 0
 
-            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma)) # não tem o tamanho da turma nos horários
+
+            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
             disciplinas[cod_aula+"_"+n_turma]=disciplina
 
         return disciplinas,horarios_fixos,fases
