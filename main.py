@@ -10,16 +10,19 @@ from gurobipy import GRB
 
 def main():
     salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
+    salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
-    # for salai in salas:
-    #      for salaj in salas:
-    #         if list(salas).index(salai) < list(salas).index(salaj):
-    #             print(salai,salaj,matriz_dist[list(salas).index(salai)][list(salas).index(salaj)])
+    # for salai in salasLista:
+    #      for salaj in salasLista:
+    #         if salasLista.index(salai) < salasLista.index(salaj):
+    #             print(salai,salaj,matriz_dist[salasLista.index(salai)][salasLista.index(salaj)])
 
     # Criando o modelo
     m = gp.Model()
+    # Configure o arquivo de log
+    m.setParam("LogFile", "arquivo_de_log.log")
 
     # Variaveis de ajuste de peso
     M1 = 1
@@ -36,8 +39,8 @@ def main():
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
     z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
-    w = m.addVars(salas,cursos,vtype=gp.GRB.BINARY,name="w")
-    t = m.addVars(salas,salas,cursos,vtype=gp.GRB.BINARY,name="t")
+    w = m.addVars(salasLista,cursos,vtype=gp.GRB.BINARY,name="w")
+    t = m.addVars(salasLista,salasLista,cursos,vtype=gp.GRB.BINARY,name="t")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -60,10 +63,9 @@ def main():
                 gp.quicksum(vet_alocacoes) +
                 gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
                 gp.quicksum(matriz_dist[list(salas).index(si)][list(salas).index(sj)] * t[si,sj,c] for si in salas for sj in salas 
-                           if list(salas).index(si) < list(salas).index(sj) for c in cursos), # acho que essa é a coisa mais feia que eu já escrevi
+                           if list(salas).index(si) < list(salas).index(sj) for c in cursos),
     sense=gp.GRB.MINIMIZE
     )
-
 
     ## == Restricoes
 
@@ -93,11 +95,11 @@ def main():
 
     # Uma sala é alocada a um cusro se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
     c7 = m.addConstrs(
-        w[s,c] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for c in cursos
+        w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos
     )
 
     c8 = m.addConstrs(
-        t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salas for sj in salas if list(salas).index(si) < list(salas).index(sj) for c in cursos 
+        t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
 
     m.optimize()
