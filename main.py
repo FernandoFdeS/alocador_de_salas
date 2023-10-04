@@ -13,7 +13,7 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_ped.xlsx").extrai_horarios_aula()
     # for salai in salasLista:
     #      for salaj in salasLista:
     #         if salasLista.index(salai) < salasLista.index(salaj):
@@ -25,8 +25,8 @@ def main():
     m.setParam("LogFile", "arquivo_de_log.log")
 
     # Variaveis de ajuste de peso
-    M1 = 1
-    M2 = 1
+    M1 = 200
+    M2 = 100
     M3 = 1000
     M4 = 1
     M5 = 1
@@ -40,7 +40,12 @@ def main():
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
     z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
     w = m.addVars(salasLista,cursos,vtype=gp.GRB.BINARY,name="w")
-    t = m.addVars(salasLista,salasLista,cursos,vtype=gp.GRB.BINARY,name="t")
+    t = {}
+    for si in salasLista:
+        for sj in salasLista:
+            if salasLista.index(si)<salasLista.index(sj):
+                for c in cursos:
+                    t[si,sj,c] = m.addVar(vtype=gp.GRB.BINARY,name=f"t[{si}, {sj}, {c}]")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -62,8 +67,8 @@ def main():
                 gp.quicksum(vet_salas_preferenciais)*M2 +
                 gp.quicksum(vet_alocacoes) +
                 gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
-                gp.quicksum(matriz_dist[list(salas).index(si)][list(salas).index(sj)] * t[si,sj,c] for si in salas for sj in salas 
-                           if list(salas).index(si) < list(salas).index(sj) for c in cursos),
+                gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
+                           if salasLista.index(si) < salasLista.index(sj) for c in cursos),
     sense=gp.GRB.MINIMIZE
     )
 
