@@ -1,26 +1,20 @@
 Todo:
 
-Arquivo de saida:
-    Melhorar a impressão das fusões no arquivo de saída
-    -- Considerar o fomrato breviação_materia - fase + abreviacao_materia - fase + ... (codigo)
-    Tentar dar um jeito de mesclar as células no header
-    Modificar pra xlsx o arquivo de saida
-    Usar este cara: https://xlsxwriter.readthedocs.io/example_merge1.html para modificar o arquivo gerado e mesclar as células
-    Tirar as coisas de criação do aqruivo de saida do main.py
+Arrumar planilha de distancia de salas.
+
+Revisar as salas preferenciais 2023.2
+
+Ajusar pesos
 
 Passar o arquivo de Salas Preferencias pelo main.py
 
+Usar a capacidade de alunos por sala
 
-Definir arquivo de entrada.
-- "Turma de todos os cursos.ods"
--- Formatado bonitinho
--- Tem capacidade de alunos p/ turmas
--- NÃO possui a fase da disciplina/turma
--- NÃO tem as fusões das turmas (é necessário identificar pelo código da disciplina + professor + horário)
+Arquivo de saida: Usar o openpyxl para criar
 
-- "horarios.xlsx" <--- Acho que vou ficar com esse aqui.
--- Possui as fusões
--- Possui as fases de cada disciplina
--- Informações bagunçadas para fazer o parsing
--- NÃO possui a quantidade de alunos por turma (o que, sinceramente, é mais fácil de arrumar do que os outros problemas)
 
+=================================
+
+Ideia de solução inicial:
+* Rodar o modelo sem as restrições 7 e 8 (aproximação geográfica de salas do mesmo curso)
+* Tempo máximo de execução: 5 horas (Quantidade utilizada no artigo da UFFS)

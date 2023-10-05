@@ -3,7 +3,7 @@ from classes.Disciplina import Disciplina
 from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
 from extrai_horarios_aula import ExtraiHorariosAula
-from gera_mariz_distancia import GeraMatrizDistancia
+from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
 import gurobipy as gp
 from gurobipy import GRB
@@ -23,7 +23,7 @@ def main():
     M2 = 100
     M3 = 1000
     M4 = 100
-    M5 = 50
+    M5 = 1
 
     # Variaveis
     x = {}
