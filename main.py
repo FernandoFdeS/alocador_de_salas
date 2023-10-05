@@ -13,7 +13,7 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_agro.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -22,7 +22,7 @@ def main():
     M1 = 200
     M2 = 100
     M3 = 1000
-    M4 = 50
+    M4 = 100
     M5 = 50
 
     # Variaveis

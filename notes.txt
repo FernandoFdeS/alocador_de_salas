@@ -8,6 +8,9 @@ Arquivo de saida:
     Usar este cara: https://xlsxwriter.readthedocs.io/example_merge1.html para modificar o arquivo gerado e mesclar as células
     Tirar as coisas de criação do aqruivo de saida do main.py
 
+Passar o arquivo de Salas Preferencias pelo main.py
+
+
 Definir arquivo de entrada.
 - "Turma de todos os cursos.ods"
 -- Formatado bonitinho
