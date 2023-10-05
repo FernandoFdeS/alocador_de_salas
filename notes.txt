@@ -1,10 +1,11 @@
+===================================
 Todo:
 
-Arrumar planilha de distancia de salas.
+Arrumar planilha de distancia de salas. ** Done **
 
-Revisar as salas preferenciais 2023.2
+Revisar as salas preferenciais 2023.2. ** Done **
 
-Ajusar pesos
+Ajustar pesos
 
 Passar o arquivo de Salas Preferencias pelo main.py
 
@@ -12,9 +13,31 @@ Usar a capacidade de alunos por sala
 
 Arquivo de saida: Usar o openpyxl para criar
 
-
-=================================
-
 Ideia de solução inicial:
 * Rodar o modelo sem as restrições 7 e 8 (aproximação geográfica de salas do mesmo curso)
 * Tempo máximo de execução: 5 horas (Quantidade utilizada no artigo da UFFS)
+
+===================================
+Bateria de testes 1
+-> Pesos: M1=200 M2=100 M3=1000 M4=100 M5=1
+
+Teste 1 = CC
+Alocações feitas: Todas
+Tempo de execução: 2.94s
+Obs:    Alocações feitas no Bloco C por algum motivo. Talvez a restrição de aproximação de salas do mesmo curso não esteja fazendo muito efeito
+        com o multiplicador de 1. 
+
+Teste 2 = CC + Agro
+Alocações feitas:
+Tempo de execução:
+Obs:
+
+Teste 3 = CC + Agro + Med
+Alocações feitas:
+Tempo de execução:
+Obs:
+
+Teste 4 = CC + Agro + Med + Enf
+Alocações feitas:
+Tempo de execução:
+Obs:

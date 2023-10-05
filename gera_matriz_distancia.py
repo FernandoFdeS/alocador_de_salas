@@ -20,6 +20,8 @@ class GeraMatrizDistancia:
                 bloco_sala2 = sala2[1]
                 if bloco_sala1 != bloco_sala2:
                     bloco_diferente=50
+                    if bloco_sala2 == "C":
+                        bloco_diferente=100
                     if bloco_sala2 == "DE":
                         bloco_diferente=150
                 dif_andares = abs((num_sala1//100) - (num_sala2//100))              

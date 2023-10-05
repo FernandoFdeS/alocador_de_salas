@@ -13,7 +13,7 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_cc_agro.xlsx").extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -108,16 +108,16 @@ def main():
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")
         print(M1,M2,M3,M4,M5)
-        #(disciplinas,salas,horarios,x)
-        # for si in salasLista:
-        #     for sj in salasLista:
-        #         if salasLista.index(si)<salasLista.index(sj):
-        #             for c in cursos:
-        #                 if( round(t[si,sj,c].X)==1):
-        #                     print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
+      
         GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
     else:
         print("O modelo é inviável.")
-        GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
+
+    for si in salasLista:
+        for sj in salasLista:
+            if salasLista.index(si)<salasLista.index(sj):
+                for c in cursos:
+                    if(round(t[si,sj,c].X)==1):
+                        print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
 
 main()
