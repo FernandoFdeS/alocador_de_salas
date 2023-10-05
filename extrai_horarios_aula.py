@@ -26,7 +26,7 @@ class ExtraiHorariosAula:
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
         salas_preferenciais_dict = dict()
-        dados = pd.read_excel("dados/salas_preferenciais_2023.2.xlsx");
+        dados = pd.read_excel("dados/salas_preferenciais_2023.1.xlsx");
         indices = dados.iloc[:, 0]
         salas_preferenciais = dados.iloc[:, 1]
 

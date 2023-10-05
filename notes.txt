@@ -1,26 +1,3 @@
-=========================
-
-Observações:
-
-- Aloca até a aula nº 423, passando dela o modelo é "inviável", isso sem utilizar os espaços ajeitados
-- Utilizando os espaços ajeitados todas as alocações são feitas*
-
-* O Arquivo salas.csv foi levemente modificado.
-    - Foi adicionado o cabeçalho "Salas" na coluna das salas
-    - Foi adicionado um número de cadeiras (30) para os "Espaços Ajeitados"
-* O Arquivo de onde são extraidas as disciplinas/horários não contém um número de alunos
-    - As disciplinas foram criadas com um número fixo de alunos por disciplina (25)
-
-Aulas alocadas na mesma Sala (302-A | Segunda-feira de tarde)
-
-GSA296 - 2T56
-GSA193 - 2T1
-GSA280 - 2T123 (Alocando a faixa 2T1 em uma sala e o 2T23 na 302-A)
-
-Ta alocando em 2 salas diferentes. Por causa da restrição das salas preferenciais?
-
-=========================
-
 Todo:
 
 Arquivo de saida:
@@ -44,7 +21,3 @@ Definir arquivo de entrada.
 -- Informações bagunçadas para fazer o parsing
 -- NÃO possui a quantidade de alunos por turma (o que, sinceramente, é mais fácil de arrumar do que os outros problemas)
 
-
-
-
-Demorando aproximadamente 8495.14 segundos pra fazer as alocações

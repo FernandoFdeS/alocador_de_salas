@@ -7,11 +7,17 @@ class Disciplina:
         self.fase = int(fase[0])
         self.cod = cod
         self.fusao=fusao
+        if("-" in curso):
+            self.nome=curso
+            self.curso=curso.split("-")
+            self.curso=self.curso[0]
+            self.curso=self.curso.strip()
         if(fusao==1): # Tratando o "nome" das Fusoes
             nome_curso=curso.split(":")
             nome_curso=nome_curso[1]
             nome_curso=nome_curso.split("+")
             self.curso=nome_curso[0]
+            self.curso=self.curso[1:-1]
             for index,c in enumerate(nome_curso):
                 if index == 0:
                     cursos_fusao = self.abreviacao(c.strip())+" - "+fase[index]
@@ -49,4 +55,3 @@ class Disciplina:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
         else:
             return (self.abreviacao(self.curso)+" - opt ("+self.cod+")")
-        

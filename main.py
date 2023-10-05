@@ -13,23 +13,17 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_ped.xlsx").extrai_horarios_aula()
-    # for salai in salasLista:
-    #      for salaj in salasLista:
-    #         if salasLista.index(salai) < salasLista.index(salaj):
-    #             print(salai,salaj,matriz_dist[salasLista.index(salai)][salasLista.index(salaj)])
-
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_agro.xlsx").extrai_horarios_aula()
+ 
     # Criando o modelo
     m = gp.Model()
-    # Configure o arquivo de log
-    m.setParam("LogFile", "arquivo_de_log.log")
 
     # Variaveis de ajuste de peso
     M1 = 200
     M2 = 100
     M3 = 1000
-    M4 = 1
-    M5 = 1
+    M4 = 50
+    M5 = 50
 
     # Variaveis
     x = {}
@@ -68,7 +62,7 @@ def main():
                 gp.quicksum(vet_alocacoes) +
                 gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
-                           if salasLista.index(si) < salasLista.index(sj) for c in cursos),
+                           if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
     sense=gp.GRB.MINIMIZE
     )
 
@@ -97,10 +91,12 @@ def main():
     # Contagem de alocações por fase de curso
     c6 = m.addConstrs(
          z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso)
+         #z[s,disciplinas[d].get_fase()] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
 
     # Uma sala é alocada a um cusro se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
     c7 = m.addConstrs(
-        w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos
+        w[s,disciplinas[d].curso] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios 
+        #w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos if c == disciplinas[h].curso
     )
 
     c8 = m.addConstrs(
@@ -111,9 +107,17 @@ def main():
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")
+        print(M1,M2,M3,M4,M5)
         #(disciplinas,salas,horarios,x)
+        # for si in salasLista:
+        #     for sj in salasLista:
+        #         if salasLista.index(si)<salasLista.index(sj):
+        #             for c in cursos:
+        #                 if( round(t[si,sj,c].X)==1):
+        #                     print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
         GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
     else:
         print("O modelo é inviável.")
+        GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
 
 main()
