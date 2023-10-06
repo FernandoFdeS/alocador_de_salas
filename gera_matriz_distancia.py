@@ -30,8 +30,8 @@ class GeraMatrizDistancia:
                     dif_salas=1
                 distancia =  dif_salas+(dif_andares*10)+bloco_diferente
                 # Distancia = 
-                # Diferença do número da sala (ultimos dois digitos) (se der 9 trocamos pra 1) (para poder aproximar as salas _10 das salas _01)
-                # Diferença de andar * 10
+                # Diferença do número da sala (ultimos dois digitos) (se der 9 trocamos pra 1) (para poder aproximar as salas _10 das salas _01) +
+                # Diferença de andar * 10 +
                 # Diferença de bloco = + 50 no valor total (se for do "bloco" dos espaços ajeitados(DE) + 150)
 
                 matriz[list(self.salas).index(linha)][list(self.salas).index(coluna)]=distancia

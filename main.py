@@ -13,7 +13,7 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_cc_agro.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -54,12 +54,12 @@ def main():
     vet_alocacoes=[]
     for d in disciplinas:
         for h in disciplinas[d].horarios:
-            vet_alocacoes.append(M3*(1 - gp.quicksum(x[d,s,h] for s in salas)))
+            vet_alocacoes.append((1 - gp.quicksum(x[d,s,h] for s in salas)))
 
     # Funcao objetivo
     m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M1 +
                 gp.quicksum(vet_salas_preferenciais)*M2 +
-                gp.quicksum(vet_alocacoes) +
+                gp.quicksum(vet_alocacoes)*M3 +
                 gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
                            if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
@@ -96,7 +96,7 @@ def main():
     # Uma sala é alocada a um cusro se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
     c7 = m.addConstrs(
         w[s,disciplinas[d].curso] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios 
-        #w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos if c == disciplinas[h].curso
+        #w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos if c == disciplinas[d].curso
     )
 
     c8 = m.addConstrs(
@@ -119,5 +119,6 @@ def main():
                 for c in cursos:
                     if(round(t[si,sj,c].X)==1):
                         print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
+
 
 main()

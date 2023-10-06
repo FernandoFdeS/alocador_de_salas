@@ -22,22 +22,64 @@ Bateria de testes 1
 -> Pesos: M1=200 M2=100 M3=1000 M4=100 M5=1
 
 Teste 1 = CC
-Alocações feitas: Todas
-Tempo de execução: 2.94s
-Obs:    Alocações feitas no Bloco C por algum motivo. Talvez a restrição de aproximação de salas do mesmo curso não esteja fazendo muito efeito
-        com o multiplicador de 1. 
+Alocações feitas: Todas (49)
+Tempo de execução: 8.10s
+Obs:    Parce OK, acredito que seja um bom exemplo visual para verificar que a restricao de diminuir salas da mesma fase pesa mais do que a 
+        restricao de diminuir a distancia geográfica
 
 Teste 2 = CC + Agro
-Alocações feitas:
-Tempo de execução:
-Obs:
+Alocações feitas: Todas (102)
+Tempo de execução: 31.70s
+Obs:    As alocacoes da Agornomia parecem estar ok. No arquivo de ensalamento "oficial", varias disciplinas com mais de um turma sao alocadas na
+        mesma sala (com a celula na planilha pintada de roxa), segundo o a legenda isso significa "Duas turmas com datas e horarios diferentes",
+        o que eh mentira, pois os horarios colidem em uma faixa no minimo, o que faz com que na nossa apliacao sejam necessarias 2 salas diferentes.**
+        Exemplo: 
+        Matutino, Quinta-feira, Sala 301 estao alocadas:
+        GCA210 - Turma 3 com horarios 5M126 & GCA210 - Truma4 com horario 5M136. Ambas do segundo periodo
+
+        Por algum motivo nao utilizou a sala 309-B em nenhuma alocacao de CC, que alem de estar mais proxima das outras
+        em relacao a 310-B (que foi alocada) ainda por cima eh uma sala preferencial.
+        Hipotese: Talvez a matriz de distancia considerar a distancia entre a 301-B e a 310-B como 1 tenha influenciado nisso. *** 
+        Removi esse "tratamento" da matriz de distancia para testar e a sala 310-B parou de ser alocada, o pai tava certo (e ainda foi mais rapido).
 
 Teste 3 = CC + Agro + Med
-Alocações feitas:
-Tempo de execução:
-Obs:
+Alocações feitas: Todas (135)
+Tempo de execução: 421s
+Obs:    Essa alocacao ficou esquisita, Medicina deveria "brigar" com CC por algumas salas no Bloco B, visto que sao preferenciais de Medicina e nao de CC, como
+        Medicina tem salas preferenciais nos dois blocos pode ser isso que causou a estranheza. Medicina conseguiu alocar algumas aulas em uma sala preferencial
+        do bloco A (301-A), o resto foi alocado nas primeiras salas do andar inferior (201-A...203-A), provavelmente por conta da proximidade entre 
+        a 201-A e a 301-A. Talvez aumentar mais distancia por andar?
+        
+        De resto, tanto CC como Agro apresentarem um comportamento normal
 
 Teste 4 = CC + Agro + Med + Enf
-Alocações feitas:
-Tempo de execução:
-Obs:
+Alocações feitas: Todas (157)
+Tempo de execução: 2503s 
+Obs:    CC, Agronomia e Medicina acabaram seguindo os mesmos padroes anteriores. 
+        Enfermagem tambem nao conseguiu pegar muitas salas preferenciais, acabou pegando somente 1, que ficou levemente distante das outras alocadas, um pouco
+        parecido com o que aconteceu com Medicina.
+        Agronomia ta pegando as salas preferenciais de outras disciplinas muito provavelmente por conta de ter varias turmas e acabar usando mais salas.
+        Talvez seja necessario rever o peso das salas preferenciais na funcao objetivo tambem.
+
+
+Observacoes gerais: 
+
+**
+Talvez valha a pena realmente tratar diferentes turmas como uma disciplina so, visto que eh algo que acontece com bastante frequencia no ensalamento oficial.
+Pelo o que eu pude perceber, com excecao de CC isso acontece em todas as disciplinas. Me parece ser tanto algo facil de se tratar em codigo quanto algo que
+pode ser deixado para que a gurizada da SECAC se vire e resolva, mas se for tratado em codigo pode ajudar a resolver a alocacao mais rapido, visto que seriam
+algumas disciplinas a menos.
+
+***
+Percebi que essa "regra" da deixar as salas x10 perto das salas x01 nao parece ser utilizada nenhuma vez no ensalamento "oficial", nao tem nenhuma alocacao feita
+nesse estilo em que uma turma de um curso D fica na x10 e outra turma desse mesmo curso D fica na x01, com essa medida de proximidade parece que vamos acabar
+desviando do ensalamento oficial. Acho que talvez a observacao no final do arquivo de ensalamento "Salas do mesmo curso devem ser preferencialmente contiguas"
+quer dizer isso.
+
+----------------------------------------
+Considerar rodar com os seguintes pesos:
+M1 = 250
+M2 = 150
+M3 = 2000
+M4 = 50
+M5 = 0.5
