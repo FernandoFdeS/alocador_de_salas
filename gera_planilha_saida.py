@@ -81,7 +81,7 @@ class GeraPlanilhaSaida:
         
         
         # Cria um DataFrame com rótulos personalizados
-        while(len(vet_nao_alocadas)!=len(self.salas)):
+        while(len(vet_nao_alocadas)<len(self.salas)):
             vet_nao_alocadas.append("-")
         indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,self.salas],names=[qtdNaoAlocadas,'Salas'])
         df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)

@@ -26,11 +26,11 @@ class GeraMatrizDistancia:
                         bloco_diferente=150
                 dif_andares = abs((num_sala1//100) - (num_sala2//100))              
                 dif_salas= abs((num_sala1%100)-(num_sala2%100))
-                if dif_salas==9:
-                    dif_salas=1
+                #if dif_salas==9:
+                #    dif_salas=1
                 distancia =  dif_salas+(dif_andares*10)+bloco_diferente
                 # Distancia = 
-                # Diferença do número da sala (ultimos dois digitos) (se der 9 trocamos pra 1) (para poder aproximar as salas _10 das salas _01) +
+                # Diferença do número da sala (ultimos dois digitos) +
                 # Diferença de andar * 10 +
                 # Diferença de bloco = + 50 no valor total (se for do "bloco" dos espaços ajeitados(DE) + 150)
 
