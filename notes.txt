@@ -14,6 +14,7 @@ Usar a capacidade de alunos por sala
 Arquivo de saida: Usar o openpyxl para Criar
 -> XLSX estilizado ** Done **
 -> Pintar céluas de fusões ** Done **
+-> Pintar céluas de compartilhamento de sala ** Done **
 -> Pintar céluas de "agrupamento de salas"
 -> Legenda
 
@@ -34,7 +35,7 @@ Obs:    Parce OK, acredito que seja um bom exemplo visual para verificar que a r
 Teste 2 = CC + Agro
 Alocações feitas: Todas (102)
 Tempo de execução: 31.70s
-Obs:    As alocacoes da Agornomia parecem estar ok. No arquivo de ensalamento "oficial", varias disciplinas com mais de um turma sao alocadas na
+Obs:    As alocacoes da Agronomia parecem estar ok. No arquivo de ensalamento "oficial", varias disciplinas com mais de um turma sao alocadas na
         mesma sala (com a celula na planilha pintada de roxa), segundo o a legenda isso significa "Duas turmas com datas e horarios diferentes",
         o que eh mentira, pois os horarios colidem em uma faixa no minimo, o que faz com que na nossa apliacao sejam necessarias 2 salas diferentes.**
         Exemplo: 
@@ -146,6 +147,18 @@ Alocações feitas:
 Tempo de execução: 
 Obs:   
 
+
+===================================
+Bateria de testes 3
+-> Pesos: M1=250 M2=150 M3=2000 M4=50 M5=0.5
+-> Melhorias no arquivo da saida, correções nas salas preferenciais e melhoria no código de extração de salas preferenciais.
+
+Teste 1 = CC + Agro + Med
+Alocações feitas: Todas
+Tempo de execução: 578s (Executado no pc da SETI, por isso demorou BEM mais que os outros.)
+Obs:    Seguinte, ta ficando bonito. Todo mundo usou TODAS as salas preferenciais certinho, tudo bem que não tem muita concorrecia entre esses cursos
+        por salas, tirando as 301 e 302-A entre Agronomia e Medicina, mas ficou show de bola, Medicina usando salas no Bloco B e C, a alocação no geral 
+        parece bem "compacta", o que é bom. Agora é testar com mais disputa entre as salas e ver no que dá.
 
 
 
