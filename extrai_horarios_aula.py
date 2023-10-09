@@ -36,8 +36,8 @@ class ExtraiHorariosAula:
                 salas[indexSala]=sala.strip()
             salas_preferenciais_dict[index]=salas 
 
-        for s in salas_preferenciais_dict:
-            print(s,salas_preferenciais_dict[s])        
+        # for s in salas_preferenciais_dict:
+        #     print(s,salas_preferenciais_dict[s])        
 
         return salas_preferenciais_dict
 
