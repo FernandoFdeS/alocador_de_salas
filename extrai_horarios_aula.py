@@ -34,7 +34,10 @@ class ExtraiHorariosAula:
             salas=salas.split(",")
             for indexSala,sala in enumerate(salas):
                 salas[indexSala]=sala.strip()
-            salas_preferenciais_dict[index]=salas             
+            salas_preferenciais_dict[index]=salas 
+
+        for s in salas_preferenciais_dict:
+            print(s,salas_preferenciais_dict[s])        
 
         return salas_preferenciais_dict
 
@@ -96,6 +99,8 @@ class ExtraiHorariosAula:
             fusao=0
             if nome_curso in salas_preferenciais:
                 sp = salas_preferenciais[nome_curso]
+            if cod_aula in salas_preferenciais:
+                sp = salas_preferenciais[cod_aula]
 
             if "FUSÃO" in nome_curso:
                 fusao=1

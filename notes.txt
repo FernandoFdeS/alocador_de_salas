@@ -127,7 +127,7 @@ Obs:    Resultado levemente diferente ja, a sala 201-A foi completamente descart
 
 ==> Correcao nas salas preferenciais de ADM
 
-Teste 5 = CC + Agro + Med + Enf + Adm (matriz distancia considerando as salas em linha ao inves de em "U")
+Teste 4 = CC + Agro + Med + Enf + Adm (matriz distancia considerando as salas em linha ao inves de em "U")
 Alocações feitas: Todas(206)
 Tempo de execução: 2074s
 Obs:    Alocacao OK, CC,Agro e Adm utilizando salas Preferencias + outras.
@@ -135,7 +135,7 @@ Obs:    Alocacao OK, CC,Agro e Adm utilizando salas Preferencias + outras.
         vez com EAS junto pra ver oq acontece na disputa por essas salas.
         CC continua NAO utilizando a 310-B e utiliza pouco a 309-B.
 
-Teste 6 = CC + Agro + Med + Enf + Adm + EAS(matriz distancia considerando as salas em linha ao inves de em "U")
+Teste 5 = CC + Agro + Med + Enf + Adm + EAS(matriz distancia considerando as salas em linha ao inves de em "U")
 Alocações feitas: Todas
 Tempo de execução:  5855s
 Obs:    Ta meio esquisito, Medicina pegou as salas que eram da Agronomia nos testes anteriores e a Agronomia roubou as de EAS...
@@ -159,7 +159,23 @@ Tempo de execução: 578s (Executado no pc da SETI, por isso demorou BEM mais qu
 Obs:    Seguinte, ta ficando bonito. Todo mundo usou TODAS as salas preferenciais certinho, tudo bem que não tem muita concorrecia entre esses cursos
         por salas, tirando as 301 e 302-A entre Agronomia e Medicina, mas ficou show de bola, Medicina usando salas no Bloco B e C, a alocação no geral 
         parece bem "compacta", o que é bom. Agora é testar com mais disputa entre as salas e ver no que dá.
+        Ah, também ficou perceptível que as salas preferenciais estão sendo levadas mais em consideração do que a distância entre as salas, o que é o certo.
 
+Teste 2 = CC + Agro + Med + Geo (+ Fusões que tenham Geografia)
+Alocações feitas: Todas
+Tempo de execução: 1038s (Executado no pc da SETI...)
+Obs:    Percebi que ultimamente tá chegando bem rápido em um gap baixo, mas ai ele da uma estagnada braba. Esse aqui em 13s já tava com 2.76%.
+        Durante a noite Geografia acabou expulsando CC de algumas salas, o que faz sentido visto que CC ocupa quase o terceiro andar inteiro
+        na segunda de noite, e as 4 primeiras salas estão marcadas como preferenficais de Geografia, o problema é que, existem muitas materias
+        de Geografia que são materias apenas de laboratório, então na alocação oficial tão ou nos espaços ocupados ou em algum outro lab
+        acho que vou rodar mais uma vez esse teste mas com essas disciplinas em suas salas preferenciais.
+
+Teste 3 = CC + Agro + Med + Geo (+ Fusões que tenham Geografia) Com salas preferenciais de disciplinas especificas de Geografia
+Alocações feitas: Todas
+Tempo de execução: 1392s (Executado no pc da SETI...)
+Obs:    Notável o "conflito" entre as salas preferenciais da disciplina e a restrição de minimizar a quantidade de salas alocadas para a mesma fase.
+        Uma alocação feita em uma sala preferencial de uma disciplina está levando algumas outras disciplinas da mesma fase para lá, mesmo não sendo
+        uma sala preferencial delas.
 
 
 Observacoes gerais: 
