@@ -73,7 +73,7 @@ class GeraPlanilhaSaida:
                         if(matriz[linha][coluna]=='-'):
                             matriz[linha][coluna] = self.disciplinas[d].formata_saida()
                         elif (self.disciplinas[d].formata_saida() not in matriz[linha][coluna]):
-                            matriz[linha][coluna] = matriz[linha][coluna] +" | "+self.disciplinas[d].formata_saida()
+                            matriz[linha][coluna] = matriz[linha][coluna] +" | "+self.disciplinas[d].formata_saida()+" COMPARTILHAMENTO"
         
         # Gera vetor de disciplinas não alocadas para ser usado no arquivo de saida
         vet_nao_alocadas=[]
@@ -163,11 +163,26 @@ class GeraPlanilhaSaida:
             bottom=Side(style="thin", color="000000"),  # Borda inferior branca
         )
 
+        compartilhamento = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")
+        compartilhamento = openpyxl.styles.NamedStyle(name="compartilhamento")
+        compartilhamento.fill = PatternFill(start_color="ffa500", end_color="ff7b59", fill_type="solid")  # Fundo preto
+        compartilhamento.font = Font(name="Arial")
+        compartilhamento.alignment = Alignment(horizontal="center", vertical="center")
+        compartilhamento.border = Border(
+            left=Side(style="thin", color="000000"),  # Borda esquerda branca
+            right=Side(style="thin", color="000000"),  # Borda direita branca
+            top=Side(style="thin", color="000000"),  # Borda superior branca
+            bottom=Side(style="thin", color="000000"),  # Borda inferior branca
+        )
+
         for row in ws.iter_rows(min_row=4, min_col=3):
             for cell in row:
                 if "FUSAO" in cell.value:
                     cell.style = fusao
                     cell.value = cell.value.replace("FUSAO","")
+                if "COMPARTILHAMENTO" in cell.value:
+                    cell.style = compartilhamento
+                    cell.value = cell.value.replace("COMPARTILHAMENTO","")
 
 
         workbook.save(nome_arquivo)

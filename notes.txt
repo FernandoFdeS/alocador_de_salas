@@ -181,3 +181,6 @@ Aconteceu uma coisa bem triste, reparei que existia um erro no arquivo de salas 
 vou rodar uns testes dnv aqui.
 
 Revisar o funcionamento das salas preferenciais.
+
+As aulas que estão marcadas como "exclusivas de laboratórios" no ensalamento oficial deveriam ter o laboratório em questão
+associado diretamente ao código da matéria no arquivo de salas preferenciais.
