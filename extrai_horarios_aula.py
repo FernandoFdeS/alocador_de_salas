@@ -30,11 +30,11 @@ class ExtraiHorariosAula:
         indices = dados.iloc[:, 0]
         salas_preferenciais = dados.iloc[:, 1]
 
-        for indice, salas in zip(indices,salas_preferenciais):
-            salas_preferenciais_dict[indice]=salas.split(",")
-
-        # for salas in salas_preferenciais_dict:
-        #     print(salas, salas_preferenciais_dict[salas])        
+        for index, salas in zip(indices,salas_preferenciais):
+            salas=salas.split(",")
+            for indexSala,sala in enumerate(salas):
+                salas[indexSala]=sala.strip()
+            salas_preferenciais_dict[index]=salas             
 
         return salas_preferenciais_dict
 
