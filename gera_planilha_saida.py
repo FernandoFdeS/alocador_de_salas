@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+import openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 class GeraPlanilhaSaida:
     def __init__ (self, disciplinas,salas, horarios,x):
@@ -85,8 +87,92 @@ class GeraPlanilhaSaida:
             vet_nao_alocadas.append("-")
         indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,self.salas],names=[qtdNaoAlocadas,'Salas'])
         df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)
-        nome_arquivo = "planilha_alocacoes.csv"
-        df.to_csv(nome_arquivo, index=True)
+        nome_arquivo = "planilha_alocacoes.xlsx"
+        #df.to_csv(nome_arquivo, index=True)
+
+        df.to_excel(nome_arquivo, index=True,engine='openpyxl')
+        ## Personalizando a planilha
+        workbook = openpyxl.load_workbook(nome_arquivo)
+        # Acesse a primeira planilha (índice 0) do arquivo
+        worksheet = workbook.worksheets[0]
+        worksheet.merge_cells("C1:H1")
+        worksheet.merge_cells("I1:N1")
+        worksheet.merge_cells("O1:T1")
+        for coluna in range(ord("C"), ord("T") + 1):
+            coluna_letra = chr(coluna)
+            worksheet.column_dimensions[coluna_letra].width = (5 * 8.43)
+        worksheet.column_dimensions["A"].width = (8.43*2.2)
+
+        # Estilzando o HEADER (turnos)
+        estilo_header = openpyxl.styles.NamedStyle(name="estilo_header")
+        estilo_header.font = Font(name="Arial",color="000000", bold=True)  # Letra branca e negrito
+        estilo_header.fill = PatternFill(start_color="FFFF99", end_color="FFFF99", fill_type="solid")  # Fundo preto
+        estilo_header.alignment = Alignment(horizontal="center")  # Alinhamento centralizado
+        estilo_header.border = Border(
+            left=Side(style="thin", color="000000"),  # Borda esquerda branca
+            right=Side(style="thin", color="000000"),  # Borda direita branca
+            top=Side(style="thin", color="000000"),  # Borda superior branca
+            bottom=Side(style="thin", color="000000"),  # Borda inferior branca
+        )
+        for coluna in worksheet.iter_cols(min_row=1, max_row=1):
+            for celula in coluna:
+                celula.style = estilo_header
+
+        # Pintando o quadradinho de cima de preto
+        preenchimento_preto = PatternFill(start_color="000000", end_color="000000", fill_type="solid")
+        ws = workbook.active
+        celulas_pretas = ['A1', 'A2', 'B1', 'B2']
+        for celula in celulas_pretas:
+            ws[celula].fill = preenchimento_preto
+
+        # Estilzando os indexs (Dias da semana & Salas) 
+        estilo_index = openpyxl.styles.NamedStyle(name="estilo_index")
+        estilo_index.fill = PatternFill(start_color="E0E0E0", end_color="E0E0E0", fill_type="solid")
+        estilo_index.font = Font(name="Arial", bold=True)
+        estilo_index.alignment = Alignment(horizontal="center", vertical="center")
+        estilo_index.border = Border(
+            left=Side(style="thin", color="000000"),  # Borda esquerda branca
+            right=Side(style="thin", color="000000"),  # Borda direita branca
+            top=Side(style="thin", color="000000"),  # Borda superior branca
+            bottom=Side(style="thin", color="000000"),  # Borda inferior branca
+        )
+        # Dias da semana
+        for row in ws.iter_rows(min_row=2, max_row=2, min_col=3, max_col=20):
+            for cell in row:
+                cell.style = estilo_index
+        # Salas
+        for row in ws.iter_rows(min_row=3, min_col=2,max_col=2):
+            for cell in row:
+                cell.style = estilo_index
+
+        # Alocações
+        for row in ws.iter_rows(min_row=3, min_col=3, max_col=20):  # Defina o intervalo C3:T3 até o final do arquivo
+            for cell in row:
+                cell.alignment = Alignment(horizontal="center", vertical="center")
+
+        # Cor de células especiais
+        fusao = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")
+        fusao = openpyxl.styles.NamedStyle(name="fusao")
+        fusao.fill = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")  # Fundo preto
+        fusao.font = Font(name="Arial")
+        fusao.alignment = Alignment(horizontal="center", vertical="center")
+        fusao.border = Border(
+            left=Side(style="thin", color="000000"),  # Borda esquerda branca
+            right=Side(style="thin", color="000000"),  # Borda direita branca
+            top=Side(style="thin", color="000000"),  # Borda superior branca
+            bottom=Side(style="thin", color="000000"),  # Borda inferior branca
+        )
+
+        for row in ws.iter_rows(min_row=4, min_col=3):
+            for cell in row:
+                if "FUSAO" in cell.value:
+                    cell.style = fusao
+                    cell.value = cell.value.replace("FUSAO","")
+
+
+        workbook.save(nome_arquivo)
+
+        workbook.close()
 
         # Verifica se todas as disciplinas foram alocadas
         if(len(disciplinas_nao_alocadas))==0:

@@ -13,7 +13,7 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_cc_agro_med_enf_adm_eas.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_cc.xlsx").extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -48,6 +48,7 @@ def main():
         for h in disciplinas[d].horarios:
             for s in salas:
                 if s not in disciplinas[d].salasPreferenciais:
+                    #print(s+" não é sala preferencial")
                     vet_salas_preferenciais.append(x[d,s,h])
     
     # Cria vetor das alocacoes das salas
@@ -108,7 +109,7 @@ def main():
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")       
       
-        GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
+        # GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
     else:
         print("Solução -> não <- ótima.")
 
@@ -119,6 +120,12 @@ def main():
                 if salasLista.index(si)<salasLista.index(sj):                
                     if(round(t[si,sj,c].X)==1):
                         print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
+    
+    # for d in disciplinas:
+    #     for h in disciplinas[d].horarios:
+    #         for s in disciplinas[d].salasPreferenciais:
+    #                 if(x[d,s,h].X == 1):
+    #                     print("Alocação em sala preferencial: "+d,s,h)
 
 
     GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()

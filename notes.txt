@@ -5,13 +5,17 @@ Arrumar planilha de distancia de salas. ** Done **
 
 Revisar as salas preferenciais 2023.2. ** Done **
 
-Ajustar pesos
+Ajustar pesos ** Done **
 
 Passar o arquivo de Salas Preferencias pelo main.py
 
 Usar a capacidade de alunos por sala
 
-Arquivo de saida: Usar o openpyxl para criar
+Arquivo de saida: Usar o openpyxl para Criar
+-> XLSX estilizado ** Done **
+-> Pintar céluas de fusões ** Done **
+-> Pintar céluas de "agrupamento de salas"
+-> Legenda
 
 Ideia de solução inicial:
 * Rodar o modelo sem as restrições 7 e 8 (aproximação geográfica de salas do mesmo curso)
@@ -175,3 +179,5 @@ Diminuir o multiplicador da restricao de aproximação geográfica?
 
 Aconteceu uma coisa bem triste, reparei que existia um erro no arquivo de salas preferenciais do semestre 2023.2, adm tava alocada nas salas certas mas no bloco errado kkkkk,
 vou rodar uns testes dnv aqui.
+
+Revisar o funcionamento das salas preferenciais.

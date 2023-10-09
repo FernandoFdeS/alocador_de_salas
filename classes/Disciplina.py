@@ -50,7 +50,7 @@ class Disciplina:
     
     def formata_saida(self):
         if (self.fusao==1): # Para as fusões.
-            return (self.nome+" ("+self.cod+")")
+            return ("FUSAO"+ self.nome+" ("+self.cod+")")
         if self.fase != 0:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
         else:
