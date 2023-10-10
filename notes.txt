@@ -7,6 +7,11 @@ Revisar as salas preferenciais 2023.2. ** Done **
 
 Ajustar pesos ** Done **
 
+Remover disciplinas de laboratorio (-/19)
+
+Agrupar as salas (roxinhos)
+
+
 Passar o arquivo de Salas Preferencias pelo main.py
 
 Usar a capacidade de alunos por sala
@@ -213,3 +218,5 @@ Revisar o funcionamento das salas preferenciais.
 
 As aulas que estão marcadas como "exclusivas de laboratórios" no ensalamento oficial deveriam ter o laboratório em questão
 associado diretamente ao código da matéria no arquivo de salas preferenciais.
+
+
