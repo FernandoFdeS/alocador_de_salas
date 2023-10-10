@@ -182,6 +182,23 @@ Obs:    Notável o "conflito" entre as salas preferenciais da disciplina e a res
         Uma alocação feita em uma sala preferencial de uma disciplina está levando algumas outras disciplinas da mesma fase para lá, mesmo não sendo
         uma sala preferencial delas.
 
+Teste 3 = CC + Agro + Med + Enf + Adm
+Alocações feitas: Todas
+Tempo de execução: 960s (Executado no pc da SETI...).
+Obs:    Percebi que na quinta de noite a disciplina optativa de Adm e a materia da 9ª fase tem o MESMO horário e compartilham sala por algum
+        motivo desconhecido.
+        * Analisar melhor *
+
+
+Teste 4 = CC + Agro + Med + Enf + Adm + Geo
+Alocações feitas: Todas
+Tempo de execução: 3249s (Executado no pc da SETI...).
+Obs:    Tem algumas matérias sendo jogadas pra algumas salas meio "avulsas", principalmente Enfermagem e Agronomia, elas alocam todas as salas
+        preferenciais delas, ai nao sobra mais nada e acabam alocando em alguma sala do andar inferior que seja mais perto das que já forma alocadas.
+        Acredito que, mais uma vez, se for adicionada a "mecânica" de agrupamento de salas esse problema será resolvido, porque a maioria das disciplinas
+        que sobram desse jeito são que seriam concatenadas em alguma outra.
+
+
 
 Observacoes gerais: 
 Percebi que na verdade, nao sao as turmas diferentes com mesmo horario que sao agrupadas em uma so sala, sao materias da mesma fase. Como isso funciona? Elas tem

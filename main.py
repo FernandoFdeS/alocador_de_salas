@@ -13,7 +13,7 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_cc_agro_med_enf_adm_geo.xlsx").extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -121,11 +121,11 @@ def main():
                     if(round(t[si,sj,c].X)==1):
                         print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
     
-    for d in disciplinas:
-        for h in disciplinas[d].horarios:
-            for s in disciplinas[d].salasPreferenciais:
-                    if(x[d,s,h].X == 1):
-                        print("Alocação em sala preferencial: "+d,s,h)
+    # for d in disciplinas:
+    #     for h in disciplinas[d].horarios:
+    #         for s in disciplinas[d].salasPreferenciais:
+    #                 if(x[d,s,h].X == 1):
+    #                     print("Alocação em sala preferencial: "+d,s,h)
 
 
     GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
