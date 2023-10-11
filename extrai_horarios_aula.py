@@ -107,10 +107,13 @@ class ExtraiHorariosAula:
                             if(nome_curso=="AGRONOMIA"):
                                 chave_agrupamento=cod_aula+"_"+dia+periodo
                             else:
-                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+dia+periodo
-                            #print(chave_agrupamento)
-                            if chave_agrupamento in agrupamentos:
-                                vai_agrupar=1
+                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+dia+periodo+faixas
+                            #print(chave_agrupamento+faixas)
+                            for chave in agrupamentos:
+                                if chave_agrupamento in chave:
+                                    vai_agrupar=1
+                                    chave_agrupamento=chave
+                                    break
                             else:
                                 agrupamentos[chave_agrupamento]=cod_aula+"_"+n_turma
 

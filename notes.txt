@@ -21,6 +21,7 @@ Remover disciplinas de laboratorio ** Done **
                 GCH627 
                 GCH633 
                 GEX556
+                GEX557 !
 
         ADMINISTRACAO
                 GCS081
@@ -32,7 +33,6 @@ Remover disciplinas de laboratorio ** Done **
 
 Agrupar as salas (roxinhos) ** Done **
 
-
 Passar o arquivo de Salas Preferencias pelo main.py
 
 Usar a capacidade de alunos por sala
@@ -41,32 +41,10 @@ Arquivo de saida: Usar o openpyxl para Criar
 -> XLSX estilizado ** Done **
 -> Pintar céluas de fusões ** Done **
 -> Pintar céluas de compartilhamento de sala ** Done **
--> Pintar céluas de "agrupamento de salas"
+-> Pintar céluas de "agrupamento de salas" ** Done **
 -> Legenda
 
 Ideia de solução inicial:
 * Rodar o modelo sem as restrições 7 e 8 (aproximação geográfica de salas do mesmo curso)
 * Tempo máximo de execução: 5 horas (Quantidade utilizada no artigo da UFFS)
-
-
-Agrupamentos: 33
-Agronomia: 2 turmas da mesma materia
-Outros: Materias de 30h
-
-Porem, dos 33 agrupamentos tem uns meio nada a ver, exemplo:
-Matutino Sex - 203B - Ped 8
-
-Dar uma olhada nas optativas de Agronomia pra tentar entender oq ta acontecendo.
-
-dict_agrupamento=dict()
-chaves-> curso_fase_diaturno
-exemplo
-LETRAS_6_7M = [cod_aula]
-
-if curso == CC
-        ignora
-
-if curso == Agronomia
-        agrupa se cod_aula for igual
-
 

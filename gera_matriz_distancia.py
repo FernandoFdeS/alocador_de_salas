@@ -26,8 +26,6 @@ class GeraMatrizDistancia:
                         bloco_diferente=150
                 dif_andares = abs((num_sala1//100) - (num_sala2//100))              
                 dif_salas= abs((num_sala1%100)-(num_sala2%100))
-                #if dif_salas==9:
-                #    dif_salas=1
                 distancia =  dif_salas+(dif_andares*10)+bloco_diferente
                 # Distancia = 
                 # Diferença do número da sala (ultimos dois digitos) +
@@ -36,7 +34,7 @@ class GeraMatrizDistancia:
 
                 matriz[list(self.salas).index(linha)][list(self.salas).index(coluna)]=distancia
 
-        df = pd.DataFrame(matriz, columns=self.salas, index=self.salas)
-        nome_arquivo = "matriz_distancia.csv"
-        df.to_csv(nome_arquivo, index=True) # Cria CSV para facilitar a visualização das distâncias gerada
+        # df = pd.DataFrame(matriz, columns=self.salas, index=self.salas)
+        # nome_arquivo = "matriz_distancia.csv"
+        # df.to_csv(nome_arquivo, index=True) # Cria CSV para facilitar a visualização das distâncias gerada
         return matriz
