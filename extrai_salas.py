@@ -17,6 +17,7 @@ class ExtraiSalas:
 
             if(sala.find("BLOCO")==0):
                 blocoAtual=sala.split(" ")[1] # Pegando o Bloco da Sala
+                continue
             else:        
                 numeroSala=sala.split(" ")[0]
 
