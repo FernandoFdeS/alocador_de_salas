@@ -175,6 +175,18 @@ class GeraPlanilhaSaida:
             bottom=Side(style="thin", color="000000"),  # Borda inferior branca
         )
 
+        agrupamento = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")
+        agrupamento = openpyxl.styles.NamedStyle(name="agrupamento")
+        agrupamento.fill = PatternFill(start_color="ab93f5", end_color="ab93f5", fill_type="solid")  # Fundo preto
+        agrupamento.font = Font(name="Arial")
+        agrupamento.alignment = Alignment(horizontal="center", vertical="center")
+        agrupamento.border = Border(
+            left=Side(style="thin", color="000000"),  # Borda esquerda branca
+            right=Side(style="thin", color="000000"),  # Borda direita branca
+            top=Side(style="thin", color="000000"),  # Borda superior branca
+            bottom=Side(style="thin", color="000000"),  # Borda inferior branca
+        )
+
         for row in ws.iter_rows(min_row=4, min_col=3):
             for cell in row:
                 if "FUSAO" in cell.value:
@@ -183,6 +195,9 @@ class GeraPlanilhaSaida:
                 if "COMPARTILHAMENTO" in cell.value:
                     cell.style = compartilhamento
                     cell.value = cell.value.replace("COMPARTILHAMENTO","")
+                if "AGRUPAMENTO" in cell.value:
+                    cell.style = agrupamento
+                    cell.value = cell.value.replace("AGRUPAMENTO","")
 
 
         workbook.save(nome_arquivo)

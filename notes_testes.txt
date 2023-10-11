@@ -1,0 +1,210 @@
+===================================
+Bateria de testes 1
+-> Pesos: M1=200 M2=100 M3=1000 M4=100 M5=1
+
+Teste 1 = CC
+Alocações feitas: Todas (49)
+Tempo de execução: 8.10s
+Obs:    Parce OK, acredito que seja um bom exemplo visual para verificar que a restricao de diminuir salas da mesma fase pesa mais do que a 
+        restricao de diminuir a distancia geográfica
+
+Teste 2 = CC + Agro
+Alocações feitas: Todas (102)
+Tempo de execução: 31.70s
+Obs:    As alocacoes da Agronomia parecem estar ok. No arquivo de ensalamento "oficial", varias disciplinas com mais de um turma sao alocadas na
+        mesma sala (com a celula na planilha pintada de roxa), segundo o a legenda isso significa "Duas turmas com datas e horarios diferentes",
+        o que eh mentira, pois os horarios colidem em uma faixa no minimo, o que faz com que na nossa apliacao sejam necessarias 2 salas diferentes.**
+        Exemplo: 
+        Matutino, Quinta-feira, Sala 301 estao alocadas:
+        GCA210 - Turma 3 com horarios 5M126 & GCA210 - Truma4 com horario 5M136. Ambas do segundo periodo
+
+        Por algum motivo nao utilizou a sala 309-B em nenhuma alocacao de CC, que alem de estar mais proxima das outras
+        em relacao a 310-B (que foi alocada) ainda por cima eh uma sala preferencial.
+        Hipotese: Talvez a matriz de distancia considerar a distancia entre a 301-B e a 310-B como 1 tenha influenciado nisso. *** 
+        Removi esse "tratamento" da matriz de distancia para testar e a sala 310-B parou de ser alocada, o pai tava certo (e ainda foi mais rapido).
+
+Teste 3 = CC + Agro + Med
+Alocações feitas: Todas (135)
+Tempo de execução: 421s
+Obs:    Essa alocacao ficou esquisita, Medicina deveria "brigar" com CC por algumas salas no Bloco B, visto que sao preferenciais de Medicina e nao de CC, como
+        Medicina tem salas preferenciais nos dois blocos pode ser isso que causou a estranheza. Medicina conseguiu alocar algumas aulas em uma sala preferencial
+        do bloco A (301-A), o resto foi alocado nas primeiras salas do andar inferior (201-A...203-A), provavelmente por conta da proximidade entre 
+        a 201-A e a 301-A. Talvez aumentar mais distancia por andar?
+        
+        De resto, tanto CC como Agro apresentarem um comportamento normal
+
+Teste 4 = CC + Agro + Med + Enf
+Alocações feitas: Todas (157)
+Tempo de execução: 2503s 
+Obs:    CC, Agronomia e Medicina acabaram seguindo os mesmos padroes anteriores. 
+        Enfermagem tambem nao conseguiu pegar muitas salas preferenciais, acabou pegando somente 1, que ficou levemente distante das outras alocadas, um pouco
+        parecido com o que aconteceu com Medicina.
+        Agronomia ta pegando as salas preferenciais de outras disciplinas muito provavelmente por conta de ter varias turmas e acabar usando mais salas.
+        Talvez seja necessario rever o peso das salas preferenciais na funcao objetivo tambem.
+
+Teste 5 = Todos
+Alocações feitas: ?
+Tempo de execução: + 84000s 
+Obs:    Chegou em um gap de 3.81% com 36600s de execução e ficou estagnado. Talvez aceitando uma solucao com um gap diferente de 0% ou ate mesmo setando um
+        tempo limite podemos chegar em uma solução que seja util
+
+
+Teste 5 = Todos (matriz distancia considerando as salas em linha ao inves de em "U")
+Alocações feitas: Todas
+Tempo de execução: 38624s
+Obs:    execução interrompida, estava com gap de 4%, mas nao sei o quao melhor estaria a solucao com 0% de gap.
+        bah, acabou que ficou meio baguncado, algumas materias como Letras e Medicina tem umas bem espalhadas ainda
+        A julgar pelas distancias e etc, as alocacoes que ficaram aparentemente boas sao:
+        Adm, EAS, Pedagogia
+        CC alocou todas as salas preferenciais que podia (e outras 2 no Bloco B), tambem acabou alocando uma no Bloco C
+        Historia alocou um sala nos espacos ajeitados, tirando isso ela usou 3 salas preferenciais de 4 (Acredito que a sala 216-C nao foi usada por motivos de distancia(?))
+        Letras tem praticamente uma sala em cada bloco 
+        CS tambem utuilizou as salas preferenciais, acabou alocando uma no bloco C tmb e outra nos espacos ajeitados.
+        Agronomia alocou as preferenciais tambem, acabou com uma no bloco B e outra no bloco C
+        * Terminar depois * (?)
+
+Observacoes gerais: 
+
+**
+Talvez valha a pena realmente tratar diferentes turmas como uma disciplina so, visto que eh algo que acontece com bastante frequencia no ensalamento oficial.
+Pelo o que eu pude perceber, com excecao de CC isso acontece em todas as disciplinas. Me parece ser tanto algo facil de se tratar em codigo quanto algo que
+pode ser deixado para que a gurizada da SECAC se vire e resolva, mas se for tratado em codigo pode ajudar a resolver a alocacao mais rapido, visto que seriam
+algumas disciplinas a menos.
+
+***
+Percebi que essa "regra" da deixar as salas x10 perto das salas x01 nao parece ser utilizada nenhuma vez no ensalamento "oficial", nao tem nenhuma alocacao feita
+nesse estilo em que uma turma de um curso D fica na x10 e outra turma desse mesmo curso D fica na x01, com essa medida de proximidade parece que vamos acabar
+desviando do ensalamento oficial. Acho que talvez a observacao no final do arquivo de ensalamento "Salas do mesmo curso devem ser preferencialmente contiguas"
+quer dizer isso.
+
+
+===================================
+Bateria de testes 2
+-> Pesos: M1=250 M2=150 M3=2000 M4=50 M5=0.5
+
+Teste 1 = CC
+Alocações feitas: Todas (49)
+Tempo de execução: 7.98s
+Obs:    Alocacao literalmente identica a feita so para CC com os pesos anteriores, por tanto, eh possivel apontar os mesmo pontos: 309-B nao foi alocada e etc.
+
+Teste 2 = CC + Agro + Med + Enf
+Alocações feitas: Todas (157)
+Tempo de execução: 2323s 
+Obs:    Resultado identico ao obtido no Teste 4 da primeira bateria de testes, ou seja, apresenta os mesmo probelmas. Lado positivo: Tempo de execução menor!
+        Pra mim ficou extremamente claro que nao vai ser possivel obter os mesmos resultados da alocacao "original" se continuarmos:
+        - Considerando a distancia entre as salas x10 e x01 como 1
+        - Considerando turmas diferentes (com excecao de CC) como disciplinas diferentes, visto que isso faz com que Agro ocupe mas 8 salas diferentes, por exemplo.
+
+Teste 3 = CC + Agro + Med + Enf (matriz distancia considerando as salas em linha ao inves de em "U")
+Alocações feitas: Todas (157)
+Tempo de execução: 2294s
+Obs:    Resultado levemente diferente ja, a sala 201-A foi completamente descartada pelo jeito, as alocacoes de CC continuam nao utilizando a 310-B, que esta nas saslas
+        preferenciais, talvez aumentando o peso das salas preferenciais isso pare de ocorrer.
+
+==> Correcao nas salas preferenciais de ADM
+
+Teste 4 = CC + Agro + Med + Enf + Adm (matriz distancia considerando as salas em linha ao inves de em "U")
+Alocações feitas: Todas(206)
+Tempo de execução: 2074s
+Obs:    Alocacao OK, CC,Agro e Adm utilizando salas Preferencias + outras.
+        Medicina usando apenas 1 sala preferencial (301-A), de resto esta usando na faixa de 201-A ate 204-A, que sao as salas preferenciais de EAS, vou rodar uma
+        vez com EAS junto pra ver oq acontece na disputa por essas salas.
+        CC continua NAO utilizando a 310-B e utiliza pouco a 309-B.
+
+Teste 5 = CC + Agro + Med + Enf + Adm + EAS(matriz distancia considerando as salas em linha ao inves de em "U")
+Alocações feitas: Todas
+Tempo de execução:  5855s
+Obs:    Ta meio esquisito, Medicina pegou as salas que eram da Agronomia nos testes anteriores e a Agronomia roubou as de EAS...
+        Talvez se eu aumentar mais o peso das salas preferenciais isso se resolva.
+
+
+Teste ? = CC + Agro + Med + Enf (matriz distancia considerando as salas em linha ao inves de em "U" + "Agrupamento" de turmas em apenas uma disciplina) * Em stand by *
+Alocações feitas: 
+Tempo de execução: 
+Obs:   
+
+
+===================================
+Bateria de testes 3
+-> Pesos: M1=250 M2=150 M3=2000 M4=50 M5=0.5
+-> Melhorias no arquivo da saida, correções nas salas preferenciais e melhoria no código de extração de salas preferenciais.
+
+Teste 1 = CC + Agro + Med
+Alocações feitas: Todas
+Tempo de execução: 578s (Executado no pc da SETI, por isso demorou BEM mais que os outros.)
+Obs:    Seguinte, ta ficando bonito. Todo mundo usou TODAS as salas preferenciais certinho, tudo bem que não tem muita concorrecia entre esses cursos
+        por salas, tirando as 301 e 302-A entre Agronomia e Medicina, mas ficou show de bola, Medicina usando salas no Bloco B e C, a alocação no geral 
+        parece bem "compacta", o que é bom. Agora é testar com mais disputa entre as salas e ver no que dá.
+        Ah, também ficou perceptível que as salas preferenciais estão sendo levadas mais em consideração do que a distância entre as salas, o que é o certo.
+
+Teste 2 = CC + Agro + Med + Geo (+ Fusões que tenham Geografia)
+Alocações feitas: Todas
+Tempo de execução: 1038s (Executado no pc da SETI...)
+Obs:    Percebi que ultimamente tá chegando bem rápido em um gap baixo, mas ai ele da uma estagnada braba. Esse aqui em 13s já tava com 2.76%.
+        Durante a noite Geografia acabou expulsando CC de algumas salas, o que faz sentido visto que CC ocupa quase o terceiro andar inteiro
+        na segunda de noite, e as 4 primeiras salas estão marcadas como preferenficais de Geografia, o problema é que, existem muitas materias
+        de Geografia que são materias apenas de laboratório, então na alocação oficial tão ou nos espaços ocupados ou em algum outro lab
+        acho que vou rodar mais uma vez esse teste mas com essas disciplinas em suas salas preferenciais.
+
+Teste 3 = CC + Agro + Med + Geo (+ Fusões que tenham Geografia) Com salas preferenciais de disciplinas especificas de Geografia
+Alocações feitas: Todas
+Tempo de execução: 1392s (Executado no pc da SETI...)
+Obs:    Notável o "conflito" entre as salas preferenciais da disciplina e a restrição de minimizar a quantidade de salas alocadas para a mesma fase.
+        Uma alocação feita em uma sala preferencial de uma disciplina está levando algumas outras disciplinas da mesma fase para lá, mesmo não sendo
+        uma sala preferencial delas.
+
+Teste 3 = CC + Agro + Med + Enf + Adm
+Alocações feitas: Todas
+Tempo de execução: 960s (Executado no pc da SETI...).
+Obs:    Percebi que na quinta de noite a disciplina optativa de Adm e a materia da 9ª fase tem o MESMO horário e compartilham sala por algum
+        motivo desconhecido.
+        * Analisar melhor *
+
+
+Teste 4 = CC + Agro + Med + Enf + Adm + Geo
+Alocações feitas: Todas
+Tempo de execução: 3249s (Executado no pc da SETI...).
+Obs:    Tem algumas matérias sendo jogadas pra algumas salas meio "avulsas", principalmente Enfermagem e Agronomia, elas alocam todas as salas
+        preferenciais delas, ai nao sobra mais nada e acabam alocando em alguma sala do andar inferior que seja mais perto das que já forma alocadas.
+        Acredito que, mais uma vez, se for adicionada a "mecânica" de agrupamento de salas esse problema será resolvido, porque a maioria das disciplinas
+        que sobram desse jeito são que seriam concatenadas em alguma outra.
+
+
+
+Observacoes gerais: 
+Percebi que na verdade, nao sao as turmas diferentes com mesmo horario que sao agrupadas em uma so sala, sao materias da mesma fase. Como isso funciona? Elas tem
+literalmente o mesmo horario, como eu vou saber quando eh pra fazer esse agrupamento ou nao? A melhor hipotese que eu tenho agora eh a seguinte:
+
+*** O agrupamento eh feito se: 
+- Sao materias do mesmo curso e mesma fase.
+- Acontecem no mesmo dia e turno (Matutino, Vespertino, ou Noturno) 
+        * Nao precisam ter nem ao menos uma faixa (1,2,3,4,5 ou 6) em comum, exemplo: 303-A - Agro OPT - Matutino - Sexta, mas a esmagadoa maioria TEM conflito de horario.
+- O curso da disciplina em questao eh diferente de CC.
+
+Levando em consideracao que no ensalamento "oficial" esse "agrupamento" eh feito aproximadamente 33 vezes, acho que eh algo que deveriamos levar em consideracao na hora de criar as
+disciplinas, visto que, como dito anteriormente, grande parte desses agrupamentos sao feitos com disciplinas que tem horarios conflitantes, e atualmente a nossa apliacao criaria uma 
+disciplina diferente para cada uma dessas disciplina e as alocaria em salas diferentes, teoricamente usuariamos uma quantidade menor de salas e tambem reduziria o numero de alocacoes
+necessarias. Mas parece ser uma mudanca bem drastica na abordagem.
+
+Extra: Olhando mais atentamente, percebi que:
+O "agrupamento" das disciplinas ocorre em dois casos diferentes, mesmo:
+- Materias que tem duas turmas e o curso nao eh de CC
+        - Exemplo: Agronomia (Inclusive, acho que Agronomia eh o unico em que caimos nesse primeiro caso)
+- Materias de 30h, onde uma comecao depois que a outra termina, mas ambas sao no memos horario
+        - Exemplo: Enfermagem, Pedagogia, Administracao e Letras.
+
+Mas enfim, acho que seguindo com a regra de agrupamento *** nos conseguimos suprir todos esses casos sem problema nenhum.
+So eh preciso pensar em como vamos fazer pra mostrar na tabela de saida essa parada de 2 disciplinas e etc.
+
+Faz sentido aproximar as salas de cursos em turnos diferentes?
+Diminuir o multiplicador da restricao de aproximação geográfica?
+
+Aconteceu uma coisa bem triste, reparei que existia um erro no arquivo de salas preferenciais do semestre 2023.2, adm tava alocada nas salas certas mas no bloco errado kkkkk,
+vou rodar uns testes dnv aqui.
+
+Revisar o funcionamento das salas preferenciais.
+
+As aulas que estão marcadas como "exclusivas de laboratórios" no ensalamento oficial deveriam ter o laboratório em questão
+associado diretamente ao código da matéria no arquivo de salas preferenciais.
+
+

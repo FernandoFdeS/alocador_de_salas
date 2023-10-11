@@ -45,6 +45,10 @@ class ExtraiHorariosAula:
     def extrai_horarios_aula(self):
         dados = pd.read_excel(self.arquivo, header=None)
 
+        nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA"]        
+        agrupamentos = dict()
+        agrupados=0
+
         salas_preferenciais = self.cria_salas_preferenciais()
         horarios_fixos = self.cria_horarios()
         fases,cursos=self.cria_fases()
@@ -65,7 +69,7 @@ class ExtraiHorariosAula:
         disciplinas = dict()
 
         for nome_curso, horario_disciplina in zip(nomes_cursos,horarios_disciplina):
-        
+            vai_agrupar=0
             cod_aula = horario_disciplina.split("-")
             cod_aula = cod_aula[0]
             cod_aula = cod_aula[:-1]
@@ -79,6 +83,14 @@ class ExtraiHorariosAula:
             horarios = horarios.split()
             #print(cod_aula+"_"+n_turma+" "+str(fase))
             horario_aula=dict()
+
+                 
+            fase_disciplina=re.findall(padrao_n_fase,horario_disciplina)
+            if fase_disciplina:
+                fase=fase_disciplina
+            else:
+                fase=[0] # optativas não tem fase, então serão colocadas como fase 0
+
             for horario in horarios:
                 dias=""
                 periodo=""
@@ -87,9 +99,21 @@ class ExtraiHorariosAula:
                 dias=resultado.group(1)
                 periodos=resultado.group(2)
                 faixas=resultado.group(3)
-
+                #print(cod_aula)
                 for dia in dias:
                     for periodo in periodos:
+
+                        if(nome_curso not in nao_agrupar and vai_agrupar==0):
+                            if(nome_curso=="AGRONOMIA"):
+                                chave_agrupamento=cod_aula+"_"+dia+periodo
+                            else:
+                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+dia+periodo
+                            #print(chave_agrupamento)
+                            if chave_agrupamento in agrupamentos:
+                                vai_agrupar=1
+                            else:
+                                agrupamentos[chave_agrupamento]=cod_aula+"_"+n_turma
+
                         for faixa in faixas:
                             dia_horario= int(dia)
                             faixa_horario = (int(periodo_map[periodo]))+int(faixa)
@@ -104,16 +128,19 @@ class ExtraiHorariosAula:
 
             if "FUSÃO" in nome_curso:
                 fusao=1
-            
-            fase_disciplina=re.findall(padrao_n_fase,horario_disciplina)
-            if fase_disciplina:
-                fase=fase_disciplina
-            else:
-                fase=[0] # optativas não tem fase, então serão colocadas como fase 0
+       
 
 
             disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
-            disciplinas[cod_aula+"_"+n_turma]=disciplina
+
+            if vai_agrupar==1:
+                #print(chave_agrupamento)
+                #print("agrupou:"+cod_aula+"_"+n_turma,agrupamentos[chave_agrupamento])
+                agrupados+=1
+                disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
+            else:
+                disciplinas[cod_aula+"_"+n_turma]=disciplina
+        print("Agrupamentos: ",agrupados)
 
         return disciplinas,horarios_fixos,fases,cursos
 

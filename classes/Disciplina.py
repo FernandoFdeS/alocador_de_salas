@@ -6,6 +6,7 @@ class Disciplina:
         self.salasPreferenciais = salasPreferenciais
         self.fase = int(fase[0])
         self.cod = cod
+        self.agrupamento = []
         self.fusao=fusao
         if("-" in curso):
             self.nome=curso
@@ -51,7 +52,18 @@ class Disciplina:
     def formata_saida(self):
         if (self.fusao==1): # Para as fusões.
             return ("FUSAO"+ self.nome+" ("+self.cod+")")
+        
+        if(len(self.agrupamento)>0):
+            if self.fase != 0:
+                return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+" - "+self.agrupamento[0].cod+") AGRUPAMENTO")
+            else:
+                return (self.abreviacao(self.curso)+" - opt ("+self.cod+" - "+self.agrupamento[0].cod+") AGRUPAMENTO")
+
+        
+        
         if self.fase != 0:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
         else:
             return (self.abreviacao(self.curso)+" - opt ("+self.cod+")")
+        
+       

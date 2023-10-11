@@ -13,10 +13,12 @@ def main():
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_cc_agro_med_enf_adm_geo.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx").extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
+
+    print(len(disciplinas))
 
     # Variaveis de ajuste de peso
     M1 = 250
