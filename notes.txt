@@ -32,6 +32,11 @@ Remover disciplinas de laboratorio ** Done **
                 GCH1119
 
 Agrupar as salas (roxinhos) ** Done **
+-> Melhorar sistema de alocacoes (horario) ? Exemplo: Em letras esta agrupando GLA104 & GLA552
+---->   Acho que as chaves de agrupamento devem ser assim: LETRAS_0_2T12345 e LETRAS_0_3456T1234, colocando o horario inteiro, ai esse tipo de problema seria evitado
+        ou ate mesmo LETRAS_0_2T12345_3456T1234 (acho que esse eh melhor)
+-> Como lidar com disciplinas "ESPECIAIS PARA TODOS OS CURSOS"
+
 
 Passar o arquivo de Salas Preferencias pelo main.py
 

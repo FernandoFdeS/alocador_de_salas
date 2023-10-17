@@ -24,7 +24,7 @@ def main():
     M1 = 250
     M2 = 150
     M3 = 2000
-    M4 = 50
+    M4 = 5
     M5 = 0.5
 
     # Variaveis
@@ -42,6 +42,14 @@ def main():
             if salasLista.index(si)<salasLista.index(sj):
                 for c in cursos:
                     t[si,sj,c] = m.addVar(vtype=gp.GRB.BINARY,name=f"t[{si}, {sj}, {c}]")
+
+    v = m.addVars(salasLista,fases,vtype=gp.GRB.BINARY,name="v")
+    u = {}
+    for si in salasLista:
+        for sj in salasLista:
+            if salasLista.index(si)<salasLista.index(sj):
+                for f in fases:
+                    u[si,sj,f] = m.addVar(vtype=gp.GRB.BINARY,name=f"u[{si}, {sj}, {f}]")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -63,7 +71,8 @@ def main():
     m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M1 +
                 gp.quicksum(vet_salas_preferenciais)*M2 +
                 gp.quicksum(vet_alocacoes)*M3 +
-                gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
+                gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * u[si,sj,f] for si in salas for sj in salas 
+                    if salasLista.index(si) < salasLista.index(sj) for f in fases)*M4+
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
                            if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
     sense=gp.GRB.MINIMIZE
@@ -104,6 +113,15 @@ def main():
 
     c8 = m.addConstrs(
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
+    )
+
+    c9 = m.addConstrs(
+        v[s,f] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso
+        #w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos if c == disciplinas[d].curso
+    )
+
+    c10 = m.addConstrs(
+        u[si,sj,f] >= (v[si,f]+v[sj,f] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for f in fases 
     )
 
     m.optimize()
