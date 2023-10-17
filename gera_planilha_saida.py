@@ -43,10 +43,21 @@ class GeraPlanilhaSaida:
                         ["SEG","TER","QUA","QUI","SEX","SAB","SEG","TER","QUA","QUI","SEX","SAB","SEG","TER","QUA","QUI","SEX","SAB"]]
 
         linha_salas=[]
+        blocoAtual = "A"
+        linha_salas.append("BLOCO "+blocoAtual)
         for s in self.salas:
-            linha_salas.append(s)    
+            blocoSala=s.split("-")[1]
+            if blocoAtual!=blocoSala:
+                blocoAtual=blocoSala
+                linha_salas.append("BLOCO "+blocoAtual)
+            linha_salas.append(s) 
 
         matriz = [['-' for coluna in range(len(coluna_horarios))] for linha in range(len(linha_salas))]
+        for linha in linha_salas:
+            if "BLOCO" in linha:
+                index = linha_salas.index(linha)
+                matriz[index] = ['#' for _ in range(len(coluna_horarios))]
+
 
         for d in self.disciplinas:
             disciplinas_qtd_alocacoes[d]=0
@@ -83,9 +94,11 @@ class GeraPlanilhaSaida:
         
         
         # Cria um DataFrame com rótulos personalizados
-        while(len(vet_nao_alocadas)<len(self.salas)):
+        while(len(vet_nao_alocadas)<len(linha_salas)):
             vet_nao_alocadas.append("-")
-        indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,self.salas],names=[qtdNaoAlocadas,'Salas'])
+        while(len(vet_nao_alocadas)>len(linha_salas)):
+            linha_salas.append("-")
+        indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,linha_salas],names=[qtdNaoAlocadas,'Salas'])
         df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)
         nome_arquivo = "planilha_alocacoes.xlsx"
         #df.to_csv(nome_arquivo, index=True)
@@ -102,6 +115,7 @@ class GeraPlanilhaSaida:
             coluna_letra = chr(coluna)
             worksheet.column_dimensions[coluna_letra].width = (5 * 8.43)
         worksheet.column_dimensions["A"].width = (8.43*2.2)
+        worksheet.column_dimensions["B"].width = (8.43*1.3)
 
         # Estilzando o HEADER (turnos)
         estilo_header = openpyxl.styles.NamedStyle(name="estilo_header")
@@ -187,7 +201,19 @@ class GeraPlanilhaSaida:
             bottom=Side(style="thin", color="000000"),  # Borda inferior branca
         )
 
-        for row in ws.iter_rows(min_row=4, min_col=3):
+        bloco = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")
+        bloco = openpyxl.styles.NamedStyle(name="bloco")
+        bloco.fill = PatternFill(start_color="000000", end_color="000000", fill_type="solid")  # Fundo preto
+        bloco.font = Font(name="Arial",color="FFFFFF",bold=True)
+        bloco.alignment = Alignment(horizontal="center", vertical="center")
+        bloco.border = Border(
+            left=Side(style="thin", color="000000"),  # Borda esquerda branca
+            right=Side(style="thin", color="000000"),  # Borda direita branca
+            top=Side(style="thin", color="000000"),  # Borda superior branca
+            bottom=Side(style="thin", color="000000"),  # Borda inferior branca
+        )
+
+        for row in ws.iter_rows(min_row=4, min_col=2):
             for cell in row:
                 if "FUSAO" in cell.value:
                     cell.style = fusao
@@ -198,6 +224,9 @@ class GeraPlanilhaSaida:
                 if "AGRUPAMENTO" in cell.value:
                     cell.style = agrupamento
                     cell.value = cell.value.replace("AGRUPAMENTO","")
+                if "BLOCO" in cell.value or "#" in cell.value:
+                    cell.style = bloco
+                    cell.value = cell.value.replace("#","")
 
 
         workbook.save(nome_arquivo)
