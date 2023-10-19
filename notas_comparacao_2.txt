@@ -1,7 +1,5 @@
 Comparando: aproximação de fase metodo 2 x aproximação de fase metodo 1 + salas de laboratorio
 
-Obs: Solucao com gap de 0.10%
-
 Matutino  ==============
 
 Quarta: optativa de ADM foi parar em outro bloco
