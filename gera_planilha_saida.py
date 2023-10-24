@@ -36,11 +36,11 @@ class GeraPlanilhaSaida:
         alocacoes=[]
 
         # Coluna de horarios utilizado para criação da matriz usada para geração do aqruivo final
-        coluna_horarios=["SEG-M","TER-M","QUA-M","QUI-M","SEX-M","SAB-M","SEG-V","TER-V","QUA-V","QUI-V","SEX-V","SAB-V","SEG-N","TER-N","QUA-N","QUI-N","SEX-N","SAB-N"]
+        coluna_horarios=["SEG-M","TER-M","QUA-M","QUI-M","SEX-M","SAB-M","#","SEG-V","TER-V","QUA-V","QUI-V","SEX-V","SAB-V","#","SEG-N","TER-N","QUA-N","QUI-N","SEX-N","SAB-N"]
         
         # Coluna de horarios utilizados como header no arquivo de saída para facilitar a compreensão
-        coluna_horarios_csv=[["MATUTINO","-","-","-","-","-","VESPERTINO","-","-","-","-","-","NOTURNO","-","-","-","-","-"],
-                        ["SEG","TER","QUA","QUI","SEX","SAB","SEG","TER","QUA","QUI","SEX","SAB","SEG","TER","QUA","QUI","SEX","SAB"]]
+        coluna_horarios_csv=[["MATUTINO","-","-","-","-","-","#","VESPERTINO","-","-","-","-","-","#","NOTURNO","-","-","-","-","-"],
+                        ["SEG","TER","QUA","QUI","SEX","SAB","#","SEG","TER","QUA","QUI","SEX","SAB","#","SEG","TER","QUA","QUI","SEX","SAB"]]
 
         linha_salas=[]
         blocoAtual = "A"
@@ -57,6 +57,12 @@ class GeraPlanilhaSaida:
             if "BLOCO" in linha:
                 index = linha_salas.index(linha)
                 matriz[index] = ['#' for _ in range(len(coluna_horarios))]
+        
+        for coluna in range(len(coluna_horarios)):
+            for linha in range(len(linha_salas)):
+                if "#" in coluna_horarios[coluna]:
+                    matriz[linha][coluna]="#"
+        
 
 
         for d in self.disciplinas:
@@ -109,13 +115,15 @@ class GeraPlanilhaSaida:
         # Acesse a primeira planilha (índice 0) do arquivo
         worksheet = workbook.worksheets[0]
         worksheet.merge_cells("C1:H1")
-        worksheet.merge_cells("I1:N1")
-        worksheet.merge_cells("O1:T1")
-        for coluna in range(ord("C"), ord("T") + 1):
+        worksheet.merge_cells("J1:O1")
+        worksheet.merge_cells("Q1:V1")
+        for coluna in range(ord("C"), ord("V") + 1):
             coluna_letra = chr(coluna)
             worksheet.column_dimensions[coluna_letra].width = (5 * 8.43)
         worksheet.column_dimensions["A"].width = (8.43*2.2)
         worksheet.column_dimensions["B"].width = (8.43*1.3)
+        worksheet.column_dimensions["I"].width = (2)
+        worksheet.column_dimensions["P"].width = (2)
 
         # Estilzando o HEADER (turnos)
         estilo_header = openpyxl.styles.NamedStyle(name="estilo_header")
@@ -151,7 +159,7 @@ class GeraPlanilhaSaida:
             bottom=Side(style="thin", color="000000"),  # Borda inferior branca
         )
         # Dias da semana
-        for row in ws.iter_rows(min_row=2, max_row=2, min_col=3, max_col=20):
+        for row in ws.iter_rows(min_row=2, max_row=2, min_col=3, max_col=22):
             for cell in row:
                 cell.style = estilo_index
         # Salas
@@ -160,7 +168,7 @@ class GeraPlanilhaSaida:
                 cell.style = estilo_index
 
         # Alocações
-        for row in ws.iter_rows(min_row=3, min_col=3, max_col=20):  # Defina o intervalo C3:T3 até o final do arquivo
+        for row in ws.iter_rows(min_row=3, min_col=3, max_col=22):  # Defina o intervalo C3:T3 até o final do arquivo
             for cell in row:
                 cell.alignment = Alignment(horizontal="center", vertical="center")
 
@@ -201,32 +209,35 @@ class GeraPlanilhaSaida:
             bottom=Side(style="thin", color="000000"),  # Borda inferior branca
         )
 
-        bloco = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")
-        bloco = openpyxl.styles.NamedStyle(name="bloco")
-        bloco.fill = PatternFill(start_color="000000", end_color="000000", fill_type="solid")  # Fundo preto
-        bloco.font = Font(name="Arial",color="FFFFFF",bold=True)
-        bloco.alignment = Alignment(horizontal="center", vertical="center")
-        bloco.border = Border(
+        separador = PatternFill(start_color="ff7b59", end_color="ff7b59", fill_type="solid")
+        separador = openpyxl.styles.NamedStyle(name="separador")
+        separador.fill = PatternFill(start_color="000000", end_color="000000", fill_type="solid")  # Fundo preto
+        separador.font = Font(name="Arial",color="FFFFFF",bold=True)
+        separador.alignment = Alignment(horizontal="center", vertical="center")
+        separador.border = Border(
             left=Side(style="thin", color="000000"),  # Borda esquerda branca
             right=Side(style="thin", color="000000"),  # Borda direita branca
             top=Side(style="thin", color="000000"),  # Borda superior branca
             bottom=Side(style="thin", color="000000"),  # Borda inferior branca
         )
 
-        for row in ws.iter_rows(min_row=4, min_col=2):
+        for row in ws.iter_rows(min_row=1, min_col=2):
             for cell in row:
-                if "FUSAO" in cell.value:
-                    cell.style = fusao
-                    cell.value = cell.value.replace("FUSAO","")
-                if "COMPARTILHAMENTO" in cell.value:
-                    cell.style = compartilhamento
-                    cell.value = cell.value.replace("COMPARTILHAMENTO","")
-                if "AGRUPAMENTO" in cell.value:
-                    cell.style = agrupamento
-                    cell.value = cell.value.replace("AGRUPAMENTO","")
-                if "BLOCO" in cell.value or "#" in cell.value:
-                    cell.style = bloco
-                    cell.value = cell.value.replace("#","")
+                if cell.value is None:
+                    cell.style = separador
+                else:
+                    if "FUSAO" in cell.value:
+                        cell.style = fusao
+                        cell.value = cell.value.replace("FUSAO","")
+                    if "COMPARTILHAMENTO" in cell.value:
+                        cell.style = compartilhamento
+                        cell.value = cell.value.replace("COMPARTILHAMENTO","")
+                    if "AGRUPAMENTO" in cell.value:
+                        cell.style = agrupamento
+                        cell.value = cell.value.replace("AGRUPAMENTO","")
+                    if "BLOCO" in cell.value or "#" in cell.value:
+                        cell.style = separador
+                        cell.value = cell.value.replace("#","")
 
 
         workbook.save(nome_arquivo)
