@@ -34,7 +34,7 @@ def main():
             for s in salas:
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
-    z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
+    # z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
     w = m.addVars(salasLista,cursos,vtype=gp.GRB.BINARY,name="w")
     t = {}
     for si in salasLista:
@@ -73,7 +73,7 @@ def main():
                 gp.quicksum(vet_alocacoes)*M3 +
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * u[si,sj,f] for si in salas for sj in salas 
                     if salasLista.index(si) < salasLista.index(sj) for f in fases)*M4+
-                #gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
+                # gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
                            if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
     sense=gp.GRB.MINIMIZE
@@ -101,10 +101,10 @@ def main():
     c5 = m.addConstrs(
         y[d,s] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
     
-    # # Contagem de alocações por fase de curso
-    # c6 = m.addConstrs(
-    #      z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso)
-    #      #z[s,disciplinas[d].get_fase()] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
+    # # # Contagem de alocações por fase de curso
+    # # c6 = m.addConstrs(
+    # #      z[s,f] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso)
+
 
     # Uma sala é alocada a um cusro se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
     c7 = m.addConstrs(

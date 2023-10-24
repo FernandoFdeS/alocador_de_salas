@@ -70,6 +70,7 @@ class ExtraiHorariosAula:
 
         for nome_curso, horario_disciplina in zip(nomes_cursos,horarios_disciplina):
             vai_agrupar=0
+            verifica_chave=0
             cod_aula = horario_disciplina.split("-")
             cod_aula = cod_aula[0]
             cod_aula = cod_aula[:-1]
@@ -103,19 +104,21 @@ class ExtraiHorariosAula:
                 for dia in dias:
                     for periodo in periodos:
 
-                        if(nome_curso not in nao_agrupar and vai_agrupar==0):
+                        if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0):
                             if(nome_curso=="AGRONOMIA"):
                                 chave_agrupamento=cod_aula+"_"+dia+periodo
                             else:
-                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+dia+periodo+faixas
-                            #print(chave_agrupamento+faixas)
+                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(dias)+str(periodos)+str(faixas)
+                            print(chave_agrupamento)
                             for chave in agrupamentos:
-                                if chave_agrupamento in chave:
+                                if chave_agrupamento == chave:
                                     vai_agrupar=1
+                                    verifica_chave=1
                                     chave_agrupamento=chave
                                     break
                             else:
                                 agrupamentos[chave_agrupamento]=cod_aula+"_"+n_turma
+                        verifica_chave=1
 
                         for faixa in faixas:
                             dia_horario= int(dia)
@@ -137,8 +140,8 @@ class ExtraiHorariosAula:
             disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
 
             if vai_agrupar==1:
-                #print(chave_agrupamento)
-                #print("agrupou:"+cod_aula+"_"+n_turma,agrupamentos[chave_agrupamento])
+                print(chave_agrupamento)
+                print("agrupou: "+cod_aula+"_"+n_turma,agrupamentos[chave_agrupamento])
                 agrupados+=1
                 disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
             else:
