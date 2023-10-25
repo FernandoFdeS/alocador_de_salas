@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Alocador de salas 2000</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://kit.fontawesome.com/ace778597c.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body class="container-fluid col-6">
+        <div class="row ">
+            <div class="main col-sm-8 col-12 p-2">              
+                <p class="display-4 text-center"> Alocador de salas 2000 </p>
+                <form action="#" class="form-control" enctype="multipart/form-data">
+
+                    <label for="horarios">Arquivo de horários: </label>
+                    <label for="horarios" class="button" id="btn-horarios"><span class="p-2">Escolha o arquivo de horários</span><i class="fa-solid fa-file-arrow-up"></i></label>
+                    <input type="file" name="horarios" id="horarios" class="btn col-12">
+                    <div id="helpHorario" class="form-text mb-3">
+                        <a href="./dados/horarios_exemplo.xlsx" download>Arquivo de exemplo para horários</a>
+                    </div>
+
+                    <label for="salas">Arquivo de salas: </label>
+                    <label for="salas" class="button" id="btn-salas"><span class="p-2">Escolha o arquivo de salas</span><i class="fa-solid fa-file-arrow-up"></i></label>
+                    <input type="file" name="salas" id="salas" class="btn col-12">
+                    <div id="helpSalas" class="form-text mb-3">
+                        <a href="./dados/salas_exemplo.xlsx" download>Arquivo de exemplo para salas</a>
+                    </div>
+
+                    <label for="salas_preferenciais">Arquivo de salas preferenciais: </label>
+                    <label for="salas_preferenciais" class="button" id="btn-salas_preferenciais"><span class="p-2">Escolha o arquivo de salas preferenciais</span><i class="fa-solid fa-file-arrow-up"></i></label>
+                    <input type="file" name="salas_preferenciais" id="salas_preferenciais" class="btn col-12">
+                    <div id="helpSalasPreferenciais" class="form-text mb-3">
+                        <a href="./dados/salas_preferenciais_exemplo.xlsx" download>Arquivo de exemplo para salas preferenciais</a>
+                    </div>
+
+                    <label for="email">E-mail: </label>
+                    <input type="email" name="email" id="email" class="form-control">
+                    <div id="emailHelp" class="form-text">
+                        E-mail para onde será enviada a planilha de alocações gerada.
+                    </div>
+                    <input type="submit" class="btn btn-outline-success col-12 mt-2">
+                </form>
+            </div>
+        </div>
+    </body>
+    <script>
+        document.getElementById('horarios').addEventListener('change', function () {
+            var nArquivos = this.files.length;
+            if (nArquivos > 0) {
+                document.getElementById('btn-horarios').innerHTML = 'Arquivo de horários escolhido <i class="fa-solid fa-check"></i>';
+                document.getElementById('btn-horarios').style.backgroundColor = '#006633';
+            } else {
+                document.getElementById('btn-horarios').innerHTML = 'Escolha o arquivo de horários';
+                document.getElementById('btn-horarios').style.backgroundColor = '#009900';
+            }
+        });
+        document.getElementById('salas').addEventListener('change', function () {
+            var nArquivos = this.files.length;
+            if (nArquivos > 0) {
+                document.getElementById('btn-salas').innerHTML = 'Arquivo de salas escolhido <i class="fa-solid fa-check"></i>';
+                document.getElementById('btn-salas').style.backgroundColor = '#006633';
+            } else {
+                document.getElementById('btn-salas').innerHTML = 'Escolha o arquivo de salas';
+                document.getElementById('btn-salas').style.backgroundColor = '#009900';
+            }
+        });
+        document.getElementById('salas_preferenciais').addEventListener('change', function () {
+            var nArquivos = this.files.length;
+            if (nArquivos > 0) {
+                document.getElementById('btn-salas_preferenciais').innerHTML = 'Arquivo de salas preferenciais escolhido <i class="fa-solid fa-check"></i>';
+                document.getElementById('btn-salas_preferenciais').style.backgroundColor = '#006633';
+            } else {
+                document.getElementById('btn-salas_preferenciais').innerHTML = 'Escolha o arquivo de salas preferenciais';
+                document.getElementById('btn-salas_preferenciais').style.backgroundColor = '#009900';
+            }
+        });
+    </script>
+</html>
+

@@ -1,0 +1,51 @@
+body{
+    overflow-x: hidden;
+    width: 100%;
+    height:100vh;
+    /* background-image: url("./imgs/background.png"); */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size:cover;
+    z-index: -2;
+}
+
+.main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+input[type="file"]{
+    margin: 0px;
+    padding: 0px;
+    display: none;
+}
+
+.button{
+    background-color: #009900;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: light;
+    width: auto;
+    display: block;
+    text-align: center;
+    transition: 0.3s ease;        
+}
+
+.button:hover{
+    background-color: #006633;
+}
+
+a{
+    cursor: pointer;
+    color: grey;
+    transition: 0.3s ease; 
+}
+
+a:hover{
+    color: black;
+}
