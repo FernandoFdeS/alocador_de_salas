@@ -5,8 +5,9 @@ from classes.Fase import Fase
 from classes.Horario import Horario
 
 class ExtraiHorariosAula:
-    def __init__ (self, arquivo):
-        self.arquivo =arquivo
+    def __init__ (self, arquivoHorarios, arquivoSalasPreferenciais):
+        self.arquivoHorarios = arquivoHorarios
+        self.arquivoSalasPreferenciais = arquivoSalasPreferenciais
 
     def cria_horarios(self):
         horarios_fixos = dict()
@@ -26,7 +27,7 @@ class ExtraiHorariosAula:
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
         salas_preferenciais_dict = dict()
-        dados = pd.read_excel("dados/salas_preferenciais_2023.2.xlsx");
+        dados = pd.read_excel(self.arquivoSalasPreferenciais);
         indices = dados.iloc[:, 0]
         salas_preferenciais = dados.iloc[:, 1]
 
@@ -43,7 +44,7 @@ class ExtraiHorariosAula:
 
 
     def extrai_horarios_aula(self):
-        dados = pd.read_excel(self.arquivo, header=None)
+        dados = pd.read_excel(self.arquivoHorarios, header=None)
 
         nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA"]        
         agrupamentos = dict()

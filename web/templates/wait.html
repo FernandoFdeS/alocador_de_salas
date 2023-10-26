@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Processando Alocações</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/ace778597c.js" crossorigin="anonymous"></script>    
+    <style>
+        /* Estilos para centralizar o conteúdo e o ícone de carregamento */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .loading-container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        a{
+            cursor: pointer;
+            color: #009900;
+            transition: 0.3s ease; 
+        }
+
+        a:hover{
+            color: #006633;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <div id="processando">
+            <p class="display-4 mb-0">Processando Alocações</p>
+            <div id="emailSolve" class="form-text">
+                <p class="mb-1">Fique tranquilo, a alcocação está sendo gerada e será enviada para seu e-mail.</p>
+                <p class="mb-2">Inclusive pode fechar essa página se quiser (mas se não quiser tudo bem).</p>
+            </div>
+            <i class="fa-solid fa-spinner fa-spin mt-3 fa-xl" style="color: #217709;"></i>
+        </div>
+        <div id="processado" style="display: none;">
+            <p class="display-4 mb-0">Alocações processadas</p>
+            <div id="emailSolve" class="form-text">
+                <p class="mb-1">Deu boa! Sua alocação foi gerada com sucesso!</p>
+                <p class="mb-2">Se quiser, pode clicar <a href="{{ url_for('static', filename='dados/planilha_alocacoes.xlsx') }}"  download>aqui</a> para baixá-la</p>
+            </div>
+            <i class="fa-solid fa-check  mt-3 fa-xl" style="color: #217709;"></i>
+        </div>
+    </div>
+    <script>
+        function checkStatus() {
+            $.ajax({
+                url: '/check_status',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.complete) {
+                        $('#processando').css('display', 'none');
+                        $('#processado').css('display', 'block');
+                    } else {
+                        setTimeout(checkStatus, 5000);  
+                    }
+                },
+                error: function () {
+                setTimeout(checkStatus, 5000);
+                }
+            });
+        }
+        checkStatus(); 
+    </script>
+</body>
+</html>

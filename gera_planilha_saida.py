@@ -4,12 +4,13 @@ import openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 
 class GeraPlanilhaSaida:
-    def __init__ (self, disciplinas,salas, horarios,x):
+    def __init__ (self, disciplinas,salas, horarios,x,caminho,nome_arquivo):
         self.disciplinas = disciplinas
         self.salas= salas
         self.horarios = horarios
         self.x = x # a famigerada varaivel de decisao
-
+        self.caminho = caminho
+        self.nome_arquivo = nome_arquivo
     # Utilizado pra "debug".
     def cria_csv_alocacoes(self):
         alocacoes=[]
@@ -106,12 +107,11 @@ class GeraPlanilhaSaida:
             linha_salas.append("-")
         indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,linha_salas],names=[qtdNaoAlocadas,'Salas'])
         df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)
-        nome_arquivo = "planilha_alocacoes.xlsx"
-        #df.to_csv(nome_arquivo, index=True)
+        
 
-        df.to_excel(nome_arquivo, index=True,engine='openpyxl')
+        df.to_excel(self.nome_arquivo, index=True,engine='openpyxl')
         ## Personalizando a planilha
-        workbook = openpyxl.load_workbook(nome_arquivo)
+        workbook = openpyxl.load_workbook(self.nome_arquivo)
         # Acesse a primeira planilha (índice 0) do arquivo
         worksheet = workbook.worksheets[0]
         worksheet.merge_cells("C1:H1")
@@ -240,7 +240,7 @@ class GeraPlanilhaSaida:
                         cell.value = cell.value.replace("#","")
 
 
-        workbook.save(nome_arquivo)
+        workbook.save(self.caminho+self.nome_arquivo)
 
         workbook.close()
 

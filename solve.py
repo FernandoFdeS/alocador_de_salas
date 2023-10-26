@@ -8,12 +8,13 @@ from gera_planilha_saida import GeraPlanilhaSaida
 import gurobipy as gp
 from gurobipy import GRB
 
-def main():
-    salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
+def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
+    print(arquivo_salas)
+    salas = ExtraiSalas(arquivo_salas).extrai_salas()
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula(arquivo_horarios,arquivo_salas_preferenciais).extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -34,7 +35,7 @@ def main():
             for s in salas:
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
-    # z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
+    z = m.addVars(salas,fases,vtype=gp.GRB.BINARY,name="z")
     w = m.addVars(salasLista,cursos,vtype=gp.GRB.BINARY,name="w")
     t = {}
     for si in salasLista:
@@ -43,13 +44,13 @@ def main():
                 for c in cursos:
                     t[si,sj,c] = m.addVar(vtype=gp.GRB.BINARY,name=f"t[{si}, {sj}, {c}]")
 
-    v = m.addVars(salasLista,fases,vtype=gp.GRB.BINARY,name="v")
-    u = {}
-    for si in salasLista:
-        for sj in salasLista:
-            if salasLista.index(si)<salasLista.index(sj):
-                for f in fases:
-                    u[si,sj,f] = m.addVar(vtype=gp.GRB.BINARY,name=f"u[{si}, {sj}, {f}]")
+    # v = m.addVars(salasLista,fases,vtype=gp.GRB.BINARY,name="v")
+    # u = {}
+    # for si in salasLista:
+    #     for sj in salasLista:
+    #         if salasLista.index(si)<salasLista.index(sj):
+    #             for f in fases:
+    #                 u[si,sj,f] = m.addVar(vtype=gp.GRB.BINARY,name=f"u[{si}, {sj}, {f}]")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -71,9 +72,9 @@ def main():
     m.setObjective(gp.quicksum(y[d,s] for d in disciplinas for s in salas)*M1 +
                 gp.quicksum(vet_salas_preferenciais)*M2 +
                 gp.quicksum(vet_alocacoes)*M3 +
-                gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * u[si,sj,f] for si in salas for sj in salas 
-                    if salasLista.index(si) < salasLista.index(sj) for f in fases)*M4+
-                # gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
+                # gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * u[si,sj,f] for si in salas for sj in salas 
+                #     if salasLista.index(si) < salasLista.index(sj) for f in fases)*M4+
+                gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
                            if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
     sense=gp.GRB.MINIMIZE
@@ -109,28 +110,30 @@ def main():
     # Uma sala é alocada a um cusro se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
     c7 = m.addConstrs(
         w[s,disciplinas[d].curso] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios 
+        #w[s,c] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for c in cursos if c == disciplinas[d].curso
     )
 
     c8 = m.addConstrs(
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
 
-    c9 = m.addConstrs(
-        v[s,f] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso
-    )
+    # c9 = m.addConstrs(
+    #     v[s,f] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso
+    # )
 
-    c10 = m.addConstrs(
-        u[si,sj,f] >= (v[si,f]+v[sj,f] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for f in fases 
-    )
+    # c10 = m.addConstrs(
+    #     u[si,sj,f] >= (v[si,f]+v[sj,f] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for f in fases 
+    # )
 
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")       
+      
+        # GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
     else:
         print("Solução -> não <- ótima.")
 
-    # Debug
     # print(M1,M2,M3,M4,M5)
     # for c in cursos:
     #     for si in salasLista:
@@ -146,7 +149,5 @@ def main():
     #                     print("Alocação em sala preferencial: "+d,s,h)
 
 
-    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
+    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"./web/static/dados/","planilha_alocacoes.xlsx").exporta_alocacoes()
 
-
-main()
