@@ -4,7 +4,7 @@
         <meta name="viewport"
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Alocador de salas 2000</title>
+        <title>Alocador de salas</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/ace778597c.js" crossorigin="anonymous"></script>
@@ -13,7 +13,7 @@
     <body class="container-fluid col-6">
         <div class="row ">
             <div class="main col-sm-8 col-12 p-2">              
-                <p class="display-4 text-center mb-2"> Alocador de salas 2000 </p>
+                <p class="display-4 text-center mb-2">Alocador de salas</p>
                 <div id="processando" class="form-text text-center" style="display: none;">
                     <p class="text-muted mt-1 mb-1"> Ei, parece que você já tem um pedido de alocação feito, para verificá-lo clique <a href="{{ url_for('wait') }}">aqui</a></p>
                 </div>
@@ -40,12 +40,7 @@
                         <a href="{{ url_for('static', filename='dados/salas_preferenciais_exemplo.xlsx') }}" download>Arquivo de exemplo para salas preferenciais</a>
                     </div>
 
-                    <label for="email">E-mail: </label>
-                    <input type="email" name="email" id="email" class="form-control" required>
-                    <div id="emailHelp" class="form-text">
-                        E-mail para onde será enviada a planilha de alocações gerada.
-                    </div>
-                    <input type="submit" class="btn btn-outline-success col-12 mt-2"  onclick="alerta();">
+                    <input type="submit" class="btn btn-outline-success col-12 mt-2" >
                 </form>
             </div>
         </div>
@@ -81,13 +76,6 @@
                 document.getElementById('btn-salas_preferenciais').style.backgroundColor = '#009900';
             }
         });
-        function confirmSubmit() {
-            if (confirm("Deseja iniciar o processo de alocação? O resultado final será enviado no e-mail fornecido")) {
-                return true;
-            } else {
-                return false;
-            }
-        };
         function checkStatus() {
             $.ajax({
                 url: '/check_status',
