@@ -80,7 +80,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     )
 
     ## == Restricoes
-
+    m = gp.Model()
     # No máximo uma disciplina (turma) pode ser alocada a uma sala em um determinado horário:
     c1 = m.addConstrs(
         gp.quicksum(x[d, s, h] for d in disciplinas if h in disciplinas[d].horarios) <= 1
@@ -122,6 +122,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     )
     
 
+    m.setParam(GRB.Param.TimeLimit, 18000) # Tempo limite de 5 horas
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:

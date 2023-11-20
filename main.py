@@ -11,10 +11,13 @@ from gurobipy import GRB
 def main():
     salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
     salasLista = list(salas.keys())
+    
+    
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
- 
+        
+  
     # Criando o modelo
     m = gp.Model()
 
@@ -122,7 +125,7 @@ def main():
     )
 
    
-
+    m.setParam(GRB.Param.TimeLimit, 18000) # Tempo limite de 5 horas
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
@@ -144,7 +147,6 @@ def main():
     #         for s in disciplinas[d].salasPreferenciais:
     #                 if(x[d,s,h].X == 1):
     #                     print("Alocação em sala preferencial: "+d,s,h)
-
 
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
 
