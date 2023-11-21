@@ -1,0 +1,10 @@
+Teste: 2023.2 ---- v1
+Rodou por 5 horas -> gap de 0.4835%
+Todas as aulas foram alocadas.
+Rodei removendo as salas de espacos ajeitados pela primeira vez
+de 48 salas, 46 foram utilizadas.
+
+
+Teste: 2023.2 ---- v2
+Rodou por 5 horas -> gap de 0.5224%
+Todas as aulas foram alocadas.
