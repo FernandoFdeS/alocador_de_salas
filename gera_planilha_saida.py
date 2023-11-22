@@ -89,14 +89,14 @@ class GeraPlanilhaSaida:
                         linha = linha_salas.index(s)
                         coluna=(coluna_horarios.index(self.horarios[h].converte_horario()))
                         if(matriz[linha][coluna]=='-'):
-                            matriz[linha][coluna] = self.disciplinas[d].formata_saida()
-                        elif (self.disciplinas[d].formata_saida() not in matriz[linha][coluna]):
-                            matriz[linha][coluna] = matriz[linha][coluna] +" | "+self.disciplinas[d].formata_saida()+" COMPARTILHAMENTO"
+                            matriz[linha][coluna] = self.disciplinas[d].formata_saida(self.horarios[h].converte_horario())
+                        elif (self.disciplinas[d].formata_saida(self.horarios[h].converte_horario()) not in matriz[linha][coluna]):
+                            matriz[linha][coluna] = matriz[linha][coluna] +" | "+self.disciplinas[d].formata_saida(self.horarios[h].converte_horario())+" COMPARTILHAMENTO"
         
         # Gera vetor de disciplinas não alocadas para ser usado no arquivo de saida
         vet_nao_alocadas=[]
         for d in disciplinas_nao_alocadas:
-            vet_nao_alocadas.append(self.disciplinas[d].formata_saida())
+            vet_nao_alocadas.append(self.disciplinas[d].formata_saida(self.horarios[h].converte_horario()))
         qtdNaoAlocadas=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")") 
         
         

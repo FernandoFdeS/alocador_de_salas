@@ -1,3 +1,5 @@
+from classes.Horario import Horario
+
 class Disciplina:
     def __init__(self,curso,alunos,horarios,salasPreferenciais,fase,cod,fusao):
         self.curso = curso
@@ -49,17 +51,19 @@ class Disciplina:
         else: # no caso das optativas
             return curso
     
-    def formata_saida(self):
+    def formata_saida(self,horario_planilha):
         if (self.fusao==1): # Para as fusões.
             return ("FUSAO"+ self.nome+" ("+self.cod+")")
         
         if(len(self.agrupamento)>0):
-            if self.fase != 0:
-                return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+" - "+self.agrupamento[0].cod+") AGRUPAMENTO")
-            else:
-                return (self.abreviacao(self.curso)+" - opt ("+self.cod+" - "+self.agrupamento[0].cod+") AGRUPAMENTO")
-
-        
+            for horario in self.agrupamento[0].horarios:
+                faixa=horario.split("_")[2]
+                dia=horario.split("_")[1]
+                obj=Horario(int(dia),int(faixa))
+                if(obj.converte_horario()==horario_planilha):
+                    return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+" - "+self.agrupamento[0].cod+") AGRUPAMENTO")
+                else:
+                    del obj
         
         if self.fase != 0:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")

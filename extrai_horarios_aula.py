@@ -82,12 +82,19 @@ class ExtraiHorariosAula:
             horarios = horarios[-1].split(":")
             horarios = horarios[1]
             horarios = horarios[:-3]
+            todos_horarios = horarios
+            todos_horarios = todos_horarios.replace(" ", "")
             horarios = horarios.split()
             #print(cod_aula+"_"+n_turma+" "+str(fase))
             horario_aula=dict()
 
+            fusao=0
+            if "FUSÃO" in nome_curso:
+                fusao=1
+
                  
             fase_disciplina=re.findall(padrao_n_fase,horario_disciplina)
+            #print(todos_horarios)
             if fase_disciplina:
                 fase=fase_disciplina
             else:
@@ -101,20 +108,39 @@ class ExtraiHorariosAula:
                 dias=resultado.group(1)
                 periodos=resultado.group(2)
                 faixas=resultado.group(3)
-                #print(cod_aula)
                 for dia in dias:
                     for periodo in periodos:
 
-                        if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0):
+                        if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0 and fase!=[0] and fusao==0):
                             if(nome_curso=="AGRONOMIA"):
-                                chave_agrupamento=cod_aula+"_"+dia+periodo
+                                chave_agrupamento=cod_aula+"_"+periodo+"_"+dia
                             else:
-                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(dias)+str(periodos)+str(faixas)
-                            print(chave_agrupamento)
+                                #chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(dias)+str(periodos)+str(faixas)
+                                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(todos_horarios)
+                            #print("Chave da vez: "+ chave_agrupamento)
                             for chave in agrupamentos:
-                                if chave_agrupamento == chave:
+                                #print("chave: "+chave)
+                                #print("chave_agrupamento: "+chave_agrupamento)
+                                fase_chave = chave.split("_")[0]+chave.split("_")[1]
+                                fase_chave_agrupamento = chave_agrupamento.split("_")[0]+chave_agrupamento.split("_")[1]
+                                horario_chave = chave.split("_")[2]
+                                horario_chave_agrupamento = chave_agrupamento.split("_")[2]
+
+                                if (fase_chave!=fase_chave_agrupamento):
+                                    continue
+                                
+                                if(len(horario_chave)<len(horario_chave_agrupamento)):
+                                    backup=horario_chave
+                                    horario_chave=horario_chave_agrupamento
+                                    horario_chave_agrupamento=backup
+
+                                if horario_chave_agrupamento in horario_chave:
+                                #if horario_chave.find(horario_chave_agrupamento)!=-1:
                                     vai_agrupar=1
                                     verifica_chave=1
+                                    # verifica
+                                    # print("Chave agrupamento: "+chave_agrupamento)
+                                    # print("Chave: "+chave)
                                     chave_agrupamento=chave
                                     break
                             else:
@@ -127,24 +153,33 @@ class ExtraiHorariosAula:
                             horario_aula["Horario_{}_{}".format(dia_horario,faixa_horario)]=Horario(dia_horario,faixa_horario)
                 
             sp = []
-            fusao=0
             if nome_curso in salas_preferenciais:
                 sp = salas_preferenciais[nome_curso]
             if cod_aula in salas_preferenciais:
                 sp = salas_preferenciais[cod_aula]
 
-            if "FUSÃO" in nome_curso:
-                fusao=1
-       
 
+       
 
             disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
 
             if vai_agrupar==1:
-                print(chave_agrupamento)
-                print("agrupou: "+cod_aula+"_"+n_turma,agrupamentos[chave_agrupamento])
+                #print(chave_agrupamento)
+                #print("agrupou: "+chave_agrupamento+" | "+cod_aula+"_"+n_turma,agrupamentos[chave_agrupamento])
                 agrupados+=1
-                disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
+
+                print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)))
+                print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)))
+                print("===")
+                #print("Colocando: "+disciplina.cod+" dentro da "+agrupamentos[chave_agrupamento])
+                if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
+                    disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
+                else:
+                    print("caiu no else poggers")
+                    disciplina.agrupamento.append(disciplinas[agrupamentos[chave_agrupamento]])
+                    disciplinas[disciplina.cod]=disciplina
+                    del(disciplinas[agrupamentos[chave_agrupamento]])
+
             else:
                 disciplinas[cod_aula+"_"+n_turma]=disciplina
         print("Agrupamentos: ",agrupados)

@@ -16,12 +16,14 @@ def main():
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
-        
-  
+    
+    print(len(disciplinas))    
+    
     # Criando o modelo
     m = gp.Model()
 
-    print(len(disciplinas))
+
+
 
     # Variaveis de ajuste de peso
     M1 = 250
@@ -75,9 +77,8 @@ def main():
                 gp.quicksum(vet_alocacoes)*M3 +
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * v[si,sj,f] for si in salas for sj in salas 
                     if salasLista.index(si) < salasLista.index(sj) for f in fases)*M4+
-                # gp.quicksum(z[s,f]for s in salas for f in fases)*M4+
                 gp.quicksum(matriz_dist[salasLista.index(si)][salasLista.index(sj)] * t[si,sj,c] for si in salas for sj in salas 
-                           if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
+                         if salasLista.index(si) < salasLista.index(sj) for c in cursos)*M5,
     sense=gp.GRB.MINIMIZE
     )
 
