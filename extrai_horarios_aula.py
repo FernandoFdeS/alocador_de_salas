@@ -131,7 +131,6 @@ class ExtraiHorariosAula:
                                     horario_chave_agrupamento=backup
 
                                 if horario_chave_agrupamento in horario_chave:
-                                #if horario_chave.find(horario_chave_agrupamento)!=-1:
                                     vai_agrupar=1
                                     verifica_chave=1
                                     # verifica
@@ -160,18 +159,14 @@ class ExtraiHorariosAula:
             disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
 
             if vai_agrupar==1:
-                #print(chave_agrupamento)
-                #print("agrupou: "+chave_agrupamento+" | "+cod_aula+"_"+n_turma,agrupamentos[chave_agrupamento])
                 agrupados+=1
 
-                print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)))
-                print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)))
-                print("===")
-                #print("Colocando: "+disciplina.cod+" dentro da "+agrupamentos[chave_agrupamento])
+                # print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)))
+                # print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)))
+                # print("===")
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
                 else:
-                    print("caiu no else poggers")
                     disciplina.agrupamento.append(disciplinas[agrupamentos[chave_agrupamento]])
                     disciplinas[disciplina.cod]=disciplina
                     del(disciplinas[agrupamentos[chave_agrupamento]])
