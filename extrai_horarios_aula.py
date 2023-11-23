@@ -115,12 +115,8 @@ class ExtraiHorariosAula:
                             if(nome_curso=="AGRONOMIA"):
                                 chave_agrupamento=cod_aula+"_"+periodo+"_"+dia
                             else:
-                                #chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(dias)+str(periodos)+str(faixas)
                                 chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(todos_horarios)
-                            #print("Chave da vez: "+ chave_agrupamento)
                             for chave in agrupamentos:
-                                #print("chave: "+chave)
-                                #print("chave_agrupamento: "+chave_agrupamento)
                                 fase_chave = chave.split("_")[0]+chave.split("_")[1]
                                 fase_chave_agrupamento = chave_agrupamento.split("_")[0]+chave_agrupamento.split("_")[1]
                                 horario_chave = chave.split("_")[2]

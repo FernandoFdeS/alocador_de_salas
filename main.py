@@ -23,8 +23,6 @@ def main():
     m = gp.Model()
 
 
-
-
     # Variaveis de ajuste de peso
     M1 = 250
     M2 = 150

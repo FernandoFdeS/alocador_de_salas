@@ -1,3 +1,10 @@
+==============================
+2023.2 - Infos:
+Salas: 52/52 (Manual)
+Salas: 46/48 (Aplicacao)
+453 Disciplinas ao total
+440 Disciplinas consideradas
+
 Teste: 2023.2 ---- v1
 Rodou por 5 horas -> gap de 0.4835%
 Todas as aulas foram alocadas.
@@ -9,4 +16,45 @@ Teste: 2023.2 ---- v2
 Rodou por 5 horas -> gap de 0.5224%
 Todas as aulas foram alocadas.
 
-Teste: 2023.2 ---- v3 (Novo método de agrupamento master blaster gigatonico que não deixa nada passar)
+Teste: 2023.2 ---- v3 (Novo método de agrupamento master blaster gigatonico que não deixa nada passar) (Vai ficar esse!)
+Rodou por 5 horas -> gap de 0.3% 
+Todas as aulas foram alocadas.
+
+==============================
+2023.1 - Infos:
+Salas: 50/50 (Manual)
+Salas: ?/44 (Aplicacao)
+496 Disciplinas ao total
+471 Disciplinas consideradas
+Removidas:
+Sem horarios na planilha original
+GEX212 (ADM - 1)
+GCH1279 (PED - 9)
+GCH1113 (PED - 6)
+GCH629 (GEO - 7)
+GEX562 (GEO - 6)
+GCH631 (GEO - 7)
+GCH635 (GEO - 9)
+GCH625 (GEO - 5)
+GEX212 (GEO - 1)
+GEX561 (GEO - 5)
+GCH624 (GEO - 5)
+GCH637 (GEO - 9)
+GEX208 (FIL - 3)
+GEX007 (AGRO - 1)
+
+=============================
+Extrator de salas 2.0
+
+Aumentar fases pra 12 (so na medicina)
+
+quando for fusao colocar assim no curso da turma
+disciplina="FUSAO:"+ curso_1 "-" + fase_curso_1 + "+" ...
+
+splita o horario pior "," 
+e em cada subdivisao splita por " " pega a primeira parte e joga num vetor se ela ja nao esta la (if (horario not in horarios[]))
+tmb joga na variavel todos_horarios, que vamo usar no agrupamento
+
+passa em cada um faz a extracao com o match la e cria os horarios bem bonitinhos
+
+
