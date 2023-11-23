@@ -17,7 +17,7 @@ Rodou por 5 horas -> gap de 0.5224%
 Todas as aulas foram alocadas.
 
 Teste: 2023.2 ---- v3 (Novo método de agrupamento master blaster gigatonico que não deixa nada passar) (Vai ficar esse!)
-Rodou por 5 horas -> gap de 0.3% 
+Rodou por 5 horas -> gap de 0.3016% 
 Todas as aulas foram alocadas.
 
 ==============================
