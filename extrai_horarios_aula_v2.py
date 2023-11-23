@@ -43,7 +43,7 @@ class ExtraiHorariosAulaV2:
     def extrai_horarios_aula(self):
         salas_preferenciais = self.cria_salas_preferenciais()
         horarios_fixos = self.cria_horarios()
-        fases,cursos=self.cria_fases()
+        fases,todos_cursos=self.cria_fases()
 
         disciplinas = dict()
 
@@ -188,6 +188,6 @@ class ExtraiHorariosAulaV2:
             #     print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao) # não tem o tamanho da turma nos horários   
        
         print("Agrupamentos: ",agrupados)
-        return disciplinas,horarios_fixos,fases,cursos
+        return disciplinas,horarios_fixos,fases,todos_cursos
        
 

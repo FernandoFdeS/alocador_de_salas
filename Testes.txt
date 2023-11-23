@@ -4,6 +4,7 @@ Salas: 52/52 (Manual)
 Salas: 46/48 (Aplicacao)
 453 Disciplinas ao total
 440 Disciplinas consideradas
+408 pos agrupamento
 
 Teste: 2023.2 ---- v1
 Rodou por 5 horas -> gap de 0.4835%
@@ -19,6 +20,7 @@ Todas as aulas foram alocadas.
 Teste: 2023.2 ---- v3 (Novo método de agrupamento master blaster gigatonico que não deixa nada passar) (Vai ficar esse!)
 Rodou por 5 horas -> gap de 0.3016% 
 Todas as aulas foram alocadas.
+de 48 salas, 46 foram utilizadas.
 
 ==============================
 2023.1 - Infos:
@@ -26,8 +28,9 @@ Salas: 50/50 (Manual)
 Salas: ?/44 (Aplicacao)
 496 Disciplinas ao total
 471 Disciplinas consideradas
+428 pos agrupamentos!
 Removidas:
-Sem horarios na planilha original
+Sem horarios na planilha original &
 GEX212 (ADM - 1)
 GCH1279 (PED - 9)
 GCH1113 (PED - 6)
@@ -42,6 +45,12 @@ GCH624 (GEO - 5)
 GCH637 (GEO - 9)
 GEX208 (FIL - 3)
 GEX007 (AGRO - 1)
+
+Teste: 2023.1 ---- v1
+Rodou por 5 horas -> gap de 0.4884%% 
+de 44 salas, 44 foram utilizadas.
+Alocou 425 de 428 disciplinas
+Utilizou todas as salas
 
 =============================
 Extrator de salas 2.0

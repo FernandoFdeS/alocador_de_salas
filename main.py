@@ -10,10 +10,8 @@ import gurobipy as gp
 from gurobipy import GRB
 
 def main():
-    salas = ExtraiSalas("./dados/salas_2023_2.csv").extrai_salas()
+    salas = ExtraiSalas("./dados/salas_2023_1.csv").extrai_salas()
     salasLista = list(salas.keys())
-    
-
     
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
@@ -21,7 +19,7 @@ def main():
     disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2023_1.xlsx","./dados/salas_preferenciais_2023.1.xlsx").extrai_horarios_aula()
     
     print(len(disciplinas))    
- 
+
     # Criando o modelo
     m = gp.Model()
 
