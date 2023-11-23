@@ -122,9 +122,10 @@ class ExtraiHorariosAulaV2:
             
             # Lidando com o agrupamento de disciplinas
             # (Nao vou explicar como funciona pq nem eu sei)
+
             verifica_chave=0
             vai_agrupar=0
-            if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0 and fase!=[0] and fusao==0):
+            if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0 and int(fase[0])!=0 and fusao==0):
                 if(nome_curso=="AGRONOMIA"):
                     chave_agrupamento=codigo+"_"+periodo+"_"+dia
                 else:
