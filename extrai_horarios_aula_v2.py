@@ -140,18 +140,23 @@ class ExtraiHorariosAulaV2:
                     if (fase_chave!=fase_chave_agrupamento):
                         continue
                     
-                    if(len(horario_chave)<len(horario_chave_agrupamento)):
-                        backup=horario_chave
-                        horario_chave=horario_chave_agrupamento
-                        horario_chave_agrupamento=backup
-
-                    if horario_chave_agrupamento in horario_chave:
-                        vai_agrupar=1
-                        verifica_chave=1
-                        chave_agrupamento=chave
+                    # if(len(horario_chave)<len(horario_chave_agrupamento)):
+                    #     backup=horario_chave
+                    #     horario_chave=horario_chave_agrupamento
+                    #     horario_chave_agrupamento=backup
+                    for horario in todos_horarios_aula:
+                        if horario in horario_chave:
+                            vai_agrupar=1
+                            verifica_chave=1
+                            chave_agrupamento=chave
+                            break
+                    if vai_agrupar==1 and verifica_chave ==1:
                         break
+                
                 else:
                     agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
+            if(vai_agrupar==0):
+                agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
             verifica_chave=1
 
             # Pegando as salas preferenciais da disciplina/turma

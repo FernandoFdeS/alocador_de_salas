@@ -54,13 +54,67 @@ Alocou 425 de 428 disciplinas
 Utilizou todas as salas
 
 ==============================
+Mudanca do tempo limite para 7h
+==============================
+
 2022.2 - Infos:
 
 47 Salas ao total.
-444 Disciplinas 
+443 Disciplinas 
 ** Falta remover as dos laboratórios **
+Assim, nao existe nenhuma disciplina sendo
+apontada como "somente para laboratorio".
+
+Todas as que aparecem alocadas nos laboratorios,
+tambem aparacem nas salas de aula, entao eu nao removi elas
+Entao, 443 disciplinas consideradas e paciencia.
+
+Com 585s ja estava em 3.74%
+Com 2608s chegou em 1.53%
+Com 4496s chegou em 0.99%
+Ficou desde 12225s em 0.5856%
+
+Teste: 2022.2 ---- v1
+Alocou tudo e usou todas as salas
+Mas tem alguns agrupamentos que eu nao sei pq n aconteceram, vou investigar melhor depois.
+gap de 0.5856%
+
+==== Remove as materias abaixo e melhora codigo de agrupamento bebebep
+
+Tem umas aulas que nao estao alocadas nas deles:
+GSA299 (MED - 9)
+GSA296 (MED - 11)
+
+Teste: 2022.2 ---- v2
+441 Disciplinas
+404 pos agrupamentos
+
+chegou em 0.36% em 11416s
+aos 15000s continuava em 0.3574%
+
+Estatistica basica pra Geo-2 nao foi aloacada na planilha deles 
 
 
+==============================
+2022.1 - Infos:
+Salas: 42
+
+486 disciplinas sem as remocoes
+476 disciplinas consideradas
+
+
+Removidas
+GEX562
+GEX561
+GCH635
+GCS010
+GCH167 (pedagogia)
+GCH166 (pedagogia)
+Letras - 9, na quarta e quinta de noite
+=============================
+=============================
+=============================
+=============================
 =============================
 Extrator de salas 2.0
 

@@ -19,8 +19,7 @@ def main():
     disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2022_2.xlsx","./dados/salas_preferenciais_2022.2.xlsx").extrai_horarios_aula()
     
     print(len(disciplinas))    
-    print(len(salas))    
-    return 0
+    print(len(salas))   
     # Criando o modelo
     m = gp.Model()
 
@@ -126,7 +125,8 @@ def main():
     )
 
    
-    m.setParam(GRB.Param.TimeLimit, 18000) # Tempo limite de 5 horas
+    m.setParam(GRB.Param.TimeLimit, 15000) # Tempo limite de 5 horas
+    #m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:

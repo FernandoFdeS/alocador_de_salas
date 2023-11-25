@@ -1,0 +1,46 @@
+SALAS,,,,,,,,,,,,,,,,,,,,CADEIRAS
+BLOCO A,MATUTINO,,,,,,VESPERTINO,,,,,,NOTURNO,,,,,ADM 3ª,SÁBADO,
+201,EAS – 1ª,EAS – 1ª,EAS – 1ª,EAS – 1ª,EAS – 1ª,,,,EAS – 1ª,EAS – 1ª,,,LET – 1ª,LET – 1ª,LET – 1ª,LET – 1ª,LET – 1ª,,LET – 1ª,30
+202,EAS – 3ª,EAS – 3ª,EAS – 3ª,EAS – 3ª,PROFMAT,,EAS – 3ª,EAS – 3ª,EAS – 3ª,EAS – 3ª,PROFMAT,,LET – 3ª,LET – 3ª,LET – 3ª,LET – 3ª,LET – 3ª,,,30
+203,EAS – 5ª,EAS – 5ª,EAS – 5ª,EAS – 5ª,EAS – 5ª,,EAS – 5ª,EAS – 5ª,EAS – 5ª,EAS – 5ª,,,LET – 5ª,LET – 5ª,LET – 5ª,LET – 5ª,LET – 5ª,,,30
+204,,EAS – 7ª,EAS – 7ª,EAS – 7ª,EAS – 7ª,,EAS – 7ª,EAS – 7ª,EAS – 7ª,EAS – 7ª,EAS – 9ª + 10ª,,LET – 7ª,LET – 7ª,LET – 7ª,LET – 7ª,LET – 7ª,,,30
+205,EAS – 9ª,EAS – 9ª,EAS – 9ª,EAS – 9ª,EAS – 9ª,,EAS – 9ª,EAS – 9ª,EAS – 9ª,EAS – 9ª + 10ª,EAS – 9ª,,CS – 9ª + LET – 9ª,LET – 9ª,PROHAITI,MED – 6ª,LET – 9ª,,,30
+206,PED – 9ª,PED – 9ª,PED – 9ª,PED – 9ª,PED – 9ª,,,,,,,,MED – 4ª,PED – 10ª,CS – 8ª,MED – 4ª,PED – 10ª,,,30
+207,PED – 7ª,PED – 7ª,PED – 7ª,PED – 7ª,PED – 7ª,,,,,,,,PED – 8ª,PED – 8ª,PED – 8ª,PED – 8ª,PED – 8ª,,,30
+208,PED – 5ª,PED – 5ª,PED – 5ª,PED – 5ª,PED – 5ª,,,,,,,,PED – 6ª,PED – 6ª,PED – 6ª,PED – 6ª,PED – 6ª,,,30
+209,PED – 3ª,PED – 3ª,PED – 3ª,PED – 3ª,PED – 3ª,,,,,,,,PED – 4ª,PED – 4ª,PED – 4ª,,PED – 4ª,,,30
+210,PED – 1ª,PED – 1ª,PED – 1ª,PED – 1ª,PED – 1ª,,PPGE,,,,,,PED – 2ª,PED – 2ª,PED – 2ª,PED – 2ª,PED – 2ª,,,30
+301,MED – 2ª,MED – 2ª,MED – 2ª,MED – 2ª,MED – 2ª,,MED – 2ª,MED – 2ª,MED – 2ª,MED – 2ª,MED – 2ª,,HIS – 1ª,HIS – 1ª,HIS – 1ª,HIS – 1ª,HIS – 1ª,,,30
+302,MED – 4ª,MED – 4ª,MED – 4ª,MED – 4ª,MED – 4ª,,MED – 4ª,MED – 4ª,MED – 4ª,MED – 4ª,MED – 4ª,,HIS – 3ª,HIS – 3ª,HIS – 3ª,HIS – 3ª,HIS – 3ª,,,30
+303,MED – 6ª,MED – 6ª,MED – 6ª,MED – 6ª,MED – 6ª,,MED – 6ª,MED – 6ª,MED – 6ª,MED – 6ª,MED – 6ª,,HIS – 5ª,HIS – 5ª,HIS – 5ª,HIS – 5ª,HIS – 5ª,,,30
+304,MED – 8ª,MED – 8ª,MED – 8ª,MED – 8ª,MED – 8ª,,LINGUAS – ESP,LINGUAS – ESP,LINGUAS – ESP,,,,HIS – 7ª,HIS – 7ª,HIS – 7ª,MED – 8ª,,,MED – 8ª,30
+305,,PPGCB,PPGCB,,,,PPGH,PPGH,,,,,HIS – 9ª,,HIS – 9ª,MAT – TF,PPGCB,,,30
+306 (100),,,,,,,,FIL – 7ª,,,,,FIL – 7ª,FIL – 9ª,FIL – 9ª,FIL – 7ª,FIL – 7ª,,FIL – 7ª,70
+307,,,PPGGEO,PPGGEO,,,PPGGEO,PPGFIL,PPGGEO,PPGGEO,,,PPGCB,FIL – 5ª,FIL – 5ª,MAT – 6ª,FIL – 9ª,,FIL – 9ª,30
+308,PPGE,PPGE,PPGEL,PPGEL,,,PPGE,PPGE,PPGEL,PPGEL,,,MED – 8ª,,FIL – 3ª,FIL – 3ª,FIL – 3ª,,,30
+309,,,,PPGEL,,,PPGE,LINGUAS – ESP,,PPGEL,,,FIL – 1ª,FIL – 1ª,FIL – 1ª,FIL – 1ª,FIL – 1ª,,FIL – 8ª,30
+BLOCO B,,,,,,,,,,,,,,,,,,,,
+105,,,,,,,LETRAS,LETRAS,LETRAS,LETRAS,LETRAS,,CS – 3ª,CS – 3ª,CS – 3ª,CS – 3ª,,,LETRAS,30
+106,CALC,CALC,CALC,CALC,CALC,,CALC,CALC,CALC,CALC,CALC,,CS – 5ª,CS – 5ª,CS – 5ª,CS – 5ª,CS – 5ª,,,30
+107,,,,,,,,AGRO – 10ª,CC – 1ª,CC – 1ª,,,CS – 1ª,CS – 1ª,CS – 1ª,CS – 1ª,CS – 1ª,,CS – 7ª,30
+201,AGRO – 9ª,AGRO – 9ª,,AGRO – 9ª,AGRO – 9ª,,,AGRO – 9ª,AGRO – 9ª,AGRO – 9ª,AGRO – 9ª,,GEO – 1ª,GEO – 1ª,GEO – 1ª,GEO – 1ª,GEO – 1ª,,,30
+202,AGRO – 7ª,AGRO – 7ª,AGRO – 7ª,AGRO – 7ª,AGRO – 7ª,,AGRO – 7ª,AGRO – 7ª,AGRO – 7ª,AGRO – 7ª,AGRO – 7ª,,FIL – 3ª + GEO – 3ª,GEO – 3ª,GEO – 3ª,GEO – 3ª,,,,30
+203,,AGRO – 5ª,AGRO – 5ª,AGRO – 5ª,AGRO – 5ª,,AGRO – 5ª,AGRO – 5ª,AGRO – 5ª,AGRO – 5ª,AGRO – 5ª,,PPGH,PPGH,GEO – 5ª,GEO – 5ª,GEO – 5ª,,,30
+204,AGRO – 3ª,AGRO – 3ª,AGRO – 3ª,AGRO – 3ª,AGRO – 3ª,,AGRO – 3ª,AGRO – 3ª,AGRO – 3ª,AGRO – 3ª,,,GEO – 7ª,GEO – 7ª,GEO – 7ª,GEO – 7ª,HIS – 7ª + GEO – 7ª,,,30
+205,,,AGRO – 1ª,AGRO – 1ª,AGRO – 1ª,,AGRO – 1ª,AGRO – 1ª,AGRO – 1ª,AGRO – 1ª,AGRO – 1ª,,GEO – 9ª,PIN,PIN,PIN,,,GEO – 9ª,30
+206,ADM – 9ª,ADM – 9ª,ADM – 9ª,ADM – 9ª,ADM – 9ª,,,CC – 7ª,CC – 7ª,CC – 7ª,CC – 7ª,,CC – 8ª,CC – 8ª,CC – 2ª DUPL,CC – 8ª,CC – 8ª,,ADM – 9ª,30
+207,ADM – 7ª,ADM – 7ª,ADM – 7ª,ADM – 7ª,ADM – 7ª,,,,,,,,ADM – 6ª,ADM – 6ª,ADM – 6ª,ADM – 6ª,ADM – 6ª,,,30
+208,ADM – 5ª,ADM – 5ª,ADM – 5ª,ADM – 5ª,ADM – 5ª,,,,,,,,ADM – 8ª,ADM – 8ª,ADM – 8ª,ADM – 8ª,ADM – 8ª,,,30
+209,ADM – 3ª,ADM – 3ª,ADM – 3ª,ADM – 3ª,ADM – 3ª,,,,,,,,ADM – 4ª,ADM – 4ª,ADM – 4ª,ADM – 4ª,ADM – 4ª,,,30
+210,ADM – 1ª,ADM – 1ª,ADM – 1ª,ADM – 1ª,ADM – 1ª,,,,,,,,ADM – 2ª,ADM – 2ª,ADM – 2ª,ADM – 2ª,ADM – 2ª,,,30
+301,,,ENF – 1ª,ENF – 1ª,PROFMAT,,ENF – 1ª,ENF – 1ª,ENF – 1ª,ENF – 1ª,PROFMAT,,MAT – 1ª,MAT – 1ª,MAT – 1ª,MAT – 1ª,MAT – 1ª,,,30
+302,ENF – 3ª,ENF – 3ª,ENF – 3ª,ENF – 3ª,ENF – 3ª,,ENF – 3ª,ENF – 3ª,ENF – 3ª,ENF – 3ª,ENF – 3ª,,MAT – 3ª,MAT – 3ª,MAT – 3ª,MAT – 3ª,CS – 3ª + MAT – 3ª,,,30
+303,ENF – 5ª,ENF – 5ª,ENF – 5ª,ENF – 5ª,ENF – 5ª,,ENF – 5ª,ENF – 5ª,ENF – 5ª,ENF – 5ª,ENF – 5ª,,MAT – 5ª,MAT – 5ª,MAT – 5ª,MAT – 5ª,MAT – 5ª,,,30
+304,ENF – 7ª,ENF – 7ª,ENF – 7ª,ENF – 7ª,ENF – 7ª,,ENF – 7ª,ENF – 7ª,ENF – 7ª,ENF – 7ª,ENF – 7ª,,PPGE,MAT – 7ª,MAT – 7ª,MAT – 7ª,,,MAT – 8ª,30
+305,ENF – 9ª,ENF – 9ª,ENF – 9ª,ENF – 9ª,ENF – 9ª,,ENF – 9ª,ENF – 9ª,ENF – 9ª,ENF – 9ª,ENF – 9ª,,MAT – 9ª,MAT – 9ª,MAT – 9ª,FIL – 9ª + MAT – 5ª,,,,30
+308,,CC – 5ª,,,,,CC – 5ª,CC – 5ª,CC – 5ª,CC – 5ª,CC – 5ª,,CC – 6ª,MED – 2ª,CC – 6ª,CC – 6ª,CC – 2ª DUPL,,,30
+309,,,CC – 3ª,CC – 5ª,CC – 3ª,,CC – 3ª,CC – 3ª,CC – 3ª,CC – 3ª,CC – 3ª,,CC – 4ª,CC – 4ª,CC – 4ª,CC – 4ª,CC – 4ª,,CC – 8ª,30
+310,,,,,,,CC – 1ª,CC – 1ª,CC – 1ª,CC – 1ª,CC – 1ª,,CC – 2ª,CC – 2ª,CC – 2ª,CC – 2ª,CC – 2ª,,CC – 7ª,30
+BLOCO Extra,,,,,,,,,,,,,,,,,,,,
+201,,,,,,,,,,,,,,,CS – 9ª,,,,,30
+205,,,,,,,,,,,,,,,MED – 2ª,,,,,30
