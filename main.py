@@ -10,13 +10,13 @@ import gurobipy as gp
 from gurobipy import GRB
 
 def main():
-    salas = ExtraiSalas("./dados/salas_2022_2.csv").extrai_salas()
+    salas = ExtraiSalas("./dados/salas_2022_1.csv").extrai_salas()
     salasLista = list(salas.keys())
     
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     #disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2022_2.xlsx","./dados/salas_preferenciais_2022.2.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2022_1.xlsx","./dados/salas_preferenciais_2022.1.xlsx").extrai_horarios_aula()
     
     print(len(disciplinas))    
     print(len(salas))   
@@ -125,8 +125,8 @@ def main():
     )
 
    
-    m.setParam(GRB.Param.TimeLimit, 15000) # Tempo limite de 5 horas
-    #m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
+    #m.setParam(GRB.Param.TimeLimit, 15000) # Tempo limite de 5 horas
+    m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:

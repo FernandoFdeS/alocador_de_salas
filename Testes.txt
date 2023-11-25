@@ -100,7 +100,10 @@ Estatistica basica pra Geo-2 nao foi aloacada na planilha deles
 Salas: 42
 
 486 disciplinas sem as remocoes
-476 disciplinas consideradas
+474 disciplinas consideradas
+7 disciplinas nao foram alocadas
+chegou em 0.37% antes dos 15000s
+gap de 0,3775%
 
 
 Removidas
@@ -111,6 +114,8 @@ GCS010
 GCH167 (pedagogia)
 GCH166 (pedagogia)
 Letras - 9, na quarta e quinta de noite
+Letras - 7, estagio curricular na segunda de noite
+GLA372
 =============================
 =============================
 =============================

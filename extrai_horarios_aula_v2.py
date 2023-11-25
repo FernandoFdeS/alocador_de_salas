@@ -156,6 +156,7 @@ class ExtraiHorariosAulaV2:
                 else:
                     agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
             if(vai_agrupar==0):
+                chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(string_todos_horarios_aula)
                 agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
             verifica_chave=1
 
@@ -172,9 +173,9 @@ class ExtraiHorariosAulaV2:
             if vai_agrupar==1:
                 agrupados+=1
 
-                # print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)))
-                # print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)))
-                # print("===")
+                print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)))
+                print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)))
+                print("===")
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
                 else:
