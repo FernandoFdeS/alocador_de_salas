@@ -56,14 +56,20 @@ class Disciplina:
             return ("FUSAO"+ self.nome+" ("+self.cod+")")
         
         if(len(self.agrupamento)>0):
-            for horario in self.agrupamento[0].horarios:
-                faixa=horario.split("_")[2]
-                dia=horario.split("_")[1]
-                obj=Horario(int(dia),int(faixa))
-                if(obj.converte_horario()==horario_planilha):
-                    return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+" - "+self.agrupamento[0].cod+") AGRUPAMENTO")
-                else:
-                    del obj
+            string_final = self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod
+            for agrupamento in self.agrupamento:
+                for horario in agrupamento.horarios:
+                    faixa=horario.split("_")[2]
+                    dia=horario.split("_")[1]
+                    obj=Horario(int(dia),int(faixa))
+                    if(obj.converte_horario()==horario_planilha):
+                        string_final+= " - AGRUPAMENTO "+agrupamento.cod
+                        break
+                    else:
+                        del obj
+            string_final+=") "
+            #print(string_final)
+            return string_final
         
         if self.fase != 0:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
