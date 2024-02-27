@@ -57,7 +57,8 @@ class ExtraiHorariosAulaV2:
         periodo_map["T"]=6
         periodo_map["N"]=12
         controleTurmas=dict()
-        dados = pd.read_excel(self.arquivoHorarios, usecols=['cod', 'curso', 'fase', 'horario'])
+        # TODO Tratar o caso em que os dados de entrada nao contem a coluna 'vagas'
+        dados = pd.read_excel(self.arquivoHorarios, usecols=['cod', 'curso', 'fase', 'horario', 'vagas'])
 
         for indice, linha in dados.iterrows():
             
@@ -74,6 +75,9 @@ class ExtraiHorariosAulaV2:
             # Pegamos apenas o primeiro valor da fase
             fase = linha['fase']
             fase=str(fase).split(";")
+
+            # Pegamos o numero de alunos da turma
+            alunos = linha['vagas']
 
             # Tratando os cursos para verificar se eh uma fusao ou nao
             fusao=0
@@ -175,7 +179,7 @@ class ExtraiHorariosAulaV2:
                     sp = salas_preferenciais[codigo]
 
             # Criando objeto da disciplina
-            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao) # não tem o tamanho da turma nos horários
+            disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
 
             if vai_agrupar==1:
                 agrupados+=1
@@ -196,10 +200,10 @@ class ExtraiHorariosAulaV2:
 
             
 
-            # print(f'Código: {codigo,controleTurmas[codigo]}, Curso: {nome_curso}, Fase: {fase}, Horário: {todos_horarios_aula}')
+            # print(f'Código: {codigo,controleTurmas[codigo]}, Curso: {nome_curso}, Fase: {fase}, Núm. de alunos: {alunos}, Horário: {todos_horarios_aula}')
             # print(string_todos_horarios_aula)
             # for horario in horario_aula:
-            #     print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao) # não tem o tamanho da turma nos horários   
+            #     print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao)
        
         print("Agrupamentos: ",agrupados)
         return disciplinas,horarios_fixos,fases,todos_cursos
