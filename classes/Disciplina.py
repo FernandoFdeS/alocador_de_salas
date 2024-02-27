@@ -75,3 +75,12 @@ class Disciplina:
             return self.alunos
 
         return max(self.alunos, max(disciplina.alunos for disciplina in self.agrupamento))
+
+    def horarios_agrupamento(self):
+        if (len(self.agrupamento) == 0):
+            return self.horarios
+        
+        horarios = dict(self.horarios)
+        for disciplina in self.agrupamento:
+            horarios.update(disciplina.horarios)
+        return horarios

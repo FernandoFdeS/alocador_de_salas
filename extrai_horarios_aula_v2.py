@@ -198,12 +198,12 @@ class ExtraiHorariosAulaV2:
                 print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].alunos))
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
-                    print("Agrupamento: " + disciplinas[agrupamentos[chave_agrupamento]].cod + " | " + str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].max_alunos_agrupamento()))
+                    print("Agrupamento: " + disciplinas[agrupamentos[chave_agrupamento]].cod + " | " + str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios_agrupamento())) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].max_alunos_agrupamento()))
                 else:
                     disciplina.agrupamento.append(disciplinas[agrupamentos[chave_agrupamento]])
                     disciplinas[disciplina.cod]=disciplina
                     del(disciplinas[agrupamentos[chave_agrupamento]])
-                    print("Agrupamento: " + disciplinas[disciplina.cod].cod + " | " + str(len(disciplinas[disciplina.cod].horarios)) + " | " + str(disciplinas[disciplina.cod].max_alunos_agrupamento()))
+                    print("Agrupamento: " + disciplinas[disciplina.cod].cod + " | " + str(len(disciplinas[disciplina.cod].horarios_agrupamento())) + " | " + str(disciplinas[disciplina.cod].max_alunos_agrupamento()))
                 print("===")
 
             else:
