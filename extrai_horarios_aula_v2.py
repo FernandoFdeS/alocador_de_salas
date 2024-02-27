@@ -98,13 +98,18 @@ class ExtraiHorariosAulaV2:
             todos_horarios_aula=[]
             for horario in horarios:
                 horario=horario.strip()
-                h =  horario.split(" ")[0]
-                if (h not in todos_horarios_aula):   
-                    todos_horarios_aula.append(h)
+                #h =  horario.split(" ")[0]
+                horarios_splitado=re.findall(r'\S+', horario)
+                for horario_splitado in horarios_splitado:
+                    if not horario_splitado[0].isdigit():
+                        break
+                    if (horario_splitado not in todos_horarios_aula):   
+                        todos_horarios_aula.append(horario_splitado)
             
             # Agora sim, criando os objetos referentes aos horarios das disciplinas
             string_todos_horarios_aula="".join(todos_horarios_aula)
             horario_aula=dict()
+            
             for horario in todos_horarios_aula:
                 dias=""
                 periodo=""
@@ -125,6 +130,8 @@ class ExtraiHorariosAulaV2:
 
             verifica_chave=0
             vai_agrupar=0
+            # print(codigo+"_"+periodo+"_"+dia)
+            # print(fase[0])
             if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0 and int(fase[0])!=0 and fusao==0):
                 if(nome_curso=="AGRONOMIA"):
                     chave_agrupamento=codigo+"_"+periodo+"_"+dia
