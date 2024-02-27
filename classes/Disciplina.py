@@ -69,5 +69,9 @@ class Disciplina:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
         else:
             return (self.abreviacao(self.curso)+" - opt ("+self.cod+")")
-        
-       
+
+    def max_alunos_agrupamento(self):
+        if (len(self.agrupamento) == 0):
+            return self.alunos
+
+        return max(self.alunos, max(disciplina.alunos for disciplina in self.agrupamento))

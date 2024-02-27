@@ -47,7 +47,10 @@ class ExtraiHorariosAulaV2:
 
         disciplinas = dict()
 
-        nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA"]        
+        # TODO Receber como entrada um dado que indique se as disciplinas de
+        # um curso podem ser agrupadas ou nao. Isto deve depender da logica de
+        # agrupamento se aplicar ou nao as disciplinas do curso
+        nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA","ENFERMAGEM"]        
         agrupamentos = dict()
         agrupados=0
 
@@ -184,15 +187,17 @@ class ExtraiHorariosAulaV2:
             if vai_agrupar==1:
                 agrupados+=1
 
-                print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)))
-                print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)))
-                print("===")
+                print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)) + " | " + str(disciplina.alunos))
+                print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].alunos))
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
+                    print("Agrupamento: " + disciplinas[agrupamentos[chave_agrupamento]].cod + " | " + str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].max_alunos_agrupamento()))
                 else:
                     disciplina.agrupamento.append(disciplinas[agrupamentos[chave_agrupamento]])
                     disciplinas[disciplina.cod]=disciplina
                     del(disciplinas[agrupamentos[chave_agrupamento]])
+                    print("Agrupamento: " + disciplinas[disciplina.cod].cod + " | " + str(len(disciplinas[disciplina.cod].horarios)) + " | " + str(disciplinas[disciplina.cod].max_alunos_agrupamento()))
+                print("===")
 
             else:
                 disciplinas[codigo+"_"+str(controleTurmas[codigo])]=disciplina

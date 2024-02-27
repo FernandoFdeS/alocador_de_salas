@@ -94,9 +94,11 @@ def main():
         gp.quicksum(x[d,s,h] for s in salas ) <= 1 for d in disciplinas for h in disciplinas[d].horarios
     )
 
+    # TODO Melhorar o tratamento dos dados de uma disciplina considerando que
+    # ela pode ser um agrupamento (ex.: uso do metodo max_alunos_agrupamento)
     # Uma sala não pode ser alocada a uma disciplina cujo número de alunos ultrapasse a sua capacidade:
     c3 = m.addConstrs(
-        x[d,s,h] * disciplinas[d].alunos <= salas[s].capacidade for d in disciplinas for s in salas for h in disciplinas[d].horarios)
+        x[d,s,h] * disciplinas[d].max_alunos_agrupamento() <= salas[s].capacidade for d in disciplinas for s in salas for h in disciplinas[d].horarios)
 
 
     # Uma sala é alocada a uma disciplina se a sala é alocada à disciplina em algum horário:
