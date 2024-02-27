@@ -50,7 +50,11 @@ class ExtraiHorariosAulaV2:
         # TODO Receber como entrada um dado que indique se as disciplinas de
         # um curso podem ser agrupadas ou nao. Isto deve depender da logica de
         # agrupamento se aplicar ou nao as disciplinas do curso
-        nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA","ENFERMAGEM"]        
+        cursos_nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA","ENFERMAGEM"]
+        # TODO Receber como entrada um dado que indique se determinadas
+        # disciplinas podem ser agrupadas ou nao. Isto deve depender da logica
+        # de agrupamento se aplicar ou nao a estas disciplinas
+        codigos_nao_agrupar=["GLA356","GLA357","GLA363"]
         agrupamentos = dict()
         agrupados=0
 
@@ -139,13 +143,16 @@ class ExtraiHorariosAulaV2:
             vai_agrupar=0
             # print(codigo+"_"+periodo+"_"+dia)
             # print(fase[0])
-            if(nome_curso not in nao_agrupar and vai_agrupar==0 and verifica_chave==0 and int(fase[0])!=0 and fusao==0):
+            if(nome_curso not in cursos_nao_agrupar and codigo not in codigos_nao_agrupar and vai_agrupar==0 and verifica_chave==0 and int(fase[0])!=0 and fusao==0):
                 if(nome_curso=="AGRONOMIA"):
                     chave_agrupamento=codigo+"_"+periodo+"_"+dia
                 else:
                     chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(string_todos_horarios_aula)
 
                 for chave in agrupamentos:
+                    if (agrupamentos[chave].split("_")[0] in codigos_nao_agrupar):
+                        continue
+
                     fase_chave = chave.split("_")[0]+chave.split("_")[1]
                     fase_chave_agrupamento = chave_agrupamento.split("_")[0]+chave_agrupamento.split("_")[1]
                     horario_chave = chave.split("_")[2]
