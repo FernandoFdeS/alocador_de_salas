@@ -10,13 +10,13 @@ import gurobipy as gp
 from gurobipy import GRB
 
 def main():
-    salas = ExtraiSalas("./dados/salas_2022_1.csv").extrai_salas()
+    salas = ExtraiSalas("./dados/salas_2024_1.csv").extrai_salas()
     salasLista = list(salas.keys())
     
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    #disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_1.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
+    #disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_2023_2.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_teste.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
     
     print(len(disciplinas))    
     print(len(salas))   
@@ -153,6 +153,7 @@ def main():
     #                     print("Alocação em sala preferencial: "+d,s,h)
 
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
+    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_csv_alocacoes()
 
 
 main()

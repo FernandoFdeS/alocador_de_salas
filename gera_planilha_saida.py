@@ -15,14 +15,28 @@ class GeraPlanilhaSaida:
     def cria_csv_alocacoes(self):
         alocacoes=[]
         for d in self.disciplinas:
+            salas=[]
+            horarios=[]
             for s in self.salas:
                 for h in self.disciplinas[d].horarios:
-                    #print(x[d,s,h].X)
                     if(round(self.x[d,s,h].X))==1:
-                        alocacoes.append([self.disciplinas[d].curso,d, h, s, (self.salas[s].capacidade-self.disciplinas[d].alunos)])
+                        if s not in salas:
+                            salas.append(s)
+                        if self.horarios[h].converte_horario() not in horarios:
+                            horarios.append(self.horarios[h].converte_horario())
+        
+            alocacoes.append([
+                d,
+                self.disciplinas[d].curso,
+                self.disciplinas[d].nome_ccr,
+                self.disciplinas[d].fase,
+                salas,
+                horarios,
+                self.disciplinas[d].alunos]
+                )
 
         # Criar um DataFrame com as informações
-        df = pd.DataFrame(alocacoes, columns=["Curso", "Disciplina", "Horario", "Sala", "Capacidade Restante"])
+        df = pd.DataFrame(alocacoes, columns=["Cod", "curso","nome_ccr", "fase", "sala","horarios","alunos"])
 
         # Salvar o DataFrame em um arquivo CSV
         nome_arquivo = "tabela_alocacoes.csv"

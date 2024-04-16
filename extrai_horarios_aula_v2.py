@@ -65,7 +65,7 @@ class ExtraiHorariosAulaV2:
         periodo_map["N"]=12
         controleTurmas=dict()
         # TODO Tratar o caso em que os dados de entrada nao contem a coluna 'vagas'
-        dados = pd.read_excel(self.arquivoHorarios, usecols=['cod', 'curso', 'fase', 'horario', 'vagas'])
+        dados = pd.read_excel(self.arquivoHorarios, usecols=['cod', 'curso', 'fase', 'horario', 'vagas', 'nome_ccr'])
 
         for indice, linha in dados.iterrows():
             
@@ -85,6 +85,7 @@ class ExtraiHorariosAulaV2:
 
             # Pegamos o numero de alunos da turma
             alunos = linha['vagas']
+            nome_ccr = linha['nome_ccr']
 
             # Tratando os cursos para verificar se eh uma fusao ou nao
             fusao=0
@@ -181,7 +182,7 @@ class ExtraiHorariosAulaV2:
                     sp = salas_preferenciais[codigo]
 
             # Criando objeto da disciplina
-            disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
+            disciplina = Disciplina(nome_curso,nome_ccr,alunos,horario_aula,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
 
             if vai_agrupar==1:
                 agrupados+=1
@@ -201,7 +202,7 @@ class ExtraiHorariosAulaV2:
             else:
                 disciplinas[codigo+"_"+str(controleTurmas[codigo])]=disciplina
   
-        print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao)
+        # print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao)
        
         print("Agrupamentos: ",agrupados)
         return disciplinas,horarios_fixos,fases,todos_cursos

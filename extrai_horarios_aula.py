@@ -70,6 +70,9 @@ class ExtraiHorariosAula:
         for nome_curso, horario_disciplina in zip(nomes_cursos,horarios_disciplina):
             vai_agrupar=0
             verifica_chave=0
+            nome_ccr = horario_disciplina.split("-")
+            nome_ccr = nome_ccr[1].split("(")
+            nome_crr = nome_ccr[0]
             cod_aula = horario_disciplina.split("-")
             cod_aula = cod_aula[0]
             cod_aula = cod_aula[:-1]
@@ -152,7 +155,7 @@ class ExtraiHorariosAula:
 
        
 
-            disciplina = Disciplina(nome_curso,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
+            disciplina = Disciplina(nome_curso,nome_crr,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
 
             if vai_agrupar==1:
                 agrupados+=1
