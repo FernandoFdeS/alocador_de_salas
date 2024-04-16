@@ -6,12 +6,10 @@ class GeraMatrizDistancia:
     def gera_matriz(self):
         matriz = [['-' for coluna in range(len(self.salas))] for linha in range(len(self.salas))]
         for linha in self.salas:
-            #print(linha)
             sala1 = linha
             sala1 = sala1.split("-")
             num_sala1 = int(sala1[0])
-            bloco_sala1 = sala1[1]
-            #print(num_sala1,bloco_sala1)            
+            bloco_sala1 = sala1[1]         
             for coluna in self.salas:
                 bloco_diferente=0
                 sala2 = coluna
@@ -27,6 +25,7 @@ class GeraMatrizDistancia:
                 dif_andares = abs((num_sala1//100) - (num_sala2//100))              
                 dif_salas= abs((num_sala1%100)-(num_sala2%100))
                 distancia =  dif_salas+(dif_andares*10)+bloco_diferente
+                
                 # Distancia = 
                 # Diferença do número da sala (ultimos dois digitos) +
                 # Diferença de andar * 10 +

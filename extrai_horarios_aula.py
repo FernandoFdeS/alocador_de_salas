@@ -36,9 +36,7 @@ class ExtraiHorariosAula:
             for indexSala,sala in enumerate(salas):
                 salas[indexSala]=sala.strip()
             salas_preferenciais_dict[index]=salas 
-
-        # for s in salas_preferenciais_dict:
-        #     print(s,salas_preferenciais_dict[s])        
+   
 
         return salas_preferenciais_dict
 
@@ -85,7 +83,6 @@ class ExtraiHorariosAula:
             todos_horarios = horarios
             todos_horarios = todos_horarios.replace(" ", "")
             horarios = horarios.split()
-            #print(cod_aula+"_"+n_turma+" "+str(fase))
             horario_aula=dict()
 
             fusao=0
@@ -94,7 +91,6 @@ class ExtraiHorariosAula:
 
                  
             fase_disciplina=re.findall(padrao_n_fase,horario_disciplina)
-            #print(todos_horarios)
             if fase_disciplina:
                 fase=fase_disciplina
             else:

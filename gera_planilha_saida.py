@@ -14,13 +14,11 @@ class GeraPlanilhaSaida:
     # Utilizado pra "debug".
     def cria_csv_alocacoes(self):
         alocacoes=[]
-        #print("Disciplina  | Horário | Sala | Capacidade restante")
         for d in self.disciplinas:
             for s in self.salas:
                 for h in self.disciplinas[d].horarios:
                     #print(x[d,s,h].X)
                     if(round(self.x[d,s,h].X))==1:
-                        #print(d,h,s,(self.salas[s].capacidade-self.disciplinas[d].alunos))
                         alocacoes.append([self.disciplinas[d].curso,d, h, s, (self.salas[s].capacidade-self.disciplinas[d].alunos)])
 
         # Criar um DataFrame com as informações
@@ -72,10 +70,6 @@ class GeraPlanilhaSaida:
                 for h in self.disciplinas[d].horarios:
                     if(round(self.x[d,s,h].X))==1:
                         disciplinas_qtd_alocacoes[d] += 1
-
-        ## Mostra a relação entre alocações feitas/ quantidade de horarios  
-        # for d in disciplinas:
-        #     print(d+" "+str(disciplinas_qtd_alocacoes[d])+"/"+str(len(disciplinas[d].horarios)))
 
         # Preenche a matriz das alocações que sera utilizada no arquivo de saida
         for d in self.disciplinas:

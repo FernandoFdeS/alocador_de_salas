@@ -32,6 +32,4 @@ class ExtraiSalas:
         for idx,sala in enumerate(range(len(vet_salas))):
             salas[nome_salas[idx]]=vet_salas[idx]
 
-        # for sala in salas:
-        #     print (sala, salas[sala].capacidade)
         return salas

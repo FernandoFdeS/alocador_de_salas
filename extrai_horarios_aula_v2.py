@@ -136,13 +136,9 @@ class ExtraiHorariosAulaV2:
                             faixa_horario = (int(periodo_map[periodo]))+int(faixa)
                             horario_aula["Horario_{}_{}".format(dia_horario,faixa_horario)]=Horario(dia_horario,faixa_horario)
             
-            # Lidando com o agrupamento de disciplinas
-            # (Nao vou explicar como funciona pq nem eu sei)
-
+            # Agrupamento
             verifica_chave=0
             vai_agrupar=0
-            # print(codigo+"_"+periodo+"_"+dia)
-            # print(fase[0])
             if(nome_curso not in cursos_nao_agrupar and codigo not in codigos_nao_agrupar and vai_agrupar==0 and verifica_chave==0 and int(fase[0])!=0 and fusao==0):
                 if(nome_curso=="AGRONOMIA"):
                     chave_agrupamento=codigo+"_"+periodo+"_"+dia
@@ -160,11 +156,7 @@ class ExtraiHorariosAulaV2:
 
                     if (fase_chave!=fase_chave_agrupamento):
                         continue
-                    
-                    # if(len(horario_chave)<len(horario_chave_agrupamento)):
-                    #     backup=horario_chave
-                    #     horario_chave=horario_chave_agrupamento
-                    #     horario_chave_agrupamento=backup
+
                     for horario in todos_horarios_aula:
                         if horario in horario_chave:
                             vai_agrupar=1
@@ -209,13 +201,7 @@ class ExtraiHorariosAulaV2:
             else:
                 disciplinas[codigo+"_"+str(controleTurmas[codigo])]=disciplina
   
-
-            
-
-            # print(f'Código: {codigo,controleTurmas[codigo]}, Curso: {nome_curso}, Fase: {fase}, Núm. de alunos: {alunos}, Horário: {todos_horarios_aula}')
-            # print(string_todos_horarios_aula)
-            # for horario in horario_aula:
-            #     print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao)
+        print(horario,horario_aula[horario].dia,horario_aula[horario].faixa)  # disciplina = Disciplina(nome_curso,alunos,horario_aula,sp,fase,str(cod_aula+"_"+nome_curso),fusao)
        
         print("Agrupamentos: ",agrupados)
         return disciplinas,horarios_fixos,fases,todos_cursos
