@@ -14,7 +14,6 @@ def main():
     salas = ExtraiSalas("./dados/salas_2024_1.csv").extrai_salas()
     salasLista = list(salas.keys())
     
-    # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     #disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_2023_2.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
     disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_teste.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
@@ -128,8 +127,6 @@ def main():
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
 
-   
-    #m.setParam(GRB.Param.TimeLimit, 15000) # Tempo limite de 5 horas
     m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     m.optimize()
 
@@ -138,22 +135,7 @@ def main():
     else:
         print("Solução -> não <- ótima.")
 
-    # Debug
-    # print(M1,M2,M3,M4,M5)
-    # for c in cursos:
-    #     for si in salasLista:
-    #         for sj in salasLista:
-    #             if salasLista.index(si)<salasLista.index(sj):                
-    #                 if(round(t[si,sj,c].X)==1):
-    #                     print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
-    
-    # for d in disciplinas:
-    #     for h in disciplinas[d].horarios_agrupamento():
-    #         for s in disciplinas[d].salasPreferenciais:
-    #                 if(x[d,s,h].X == 1):
-    #                     print("Alocação em sala preferencial: "+d,s,h)
-
-    #GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
+    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_csv_alocacoes()
     VerificaSolucao(disciplinas,salas,horarios,x).verifica_conflito_turno()
 

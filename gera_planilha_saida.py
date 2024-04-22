@@ -8,10 +8,10 @@ class GeraPlanilhaSaida:
         self.disciplinas = disciplinas
         self.salas= salas
         self.horarios = horarios
-        self.x = x # a famigerada varaivel de decisao
+        self.x = x 
         self.caminho = caminho
         self.nome_arquivo = nome_arquivo
-    # Utilizado pra "debug".
+        
     def cria_csv_alocacoes(self):
         alocacoes=[]
         for d in self.disciplinas:
