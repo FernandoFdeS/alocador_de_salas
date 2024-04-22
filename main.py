@@ -6,6 +6,7 @@ from extrai_horarios_aula import ExtraiHorariosAula
 from extrai_horarios_aula_v2 import ExtraiHorariosAulaV2
 from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
+from verifica_solucao import VerificaSolucao
 import gurobipy as gp
 from gurobipy import GRB
 
@@ -152,8 +153,9 @@ def main():
     #                 if(x[d,s,h].X == 1):
     #                     print("Alocação em sala preferencial: "+d,s,h)
 
-    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
+    #GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_csv_alocacoes()
+    VerificaSolucao(disciplinas,salas,horarios,x).verifica_conflito_turno()
 
 
 main()

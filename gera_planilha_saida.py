@@ -18,7 +18,7 @@ class GeraPlanilhaSaida:
             salas=[]
             horarios=[]
             for s in self.salas:
-                for h in self.disciplinas[d].horarios:
+                for h in self.disciplinas[d].horarios_agrupamento():
                     if(round(self.x[d,s,h].X))==1:
                         if s not in salas:
                             salas.append(s)
