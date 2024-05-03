@@ -130,10 +130,14 @@ def main():
     m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     m.optimize()
 
+    #m.read("solution.sol")
+
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")       
     else:
         print("Solução -> não <- ótima.")
+
+    m.write("solution.sol")
 
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_csv_alocacoes()
