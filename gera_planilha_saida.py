@@ -22,21 +22,22 @@ class GeraPlanilhaSaida:
                     if(round(self.x[d,s,h].X))==1:
                         if s not in salas:
                             salas.append(s)
-                        if self.horarios[h].converte_horario() not in horarios:
-                            horarios.append(self.horarios[h].converte_horario())
+                        # if self.horarios[h].converte_horario() not in horarios:
+                        #     horarios.append(self.horarios[h].converte_horario())
         
             alocacoes.append([
                 d,
-                self.disciplinas[d].curso,
                 self.disciplinas[d].nome_ccr,
+                self.disciplinas[d].ch_ccr,
+                self.disciplinas[d].curso,
                 self.disciplinas[d].fase,
-                salas,
-                horarios,
-                self.disciplinas[d].alunos]
+                self.disciplinas[d].horarioString,
+                self.disciplinas[d].alunos,
+                salas],
                 )
 
         # Criar um DataFrame com as informações
-        df = pd.DataFrame(alocacoes, columns=["Cod", "curso","nome_ccr", "fase", "sala","horarios","alunos"])
+        df = pd.DataFrame(alocacoes, columns=["cod","nome_ccr","ch_ccr","curso","fase","horarios","alunos","sala"])
 
         # Salvar o DataFrame em um arquivo CSV
         nome_arquivo = "tabela_alocacoes.csv"

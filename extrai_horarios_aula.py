@@ -155,7 +155,7 @@ class ExtraiHorariosAula:
 
        
 
-            disciplina = Disciplina(nome_curso,nome_crr,25,horario_aula,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
+            disciplina = Disciplina(nome_curso,nome_crr,-1,25,horario_aula,horarios_disciplina,sp,fase,str(cod_aula+"_"+n_turma),fusao) # não tem o tamanho da turma nos horários
 
             if vai_agrupar==1:
                 agrupados+=1

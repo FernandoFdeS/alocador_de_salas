@@ -1,11 +1,13 @@
 from classes.Horario import Horario
 
 class Disciplina:
-    def __init__(self,curso,nome_ccr,alunos,horarios,salasPreferenciais,fase,cod,fusao):
+    def __init__(self,curso,nome_ccr,ch_ccr,alunos,horarios,horarioString,salasPreferenciais,fase,cod,fusao):
         self.curso = curso
         self.nome_ccr = nome_ccr
+        self.ch_ccr = ch_ccr
         self.alunos = alunos
         self.horarios = horarios
+        self.horarioString = horarioString,
         self.salasPreferenciais = salasPreferenciais
         self.fase = int(fase[0])
         self.cod = cod
