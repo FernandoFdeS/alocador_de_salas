@@ -12,7 +12,7 @@ class GeraPlanilhaSaida:
         self.caminho = caminho
         self.nome_arquivo = nome_arquivo
         
-    def cria_csv_alocacoes(self):
+    def cria_tabela_alocacoes(self,conflitos):
         alocacoes=[]
         for d in self.disciplinas:
             salas=[]
@@ -29,19 +29,22 @@ class GeraPlanilhaSaida:
                 d,
                 self.disciplinas[d].nome_ccr,
                 self.disciplinas[d].ch_ccr,
-                self.disciplinas[d].curso,
+                self.disciplinas[d].nome_completo_curso,
                 self.disciplinas[d].fase,
-                self.disciplinas[d].horarioString,
+                self.disciplinas[d].horarioString[0],
                 self.disciplinas[d].alunos,
                 salas],
                 )
+            
+        
+            
+        df1 = pd.DataFrame(alocacoes, columns=["cod", "nome_ccr", "ch_ccr", "curso", "fase", "horarios", "alunos", "sala"])
+        df2 = pd.DataFrame(conflitos, columns=["SALA-TURNO","CODIGO-HORARIO"])
 
-        # Criar um DataFrame com as informações
-        df = pd.DataFrame(alocacoes, columns=["cod","nome_ccr","ch_ccr","curso","fase","horarios","alunos","sala"])
-
-        # Salvar o DataFrame em um arquivo CSV
-        nome_arquivo = "tabela_alocacoes.csv"
-        df.to_csv(nome_arquivo, index=False)
+        nome_arquivo = "tabela_alocacoes.xlsx"
+        with pd.ExcelWriter(nome_arquivo) as writer:
+            df1.to_excel(writer, sheet_name='Alocações', index=False)
+            df2.to_excel(writer, sheet_name='Conflitos', index=False)
     
     def exporta_alocacoes(self): 
         disciplinas_nao_alocadas = self.disciplinas.copy()

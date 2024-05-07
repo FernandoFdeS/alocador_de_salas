@@ -4,6 +4,7 @@ import re
 class Disciplina:
     def __init__(self,curso,nome_ccr,ch_ccr,alunos,horarios,horarioString,salasPreferenciais,fase,cod,fusao):
         self.curso = self.abreviacao(curso)
+        self.nome_completo_curso = curso
         self.nome_ccr = nome_ccr
         self.ch_ccr = ch_ccr
         self.alunos = alunos

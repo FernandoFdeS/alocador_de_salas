@@ -29,6 +29,7 @@ class VerificaSolucao:
         # Valor = cod_disciplina-faixas. Ex: GEX201_2-56.
         # Indicando que, na Sala 201, na Segunda-feira de tarde, a disciplina GEX201 tem aula nas faixas de horário 5 e 6. 
         listaAlocacoesTurno={}
+        conflitos=[]
         for d in self.disciplinas:
             for s in self.salas:
                 for h_alocacao in self.disciplinas[d].horarios_agrupamento():
@@ -52,16 +53,18 @@ class VerificaSolucao:
                             listaAlocacoesTurno[chave].append(valor) 
 
         # Forçando conflito (apenas para teste).
-        # listaAlocacoesTurno['304-B-SEX-V'].append('GEX201_2-56')
+        listaAlocacoesTurno['305-B-QUA-V'].append('GEX201_2-56')
 
         # Percorre a lista das alocações feitas e verifica se, em salas/turnos
         # com mais de uma alocação os horários alocadas de sobrepõe (conflitam)
         for salaTurno,blocoHorarios in listaAlocacoesTurno.items():
             if(len(blocoHorarios)>1):
                 if(self.verifica_repeticao(blocoHorarios)):
+                    conflitos.append([salaTurno,blocoHorarios])
                     print("Atenção!")
                     print("Conflito identificado nas alocações da SALA-TURNO:  ",salaTurno)
                     print("DISCIPLINA-FAIXA_HORARIO conflitantes:  ",blocoHorarios)
                     print()
 
         print("Solução verificada.")
+        return conflitos

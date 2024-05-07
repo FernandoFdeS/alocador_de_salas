@@ -16,7 +16,7 @@ def main():
     
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     #disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_2023_2.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_1.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_teste.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
     
     # for i in range(len(cursos)):
     #     cursos[i] = cursos[i].encode("utf-8")
@@ -134,17 +134,17 @@ def main():
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
 
-    # m.setParam('VarsName', 1)
-    # m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
-    # m.optimize()
+    m.setParam('VarsName', 1)
+    m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
+    m.optimize()
 
     # m.write("solution.sol")
 
-    m.Params.MIPGap = 0.05
-    m.Params.StartMIP = 2
-    m.update()
-    m.read("solution.sol")
-    m.optimize()
+    # m.Params.MIPGap = 0.05
+    # m.Params.StartMIP = 2
+    # m.update()
+    # m.read("solution.sol")
+    # m.optimize()
 
 
 
@@ -155,9 +155,10 @@ def main():
 
 
 
+    conflitos = VerificaSolucao(disciplinas,salas,horarios,x).verifica_conflito_turno()
+    print(conflitos)
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
-    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_csv_alocacoes()
-    VerificaSolucao(disciplinas,salas,horarios,x).verifica_conflito_turno()
+    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_tabela_alocacoes(conflitos)
 
 
 main()
