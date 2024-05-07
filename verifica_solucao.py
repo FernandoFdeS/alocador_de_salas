@@ -52,9 +52,6 @@ class VerificaSolucao:
                             listaAlocacoesTurno[chave]=[] 
                             listaAlocacoesTurno[chave].append(valor) 
 
-        # Forçando conflito (apenas para teste).
-        listaAlocacoesTurno['305-B-QUA-V'].append('GEX201_2-56')
-
         # Percorre a lista das alocações feitas e verifica se, em salas/turnos
         # com mais de uma alocação os horários alocadas de sobrepõe (conflitam)
         for salaTurno,blocoHorarios in listaAlocacoesTurno.items():
