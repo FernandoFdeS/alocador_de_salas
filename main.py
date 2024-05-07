@@ -21,8 +21,8 @@ def main():
     # for i in range(len(cursos)):
     #     cursos[i] = cursos[i].encode("utf-8")
 
-    for c in cursos:
-        print(c)
+    # for c in cursos:
+    #     print(c)
 
 
     print(len(disciplinas))    
@@ -134,18 +134,17 @@ def main():
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
 
-    m.setParam('VarsName', 1)
-    m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
-    m.optimize()
-
-
-    m.write("solution.sol")
-
-    # m.Params.OptimalityFocus = 0
-    # m.Params.MIPGap = 0
-    # m.update()
-    # m.read("solution.sol")
+    # m.setParam('VarsName', 1)
+    # m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     # m.optimize()
+
+    # m.write("solution.sol")
+
+    m.Params.MIPGap = 0.05
+    m.Params.StartMIP = 2
+    m.update()
+    m.read("solution.sol")
+    m.optimize()
 
 
 
