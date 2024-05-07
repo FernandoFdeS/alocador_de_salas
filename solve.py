@@ -2,7 +2,7 @@ from classes.Horario import Horario
 from classes.Disciplina import Disciplina
 from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
-from extrai_horarios_aula import ExtraiHorariosAula
+from extrai_horarios_aula_v2 import ExtraiHorariosAulaV2
 from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
 import gurobipy as gp
@@ -14,7 +14,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAula(arquivo_horarios,arquivo_salas_preferenciais).extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2(arquivo_horarios,arquivo_salas_preferenciais).extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
@@ -121,31 +121,13 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
     
-
     m.setParam(GRB.Param.TimeLimit, 18000) # Tempo limite de 5 horas
     m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")       
-      
-        # GeraPlanilhaSaida(disciplinas,salas,horarios,x).exporta_alocacoes()
     else:
         print("Solução -> não <- ótima.")
-
-    # print(M1,M2,M3,M4,M5)
-    # for c in cursos:
-    #     for si in salasLista:
-    #         for sj in salasLista:
-    #             if salasLista.index(si)<salasLista.index(sj):                
-    #                 if(round(t[si,sj,c].X)==1):
-    #                     print(c,si+"-"+sj," | Dist: "+str(matriz_dist[salasLista.index(si)][salasLista.index(sj)]))
-    
-    # for d in disciplinas:
-    #     for h in disciplinas[d].horarios:
-    #         for s in disciplinas[d].salasPreferenciais:
-    #                 if(x[d,s,h].X == 1):
-    #                     print("Alocação em sala preferencial: "+d,s,h)
-
 
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"./web/static/dados/","planilha_alocacoes.xlsx").exporta_alocacoes()
 

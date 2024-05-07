@@ -2,7 +2,6 @@ from classes.Horario import Horario
 from classes.Disciplina import Disciplina
 from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
-from extrai_horarios_aula import ExtraiHorariosAula
 from extrai_horarios_aula_v2 import ExtraiHorariosAulaV2
 from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
@@ -15,18 +14,8 @@ def main():
     salasLista = list(salas.keys())
     
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    #disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_2023_2.xlsx","./dados/salas_preferenciais_2023.2.xlsx").extrai_horarios_aula()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_teste.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
-    
-    # for i in range(len(cursos)):
-    #     cursos[i] = cursos[i].encode("utf-8")
-
-    # for c in cursos:
-    #     print(c)
-
-
-    print(len(disciplinas))    
-    print(len(salas))   
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_1.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
+ 
     # Criando o modelo
     m = gp.Model()
 
@@ -134,29 +123,23 @@ def main():
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
 
-    m.setParam('VarsName', 1)
-    m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
-    m.optimize()
+    # m.setParam('VarsName', 1)
+    # m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
+    # m.optimize()
 
     # m.write("solution.sol")
 
-    # m.Params.MIPGap = 0.05
-    # m.Params.StartMIP = 2
-    # m.update()
-    # m.read("solution.sol")
-    # m.optimize()
-
-
+    m.Params.MIPGap = 0.05
+    m.update()
+    m.read("solution.sol")
+    m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")       
     else:
         print("Solução -> não <- ótima.")
 
-
-
     conflitos = VerificaSolucao(disciplinas,salas,horarios,x).verifica_conflito_turno()
-    print(conflitos)
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").exporta_alocacoes()
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"","planilha_alocacoes.xlsx").cria_tabela_alocacoes(conflitos)
 
