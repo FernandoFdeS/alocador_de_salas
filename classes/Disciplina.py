@@ -1,8 +1,9 @@
 from classes.Horario import Horario
+import re
 
 class Disciplina:
     def __init__(self,curso,nome_ccr,ch_ccr,alunos,horarios,horarioString,salasPreferenciais,fase,cod,fusao):
-        self.curso = curso
+        self.curso = self.abreviacao(curso)
         self.nome_ccr = nome_ccr
         self.ch_ccr = ch_ccr
         self.alunos = alunos
@@ -18,12 +19,15 @@ class Disciplina:
             self.curso=curso.split("-")
             self.curso=self.curso[0]
             self.curso=self.curso.strip()
+            self.curso=self.abreviacao(self.curso)
         if(fusao==1): # Tratando o "nome" das Fusoes
             nome_curso=curso.split(":")
             nome_curso=nome_curso[1]
             nome_curso=nome_curso.split("+")
             self.curso=nome_curso[0]
             self.curso=self.curso[1:-1]
+            self.curso=self.curso.strip()
+            self.curso=self.abreviacao(self.curso)
             for index,c in enumerate(nome_curso):
                 if index == 0:
                     cursos_fusao = self.abreviacao(c.strip())+" - "+fase[index]

@@ -18,12 +18,14 @@ class ExtraiHorariosAulaV2:
     
     def cria_fases(self):
         fases=dict()
-        cursos=["ADMINISTRAÇÃO","AGRONOMIA","CIÊNCIA DA COMPUTAÇÃO","CIÊNCIAS SOCIAIS","ENFERMAGEM","ENGENHARIA AMBIENTAL E SANITÁRIA","FILOSOFIA","GEOGRAFIA","HISTÓRIA","LETRAS","MATEMÁTICA","MEDICINA","PEDAGOGIA"]
+        cursos=["ADM","AGRO","CC","CS","ENF","EAS","FIL","GEO","HIS","LET","MAT","MED","PED"]
         for curso in cursos:
             for i in range(11):
-                fases[curso+"_"+str(i)]=Fase(curso,i)
-        fases[curso+"_"+str(12)]=Fase("MEDICINA",int(12))
+                fases[(curso+"_"+str(i))]=Fase(curso,i)
+        fases[(curso+"_"+str(12))]=Fase("MEDICINA",int(12))
         return fases,cursos
+    
+    
 
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
