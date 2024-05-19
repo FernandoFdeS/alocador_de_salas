@@ -61,6 +61,7 @@ class ExtraiHorariosAulaV2:
         agrupados=0
 
         padrao_horario = r"(\d+)([A-Za-z]+)(\d+)"
+        padrao_periodo_duracao = r'\(\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}\)'
         periodo_map = dict()
         periodo_map["M"]=0
         periodo_map["T"]=6
@@ -73,7 +74,7 @@ class ExtraiHorariosAulaV2:
             
             codigo = linha['cod']
 
-            # Nos arquivos dos semestres de 2023.1 pra tras nao vem o numero das turmas
+            # Nos nao vem o numero das turmas
             # Entao vamos criar um controle artificial para definir o numero das turmas
             # De uma mesma disciplina.
             if(codigo in controleTurmas):
@@ -112,13 +113,19 @@ class ExtraiHorariosAulaV2:
             horarios = linha['horario']
             horarios = horarios.split(",")
             todos_horarios_aula=[]
+            periodo_duracao=[]
             for horario in horarios:
                 horario=horario.strip()
-                #h =  horario.split(" ")[0]
                 horarios_splitado=re.findall(r'\S+', horario)
-                for horario_splitado in horarios_splitado:
+                # Pegando os periodos (em dias) em que as aulas ocorrem (Ex: 08/07/2024 -  19/10/2024) -> periodoDuracao
+                periodos_duracao=re.findall(padrao_periodo_duracao,horario)
+                for periodo in periodos_duracao:
+                    periodo_duracao.append(periodo)
+
+                for horario_splitado in horarios_splitado:                    
                     if not horario_splitado[0].isdigit():
                         break
+                    # Pegando os turnos em que as aulas ocorrem (Ex: 6M12345) de cada um dos conjuntos de horários da disciplina
                     if (horario_splitado not in todos_horarios_aula):   
                         todos_horarios_aula.append(horario_splitado)
             
@@ -167,12 +174,13 @@ class ExtraiHorariosAulaV2:
                             vai_agrupar=1
                             verifica_chave=1
                             chave_agrupamento=chave
+                            
+                            # Provavelmente aqui vai a verificacao da sobreposicao dos horarios.
+                            # Serie interessante que esse trecho inteiro de codigo, da verificacao do agrupamento, ocorrese apos a criacao do objeto da disciplina
                             break
                     if vai_agrupar==1 and verifica_chave ==1:
-                        break
-                
-                else:
-                    agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
+                        break                
+
             if(vai_agrupar==0):
                 chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(string_todos_horarios_aula)
                 agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
@@ -186,6 +194,7 @@ class ExtraiHorariosAulaV2:
                     sp = salas_preferenciais[codigo]
 
             # Criando objeto da disciplina
+            print(nome_curso,nome_ccr,periodo_duracao)
             disciplina = Disciplina(nome_curso,nome_ccr,ch_ccr,alunos,horario_aula,horario_string,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
 
             if vai_agrupar==1:
@@ -193,6 +202,7 @@ class ExtraiHorariosAulaV2:
 
                 print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)) + " | " + str(disciplina.alunos))
                 print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].alunos))
+                
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
                     print("Agrupamento: " + disciplinas[agrupamentos[chave_agrupamento]].cod + " | " + str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios_agrupamento())) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].max_alunos_agrupamento()))

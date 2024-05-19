@@ -10,6 +10,7 @@ class Disciplina:
         self.alunos = alunos
         self.horarios = horarios
         self.horarioString = horarioString,
+        # Aqui vai um novo atributo, uma lista com os incio e termino das aulas, vamos chamar de periodoDuracao
         self.salasPreferenciais = salasPreferenciais
         self.fase = int(fase[0])
         self.cod = cod
