@@ -25,8 +25,6 @@ class ExtraiHorariosAulaV2:
                 fases[(curso+"_"+str(i))]=Fase(curso,i)
         fases[(curso+"_"+str(12))]=Fase("MEDICINA",int(12))
         return fases,cursos
-    
-    
 
     # Pega as salas preferenciais do arquivo.
     def cria_salas_preferenciais(self):        
@@ -42,24 +40,30 @@ class ExtraiHorariosAulaV2:
             salas_preferenciais_dict[index]=salas 
         return salas_preferenciais_dict
     
-    def parse_date_range(self, date_range):
-        date_range=date_range[0]
+    def parse_periodo_duraca(self, date_range):
         date_range = date_range.strip('()')
         start_date_str, end_date_str = date_range.split(' - ')
         start_date = datetime.strptime(start_date_str, '%d/%m/%Y')
         end_date = datetime.strptime(end_date_str, '%d/%m/%Y')
         return start_date, end_date
 
-    def check_overlap(self, date_range1, date_range2):
-        start1, end1 = self.parse_date_range(date_range1)
-        start2, end2 = self.parse_date_range(date_range2)
+    def verfica_sobreposicao(self, date_range1, date_range2):
+        start1, end1 = self.parse_periodo_duraca(date_range1)
+        start2, end2 = self.parse_periodo_duraca(date_range2)
         return start1 <= end2 and start2 <= end1
 
-    def any_overlap(self, dates_list1, dates_list2):
-        for date_range1 in dates_list1:
-            for date_range2 in dates_list2:
-                if self.check_overlap(date_range1, date_range2):
-                    return True
+    def tem_alguma_sobreposicao(self, dict_datas1, dict_datas2):
+        dict_datas1=dict_datas1[0]
+        dict_datas2=dict_datas2[0]
+        print()
+        for chave1,valor1 in dict_datas1.items():
+            for chave2,valor2 in dict_datas2.items():
+                if ((valor1 in valor2) or (valor2  in valor1)):
+                    if self.verfica_sobreposicao(chave1, chave2):
+                        print("overlap")
+                        print(chave1,valor1)
+                        print(chave2,valor2)
+                        return True
         return False
 
 
@@ -73,16 +77,17 @@ class ExtraiHorariosAulaV2:
         # TODO Receber como entrada um dado que indique se as disciplinas de
         # um curso podem ser agrupadas ou nao. Isto deve depender da logica de
         # agrupamento se aplicar ou nao as disciplinas do curso
-        cursos_nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA","ENFERMAGEM"]
+        cursos_nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA"]
         # TODO Receber como entrada um dado que indique se determinadas
         # disciplinas podem ser agrupadas ou nao. Isto deve depender da logica
         # de agrupamento se aplicar ou nao a estas disciplinas
-        codigos_nao_agrupar=["GLA356","GLA357","GLA363"]
+        codigos_nao_agrupar=[]
         agrupamentos = dict()
         agrupados=0
 
         padrao_horario = r"(\d+)([A-Za-z]+)(\d+)"
         padrao_periodo_duracao = r'\(\d{2}/\d{2}/\d{4} - \d{2}/\d{2}/\d{4}\)'
+        padrao_horarios_aula = r'\d+[A-Z]\d+'
         periodo_map = dict()
         periodo_map["M"]=0
         periodo_map["T"]=6
@@ -134,21 +139,26 @@ class ExtraiHorariosAulaV2:
             horarios = linha['horario']
             horarios = horarios.split(",")
             todos_horarios_aula=[]
-            periodo_duracao=[]
+            periodo_duracao=dict()
             for horario in horarios:
                 horario=horario.strip()
                 horarios_splitado=re.findall(r'\S+', horario)
                 # Pegando os periodos (em dias) em que as aulas ocorrem (Ex: 08/07/2024 -  19/10/2024) -> periodoDuracao
+                # Como temos que comprar somente as sobreposições de periodos que acontecem no mesmo momento da semana, vamos armazenar a faixa de horarios da discplina também
+                # ...
                 periodos_duracao=re.findall(padrao_periodo_duracao,horario)
-                for periodo in periodos_duracao:
-                    periodo_duracao.append(periodo)
+                horarios_periodo=re.findall(padrao_horarios_aula,horario)
+                periodo_duracao[(periodos_duracao[0])]="".join(horarios_periodo)
 
                 for horario_splitado in horarios_splitado:                    
                     if not horario_splitado[0].isdigit():
                         break
                     # Pegando os turnos em que as aulas ocorrem (Ex: 6M12345) de cada um dos conjuntos de horários da disciplina
+                   
                     if (horario_splitado not in todos_horarios_aula):   
                         todos_horarios_aula.append(horario_splitado)
+             
+              
             
             # Agora sim, criando os objetos referentes aos horarios das disciplinas
             string_todos_horarios_aula="".join(todos_horarios_aula)
@@ -204,22 +214,16 @@ class ExtraiHorariosAulaV2:
 
                     for horario in todos_horarios_aula:
                         if horario in horario_chave:
-                            vai_agrupar=1
-                            verifica_chave=1
-                            chave_agrupamento=chave
-                            
-                            print("agrupamento entre")
-                            print(disciplina.cod,disciplina.periodoDuracao)
-                            print(disciplinas[agrupamentos[chave_agrupamento]].cod,disciplinas[agrupamentos[chave_agrupamento]].periodoDuracao)
-                            print(self.any_overlap(disciplina.periodoDuracao,disciplinas[agrupamentos[chave_agrupamento]].periodoDuracao))
-                            print()
-                            # Provavelmente aqui vai a verificacao da sobreposicao dos horarios.
-                            # Serie interessante que esse trecho inteiro de codigo, da verificacao do agrupamento, ocorrese apos a criacao do objeto da disciplina
-                            # Beleza. O ideal é checar o overlap dos periodos de duracao que tem datas iguais meu deus do ceu.
-                            # Provavelmente vamos mudar o formato do periodoDurcao, ao inves de ser um array com as strings das datas ele vai ser no pique do array de arrays
-                            # contendo as faixas de horario e o periodo de duracao, ai, no any_overlap a gente so compara os que tiver as faixas "iguais" (ou contidas uma na outra)
-                            # ["2N3456","(04/05/2024 - 03/06/2024)"] 
-                            break
+                            if(not self.tem_alguma_sobreposicao(disciplina.periodoDuracao,disciplinas[agrupamentos[chave]].periodoDuracao)):
+                                #para debug
+                                print("Agrupamento Rolou!")
+                                vai_agrupar=1
+                                verifica_chave=1
+                                chave_agrupamento=chave
+                                break
+                            else:
+                                #para debug
+                                print(disciplina.curso,disciplina.cod,disciplinas[agrupamentos[chave]].cod)
                     if vai_agrupar==1 and verifica_chave ==1:
                         break                
 

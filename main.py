@@ -15,7 +15,9 @@ def main():
     
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_1.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
-    
+
+    # for d in disciplinas:
+    #     print(disciplinas[d].periodoDuracao)
 
     return
     # Criando o modelo
