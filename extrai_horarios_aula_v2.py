@@ -3,6 +3,7 @@ import re
 from classes.Disciplina import Disciplina
 from classes.Fase import Fase
 from classes.Horario import Horario
+from datetime import datetime
 
 class ExtraiHorariosAulaV2:
     def __init__ (self, arquivoHorarios, arquivoSalasPreferenciais):
@@ -40,6 +41,26 @@ class ExtraiHorariosAulaV2:
                 salas[indexSala]=sala.strip()
             salas_preferenciais_dict[index]=salas 
         return salas_preferenciais_dict
+    
+    def parse_date_range(self, date_range):
+        date_range=date_range[0]
+        date_range = date_range.strip('()')
+        start_date_str, end_date_str = date_range.split(' - ')
+        start_date = datetime.strptime(start_date_str, '%d/%m/%Y')
+        end_date = datetime.strptime(end_date_str, '%d/%m/%Y')
+        return start_date, end_date
+
+    def check_overlap(self, date_range1, date_range2):
+        start1, end1 = self.parse_date_range(date_range1)
+        start2, end2 = self.parse_date_range(date_range2)
+        return start1 <= end2 and start2 <= end1
+
+    def any_overlap(self, dates_list1, dates_list2):
+        for date_range1 in dates_list1:
+            for date_range2 in dates_list2:
+                if self.check_overlap(date_range1, date_range2):
+                    return True
+        return False
 
 
     def extrai_horarios_aula(self):
@@ -148,6 +169,18 @@ class ExtraiHorariosAulaV2:
                             faixa_horario = (int(periodo_map[periodo]))+int(faixa)
                             horario_aula["Horario_{}_{}".format(dia_horario,faixa_horario)]=Horario(dia_horario,faixa_horario)
             
+            
+            # Pegando as salas preferenciais da disciplina/turma
+            sp = []
+            if  cursos[0] in salas_preferenciais:
+                    sp = salas_preferenciais[cursos[0]]
+            if  codigo in salas_preferenciais:
+                    sp = salas_preferenciais[codigo]
+
+            # Criando objeto da disciplina
+            #print(nome_curso,nome_ccr,periodo_duracao)
+            disciplina = Disciplina(nome_curso,nome_ccr,ch_ccr,alunos,horario_aula,horario_string,periodo_duracao,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
+ 
             # Agrupamento
             verifica_chave=0
             vai_agrupar=0
@@ -175,8 +208,17 @@ class ExtraiHorariosAulaV2:
                             verifica_chave=1
                             chave_agrupamento=chave
                             
+                            print("agrupamento entre")
+                            print(disciplina.cod,disciplina.periodoDuracao)
+                            print(disciplinas[agrupamentos[chave_agrupamento]].cod,disciplinas[agrupamentos[chave_agrupamento]].periodoDuracao)
+                            print(self.any_overlap(disciplina.periodoDuracao,disciplinas[agrupamentos[chave_agrupamento]].periodoDuracao))
+                            print()
                             # Provavelmente aqui vai a verificacao da sobreposicao dos horarios.
                             # Serie interessante que esse trecho inteiro de codigo, da verificacao do agrupamento, ocorrese apos a criacao do objeto da disciplina
+                            # Beleza. O ideal é checar o overlap dos periodos de duracao que tem datas iguais meu deus do ceu.
+                            # Provavelmente vamos mudar o formato do periodoDurcao, ao inves de ser um array com as strings das datas ele vai ser no pique do array de arrays
+                            # contendo as faixas de horario e o periodo de duracao, ai, no any_overlap a gente so compara os que tiver as faixas "iguais" (ou contidas uma na outra)
+                            # ["2N3456","(04/05/2024 - 03/06/2024)"] 
                             break
                     if vai_agrupar==1 and verifica_chave ==1:
                         break                
@@ -185,17 +227,6 @@ class ExtraiHorariosAulaV2:
                 chave_agrupamento=nome_curso+"_"+str(int(fase[0]))+"_"+str(string_todos_horarios_aula)
                 agrupamentos[chave_agrupamento]=codigo+"_"+str(controleTurmas[codigo])
             verifica_chave=1
-
-            # Pegando as salas preferenciais da disciplina/turma
-            sp = []
-            if  cursos[0] in salas_preferenciais:
-                    sp = salas_preferenciais[cursos[0]]
-            if  codigo in salas_preferenciais:
-                    sp = salas_preferenciais[codigo]
-
-            # Criando objeto da disciplina
-            print(nome_curso,nome_ccr,periodo_duracao)
-            disciplina = Disciplina(nome_curso,nome_ccr,ch_ccr,alunos,horario_aula,horario_string,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
 
             if vai_agrupar==1:
                 agrupados+=1

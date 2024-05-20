@@ -2,7 +2,7 @@ from classes.Horario import Horario
 import re
 
 class Disciplina:
-    def __init__(self,curso,nome_ccr,ch_ccr,alunos,horarios,horarioString,salasPreferenciais,fase,cod,fusao):
+    def __init__(self,curso,nome_ccr,ch_ccr,alunos,horarios,horarioString,periodoDuracao,salasPreferenciais,fase,cod,fusao):
         self.curso = self.abreviacao(curso)
         self.nome_completo_curso = curso
         self.nome_ccr = nome_ccr
@@ -10,6 +10,7 @@ class Disciplina:
         self.alunos = alunos
         self.horarios = horarios
         self.horarioString = horarioString,
+        self.periodoDuracao = periodoDuracao,
         # Aqui vai um novo atributo, uma lista com os incio e termino das aulas, vamos chamar de periodoDuracao
         self.salasPreferenciais = salasPreferenciais
         self.fase = int(fase[0])
