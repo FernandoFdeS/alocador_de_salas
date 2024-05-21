@@ -215,7 +215,7 @@ class ExtraiHorariosAulaV2:
 
                     for horario in todos_horarios_aula:
                         if horario in horario_chave:
-                            #if(not self.tem_alguma_sobreposicao(disciplina.periodoDuracao,disciplinas[agrupamentos[chave]].periodoDuracao)):
+                            if(not self.tem_alguma_sobreposicao(disciplina.periodoDuracao,disciplinas[agrupamentos[chave]].periodoDuracao)):
                                 #para debug
                                 print("Agrupamento!")
                                 vai_agrupar=1
