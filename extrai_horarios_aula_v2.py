@@ -147,13 +147,12 @@ class ExtraiHorariosAulaV2:
                 horario=horario.strip()
                 horarios_splitado=re.findall(r'\S+', horario)
                 # Pegando os periodos (em dias) em que as aulas ocorrem (Ex: 08/07/2024 -  19/10/2024) -> periodoDuracao
-                # Como temos que comprar somente as sobreposições de periodos que acontecem no mesmo momento da semana, vamos armazenar a faixa de horarios da discplina também
+                # Como temos que comparar somente as sobreposições de periodos que acontecem no mesmo momento da semana, vamos armazenar a faixa de horarios da discplina também
                 # ...
                 periodos_duracao=re.findall(padrao_periodo_duracao,horario)
                 horarios_periodo=re.findall(padrao_horarios_aula,horario)
-                #Exemplo: Chave -> (12/04/2024 - 14/05/2024) | Valor -> ["4T345","6V1234"] (faixas do periodo de duração)
+                #Exemplo: Chave -> (12/04/2024 - 14/05/2024) | Valor -> ["4T345","6N1234"] (faixas do periodo de duração)
                 periodo_duracao[(periodos_duracao[0])]=horarios_periodo
-                #periodo_duracao[(periodos_duracao[0])]="".join(horarios_periodo)
 
                 for horario_splitado in horarios_splitado:                    
                     if not horario_splitado[0].isdigit():

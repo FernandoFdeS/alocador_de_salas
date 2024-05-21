@@ -100,8 +100,7 @@ Agrupamento!
 Curso:  MATEMÁTICA
 Disciplina 1: GEX996_1 | ('2N1234 (04/03/2024 - 04/03/2024),  2N1234 (18/03/2024 - 18/03/2024),  2N1234 (01/04/2024 - 01/04/2024),  2N1234 (15/04/2024 - 15/04/2024),  2N1234 (29/04/2024 - 29/04/2024),  2N1234 (13/05/2024 - 13/05/2024),  2N1234 (27/05/2024 - 27/05/2024),  2N1234 (10/06/2024 - 10/06/2024),  2N1234 (24/06/2024 - 24/06/2024)',)
 Disciplina 2: GEX995_1 | ('2N1234 (11/03/2024 - 11/03/2024),  2T2345  2N1234 (25/03/2024 - 25/03/2024),  2T2345 (01/04/2024 - 01/04/2024),  2T2345  2N1234 (08/04/2024 - 08/04/2024),  2T2345 (15/04/2024 - 15/04/2024),  2T2345  2N1234 (22/04/2024 - 22/04/2024),  2T2345 (29/04/2024 - 29/04/2024),  2T2345  2N1234 (06/05/2024 - 06/05/2024),  2T2345 (13/05/2024 - 13/05/2024),  2T2345  2N1234 (20/05/2024 - 20/05/2024),  2T2345 (27/05/2024 - 27/05/2024),  2T2345  2N1234 (03/06/2024 - 03/06/2024),  2T2345 (10/06/2024 - 10/06/2024),  2T2345  2N1234 (17/06/2024 - 17/06/2024),  2T2345 (24/06/2024 - 24/06/2024),  2N12 (01/07/2024 - 01/07/2024)',)
-*** Pelo amor de Deus.
-*** Inacreditávelmente o agrupmaneto tá correto. Que horários bem malucos ainda bem que eu não faço matemática.
+*** Agrupamento correto, sem sobreposição de datas.
 *** Sempre que ambos tem o mesmo periodo de duração um está de noite e o outro de tarde, então não se sobrepõe.
 ===
 
@@ -223,7 +222,7 @@ Agrupamento novo (listas de curso e disciplina para não agrupar vazias): 27
 Agrupamento antigo (listas de curso e disciplina para não agrupar vazias): 41
 Agrupamento antigo (com as listas preenchidas **): 26
 
-Tivemos um agrupamento a mais com o "novo método" (Disciplina de enfermagem) e, além disso, todos os agrupmanetos 
+Tivemos um agrupamento a mais com o "novo método" (Disciplina de enfermagem) e, além disso, todos os agrupamentos 
 foram feitos corretamente (verifiquei manualmente cada um deles, mas posso ter me enganado, claro)
 sem a necessidade de dizer de quais disciplinas ou cursos o programa não deve agrupar 
 
