@@ -1,0 +1,232 @@
+Anotações sobre agrupamentos:
+
+Foi necessário tratamento do arquivo com os horários.
+
+* Em alguns casos aparece o caractere "–" separando as datas ao invés do hífen "-".
+-- O hífen é utilizado para fazer o split da data do periodo de duração da disciplina, se ele não estiver lá dá ruim.
+
+* Em alguns casos as diferentes datas não estão separadas por vírgula
+-- Exemplo: 2T12 (12/04/2024 - 15/05/2024)2T123 (16/05/2024 - 21/06/2024)
+-- Aí vai tudo por água abaixo, reparei que isso aconteceu com maior frequência nas disciplinas de AGRONOMIA.
+
+A aplicação foi executada com os arrays cursos_nao_agrupar e codigos_nao_agrupar vazios, visto que agora os agrupamentos
+errados que aconteciam nesses cursos e disciplinas NÃO devem mais ocorrer devido a nova lógica de agrupamento mais robusta.
+Válido lembrar que os agrupamentos só ocorrem em disciplinas do mesmo curso e fase.
+Com as alterações feitas esses foram os 27 agrupamentos que ocorreram.
+
+Saída do programa + Anotações (***):
+
+Agrupamento!
+Curso:  ADMINISTRAÇÃO
+Disciplina 1: GCS528_1 | ('2M2345 (04/03/2024 - 29/04/2024)',)
+Disciplina 2: GCH087_1 | ('2M2345 (06/05/2024 - 01/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  ENFERMAGEM
+Disciplina 1: GCH090_1 | ('3T1234 (06/05/2024 - 06/07/2024)',)
+Disciplina 2: GSA020_1 | ('3T1234 (04/03/2024 - 04/05/2024)',)
+*** GCH090 era a disciplina que estava dando erro anteriormente no agrupamento (estava sendo ofertada 2 vezes)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  ENGENHARIA AMBIENTAL E SANITÁRIA
+Disciplina 1: GEN108_1 | ('2T345 (04/03/2024 - 11/05/2024),  2T345 6T45 (13/05/2024 - 06/07/2024),  2T34 (08/07/2024 - 13/07/2024)',)
+Disciplina 2: GEN107_1 | ('5T123 6T45 (04/03/2024 - 11/05/2024),  5T123 (13/05/2024 - 13/07/2024)',)
+*** Agrupamento correto. A única sobreposição de datas acontece quando as disciplinas tem aula em dias diferentes da semana.
+*** Faz sentido agrupar elas pois compartilham o horário semanal 6T45
+===
+
+Agrupamento!
+Curso:  LETRAS - PORTUGUÊS E ESPANHOL
+Disciplina 1: GLA369_1 | ('2N1234 (15/04/2024 - 15/06/2024),  2T12  2N1234 (17/06/2024 - 22/06/2024)',)
+Disciplina 2: GCH837_2 | ('2T12345  2N1234 (04/03/2024 - 13/04/2024),  2T12345 (15/04/2024 - 04/05/2024),  2T12345 (27/05/2024 - 08/06/2024),  2T12345 (10/06/2024 - 15/06/2024),  2N1234 (24/06/2024 - 13/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  LETRAS - PORTUGUÊS E ESPANHOL
+Disciplina 1: GLA381_1 | ('4N1234 (08/04/2024 - 11/05/2024),  4T1234  4N1234 (13/05/2024 - 25/05/2024),  4N1234 (27/05/2024 - 13/07/2024)',)
+Disciplina 2: GLA379_1 | ('4N1234 (04/03/2024 - 06/04/2024),   2N1234 (08/04/2024 - 13/04/2024),  2N1234 (29/04/2024 - 11/05/2024), 2N1234 (24/06/2024 - 24/06/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+*** Inicialmente compartilham 4N1234, mas o periodo de duração é diferente.
+===
+
+Agrupamento!
+Curso:  LETRAS - PORTUGUÊS E ESPANHOL
+Disciplina 1: GLA380_1 | ('6N1234 (20/05/2024 - 01/06/2024),  6T1234  6N1234 (03/06/2024 - 08/06/2024),  6N1234 (10/06/2024 - 13/07/2024)',)
+Disciplina 2: GLA384_1 | ('6T12  6N1234 (04/03/2024 - 09/03/2024),  6N1234 (11/03/2024 - 18/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  LETRAS - PORTUGUÊS E ESPANHOL
+Disciplina 1: GLA383_1 | ('2N1234 (04/03/2024 - 06/04/2024),  2N1234 (15/04/2024 - 27/04/2024),  2N1234 (13/05/2024 - 22/06/2024),  2N1234 (01/07/2024 - 13/07/2024)',)
+Disciplina 2: GLA379_1 | ('4N1234 (04/03/2024 - 06/04/2024),   2N1234 (08/04/2024 - 13/04/2024),  2N1234 (29/04/2024 - 11/05/2024), 2N1234 (24/06/2024 - 24/06/2024)',)
+*** Agrupamento correto, compartilham do 2N1234 sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  LETRAS - PORTUGUÊS E ESPANHOL
+Disciplina 1: GLA386_1 | ('3N1234 (29/04/2024 - 06/07/2024),  3N12 (08/07/2024 - 13/07/2024)',)
+Disciplina 2: GLA385_1 | ('3T12345  3N1234 (04/03/2024 - 16/03/2024),  3N1234 (18/03/2024 - 27/04/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  LETRAS - PORTUGUÊS E ESPANHOL
+Disciplina 1: GLA395_1 | ('2T1234  2N1234 (04/03/2024 - 23/03/2024),  2T1234 (25/03/2024 - 30/03/2024),  2N1234 (01/07/2024 - 13/07/2024)',)
+Disciplina 2: GLA397_1 | ('2N1234 (25/03/2024 - 01/06/2024),  2N12 (03/06/2024 - 08/06/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  MATEMÁTICA
+Disciplina 1: GEX983_1 | ('6N1234 (04/03/2024 - 26/04/2024),  6N12 (03/05/2024 - 03/05/2024)',)
+Disciplina 2: GEX980_1 | ('6N1234 (17/05/2024 - 24/05/2024),  6N1234 (07/06/2024 - 05/07/2024),  6N12 (12/07/2024 - 12/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  MATEMÁTICA
+Disciplina 1: GEX989_1 | ('4N1234 (13/03/2024 - 13/03/2024),  4N1234 (10/04/2024 - 10/04/2024),  4N1234 (08/05/2024 - 08/05/2024),  4N1234 (22/05/2024 - 22/05/2024),  4N1234 (12/06/2024 - 12/06/2024),  2N1234 (17/06/2024 - 17/06/2024),  24N1234 (24/06/2024 - 26/06/2024),  2N1234 (01/07/2024 - 01/07/2024)',)
+Disciplina 2: GEX988_1 | ('2N1234 (04/03/2024 - 10/06/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  MATEMÁTICA
+Disciplina 1: GEX996_1 | ('2N1234 (04/03/2024 - 04/03/2024),  2N1234 (18/03/2024 - 18/03/2024),  2N1234 (01/04/2024 - 01/04/2024),  2N1234 (15/04/2024 - 15/04/2024),  2N1234 (29/04/2024 - 29/04/2024),  2N1234 (13/05/2024 - 13/05/2024),  2N1234 (27/05/2024 - 27/05/2024),  2N1234 (10/06/2024 - 10/06/2024),  2N1234 (24/06/2024 - 24/06/2024)',)
+Disciplina 2: GEX995_1 | ('2N1234 (11/03/2024 - 11/03/2024),  2T2345  2N1234 (25/03/2024 - 25/03/2024),  2T2345 (01/04/2024 - 01/04/2024),  2T2345  2N1234 (08/04/2024 - 08/04/2024),  2T2345 (15/04/2024 - 15/04/2024),  2T2345  2N1234 (22/04/2024 - 22/04/2024),  2T2345 (29/04/2024 - 29/04/2024),  2T2345  2N1234 (06/05/2024 - 06/05/2024),  2T2345 (13/05/2024 - 13/05/2024),  2T2345  2N1234 (20/05/2024 - 20/05/2024),  2T2345 (27/05/2024 - 27/05/2024),  2T2345  2N1234 (03/06/2024 - 03/06/2024),  2T2345 (10/06/2024 - 10/06/2024),  2T2345  2N1234 (17/06/2024 - 17/06/2024),  2T2345 (24/06/2024 - 24/06/2024),  2N12 (01/07/2024 - 01/07/2024)',)
+*** Pelo amor de Deus.
+*** Inacreditávelmente o agrupmaneto tá correto. Que horários bem malucos ainda bem que eu não faço matemática.
+*** Sempre que ambos tem o mesmo periodo de duração um está de noite e o outro de tarde, então não se sobrepõe.
+===
+
+Agrupamento!
+Curso:  MEDICINA
+Disciplina 1: GSA286_1 | ('4T1234 (06/03/2024 - 06/03/2024),  4T1234 (20/03/2024 - 20/03/2024),  4T1234 (03/04/2024 - 03/04/2024),  4T1234 (17/04/2024 - 17/04/2024),  4T1234 (08/05/2024 - 08/05/2024),  4T1234 (22/05/2024 - 22/05/2024),  4T1234 (29/05/2024 - 29/05/2024),  4T1234 (12/06/2024 - 12/06/2024),  4T1234 (26/06/2024 - 26/06/2024)',)
+Disciplina 2: GSA285_1 | ('4T12345 (05/06/2024 - 05/06/2024),  4T12345 (19/06/2024 - 19/06/2024),  4T12345 (03/07/2024 - 03/07/2024),  4T123 (10/07/2024 - 10/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1036_1 | ('5M1234 (28/03/2024 - 28/03/2024), 5M1234 (02/05/2024 - 02/05/2024), 5M1234 (06/06/2024 - 06/06/2024), 5M1234 (20/06/2024 - 20/06/2024), 5M12 (27/06/2024 - 27/06/2024)',)
+Disciplina 2: GCH1100_1 | ('5M1234 (04/03/2024 - 21/03/2024), 5M1234 (04/04/2024 - 25/04/2024), 5M1234 (09/05/2024 - 09/05/2024), 5M1234 (16/05/2024 - 16/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1039_1 | ('4N1234 (27/03/2024 - 27/03/2024),  4N1234 (08/05/2024 - 08/05/2024),  4N1234 (27/05/2024 - 08/06/2024),  4N12 (12/06/2024 - 12/06/2024)',)
+Disciplina 2: GCH1038_1 | ('4N1234 (04/03/2024 - 23/03/2024),  4N1234 (01/04/2024 - 27/04/2024),  4N1234 (13/05/2024 - 25/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1099_1 | ('6M1234 (04/03/2024 - 23/03/2024), 6M1234 (08/04/2024 - 04/05/2024), 6M1234 (13/05/2024 - 01/06/2024), 6M1234 (14/06/2024 - 14/06/2024), 6M34 (28/06/2024 - 28/06/2024), 6M1234 (01/07/2024 - 13/07/2024)',)
+Disciplina 2: GCH1088_1 | ('6M1234 (01/04/2024 - 06/04/2024), 6M1234 (06/05/2024 - 11/05/2024), 6M1234 (03/06/2024 - 08/06/2024), 6M1234 (17/06/2024 - 22/06/2024), 6M12 (24/06/2024 - 29/06/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+*** Quando os períodos de duração se sobrepõe os horários da semana são diferentes 6M12 e 6M34, então não tem problema.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1105_1 | ('3N1234 (04/03/2024 - 30/03/2024), 7M123456  3N1234 (01/07/2024 - 13/07/2024)',)
+Disciplina 2: GCH1104_1 | ('3N1234 (01/04/2024 - 27/04/2024),  3N1234 (06/05/2024 - 18/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1106_1 | ('2N1234 (25/03/2024 - 25/03/2024),  2N1234 (29/04/2024 - 29/04/2024),  2N1234 (27/05/2024 - 27/05/2024),  2N1234 (10/06/2024 - 10/06/2024),  2N12 (17/06/2024 - 17/06/2024)',)
+Disciplina 2: GCH1102_1 | ('2N1234 (04/03/2024 - 23/03/2024),  2N1234 (01/04/2024 - 27/04/2024),  2N1234 (06/05/2024 - 25/05/2024),  2N1234 (03/06/2024 - 03/06/2024),  2N34 (17/06/2024 - 17/06/2024),  2N1234 (24/06/2024 - 06/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+*** Quando os períodos de duração se sobrepõe os horários da semana são diferentes 2N12 e 2N34, então não tem problema.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1109_1 | ('3M1234 (06/05/2024 - 06/07/2024)',)
+Disciplina 2: GCH1108_1 | ('3M1234 (04/03/2024 - 04/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1111_1 | ('5M1234 (28/03/2024 - 28/03/2024), 5M1234 (02/05/2024 - 02/05/2024), 5M1234 (06/06/2024 - 06/06/2024), 5M1234 (20/06/2024 - 20/06/2024), 5M12 (27/06/2024 - 27/06/2024)',)
+Disciplina 2: GCH837_3 | ('57M12345 (04/03/2024 - 23/03/2024), 57M12345 (01/04/2024 - 27/04/2024), 5M12345 (06/05/2024 - 25/05/2024), 57M12345 (13/06/2024 - 15/06/2024), 5M345 (27/06/2024 - 27/06/2024), 5M12345 (01/07/2024 - 13/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+*** Quando os períodos de duração se sobrepõe os horários da semana são diferentes 5M12 e 5M345, então não tem problema.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1114_1 | ('7M2345  5N1234 (06/05/2024 - 25/05/2024), 7M2345  5N1234 (27/05/2024 - 08/06/2024),  5N1234 (10/06/2024 - 13/07/2024)',)
+Disciplina 2: GCH1115_1 | ('7M2345  5N1234 (04/03/2024 - 23/03/2024),  5N1234 (25/03/2024 - 20/04/2024), 7M2345  5N1234 (22/04/2024 - 04/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1116_1 | ('4N1234 (27/03/2024 - 27/03/2024),  4N1234 (08/05/2024 - 08/05/2024),  4N1234 (05/06/2024 - 05/06/2024),  4N1234 (19/06/2024 - 19/06/2024),  4N12 (26/06/2024 - 26/06/2024)',)
+Disciplina 2: GCH1113_1 | ('4N1234 (04/03/2024 - 23/03/2024),  4N1234 (01/04/2024 - 27/04/2024),  4N1234 (13/05/2024 - 01/06/2024),  4N1234 (12/06/2024 - 12/06/2024),  4N34 (26/06/2024 - 26/06/2024), 7M123456  7T123  4N1234 (01/07/2024 - 13/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+*** Quando os períodos de duração se sobrepõe os horários da semana são diferentes 4N12 e 4N34, então não tem problema.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GLA240_1 | ('5M1234 (04/03/2024 - 04/05/2024)',)
+Disciplina 2: GCH1119_1 | ('5M1234 (06/05/2024 - 13/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GEX776_1 | ('6M1234 (13/05/2024 - 13/07/2024)',)
+Disciplina 2: GCH1118_1 | ('6M1234 (04/03/2024 - 11/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1121_1 | ('7M2345 (09/03/2024 - 09/03/2024),  4N1234 (13/03/2024 - 13/03/2024), 7M2345 (16/03/2024 - 16/03/2024), 7M2345 (23/03/2024 - 23/03/2024),  4N1234 (10/04/2024 - 10/04/2024),  4N1234 (08/05/2024 - 08/05/2024),  4N1234 (22/05/2024 - 22/05/2024),  4N1234 (12/06/2024 - 12/06/2024),  4N1234 (26/06/2024 - 26/06/2024)',)
+Disciplina 2: GEX777_1 | ('4N1234 (06/03/2024 - 06/03/2024),  4N1234 (18/03/2024 - 06/04/2024),  4N1234 (15/04/2024 - 27/04/2024), 7M2345  4N1234 (15/05/2024 - 18/05/2024), 7M2345  4N1234 (27/05/2024 - 08/06/2024), 7M2345  4N1234 (19/06/2024 - 22/06/2024), 7M2345  4N1234 (01/07/2024 - 13/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1126_1 | ('2N1234 (25/03/2024 - 25/03/2024),  2N1234 (29/04/2024 - 29/04/2024),  2N1234 (27/05/2024 - 27/05/2024),  2N1234 (10/06/2024 - 10/06/2024),  2N12 (17/06/2024 - 17/06/2024)',)
+Disciplina 2: GCH1122_1 | ('2N1234 (04/03/2024 - 23/03/2024),  2N1234 (01/04/2024 - 27/04/2024),  2N1234 (06/05/2024 - 06/05/2024),  2N1234 (13/05/2024 - 13/05/2024),  7T2345 (18/05/2024 - 18/05/2024),  2N1234 (20/05/2024 - 20/05/2024),  7T2345 (25/05/2024 - 25/05/2024),  7T2345 (01/06/2024 - 01/06/2024),  2N1234 (03/06/2024 - 03/06/2024),  7T2345 (08/06/2024 - 08/06/2024),  2N1234 (24/06/2024 - 13/07/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamento!
+Curso:  PEDAGOGIA
+Disciplina 1: GCH1134_1 | ('3N1234 (26/03/2024 - 26/03/2024),  3N1234 (30/04/2024 - 30/04/2024),  3N1234 (21/05/2024 - 01/06/2024),  3N12 (04/06/2024 - 04/06/2024)',)
+Disciplina 2: GCH1132_1 | ('3N1234 (04/03/2024 - 23/03/2024),  3N1234 (01/04/2024 - 27/04/2024),  3N1234 (06/05/2024 - 18/05/2024)',)
+*** Agrupamento correto, sem sobreposição de datas.
+===
+
+Agrupamentos:  27
+
+==== Fim da execução =====
+
+Comparação:
+Agrupamento novo (listas de curso e disciplina para não agrupar vazias): 27
+Agrupamento antigo (listas de curso e disciplina para não agrupar vazias): 41
+Agrupamento antigo (com as listas preenchidas **): 26
+
+Tivemos um agrupamento a mais com o "novo método" (Disciplina de enfermagem) e, além disso, todos os agrupmanetos 
+foram feitos corretamente (verifiquei manualmente cada um deles, mas posso ter me enganado, claro)
+sem a necessidade de dizer de quais disciplinas ou cursos o programa não deve agrupar 
+
+**
+cursos_nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA","ENFERMAGEM"]
+codigos_nao_agrupar=["GLA356","GLA357","GLA363"]

@@ -61,11 +61,11 @@ class ExtraiHorariosAulaV2:
                     for faixa2 in valor2:
                         if ((faixa1 in faixa2) or (faixa2  in faixa1)):
                             if self.verfica_sobreposicao(chave1, chave2):
-                                #Debug
-                                print()
-                                print("overlap")
-                                print(chave1,valor1)
-                                print(chave2,valor2)
+                                # #Debug
+                                # print()
+                                # print("overlap")
+                                # print(chave1,valor1)
+                                # print(chave2,valor2)
                                 return True
         return False
 
@@ -80,7 +80,7 @@ class ExtraiHorariosAulaV2:
         # TODO Receber como entrada um dado que indique se as disciplinas de
         # um curso podem ser agrupadas ou nao. Isto deve depender da logica de
         # agrupamento se aplicar ou nao as disciplinas do curso
-        cursos_nao_agrupar=["ENGENHARIA AMBIENTAL E SANITÁRIA"]
+        cursos_nao_agrupar=[]
         # TODO Receber como entrada um dado que indique se determinadas
         # disciplinas podem ser agrupadas ou nao. Isto deve depender da logica
         # de agrupamento se aplicar ou nao a estas disciplinas
@@ -215,16 +215,16 @@ class ExtraiHorariosAulaV2:
 
                     for horario in todos_horarios_aula:
                         if horario in horario_chave:
-                            if(not self.tem_alguma_sobreposicao(disciplina.periodoDuracao,disciplinas[agrupamentos[chave]].periodoDuracao)):
+                            #if(not self.tem_alguma_sobreposicao(disciplina.periodoDuracao,disciplinas[agrupamentos[chave]].periodoDuracao)):
                                 #para debug
-                                print("Agrupamento Rolou!")
+                                print("Agrupamento!")
                                 vai_agrupar=1
                                 verifica_chave=1
                                 chave_agrupamento=chave
                                 break
                             #para debug
-                            else:
-                                print(disciplina.curso,disciplina.cod,disciplinas[agrupamentos[chave]].cod)
+                            #else:
+                                #print(disciplina.curso,disciplina.cod,disciplinas[agrupamentos[chave]].cod)
                     if vai_agrupar==1 and verifica_chave ==1:
                         break                
 
@@ -236,18 +236,19 @@ class ExtraiHorariosAulaV2:
             if vai_agrupar==1:
                 agrupados+=1
                 print("Curso: ",disciplina.nome_completo_curso)
-                print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)) + " | " + str(disciplina.alunos))
-                print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].alunos))
+                print("Disciplina 1: " + disciplina.cod+" | "+str(disciplina.horarioString)) 
+                print("Disciplina 2: " + agrupamentos[chave_agrupamento] + " | "+str(disciplinas[agrupamentos[chave_agrupamento]].horarioString))
                 
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
-                    print("Agrupamento: " + disciplinas[agrupamentos[chave_agrupamento]].cod + " | " + str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios_agrupamento())) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].max_alunos_agrupamento()))
+                    # print("Agrupamento: " + disciplinas[agrupamentos[chave_agrupamento]].cod + " | " + str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios_agrupamento())) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].max_alunos_agrupamento()))
                 else:
                     disciplina.agrupamento.append(disciplinas[agrupamentos[chave_agrupamento]])
                     disciplinas[disciplina.cod]=disciplina
                     del(disciplinas[agrupamentos[chave_agrupamento]])
-                    print("Agrupamento: " + disciplinas[disciplina.cod].cod + " | " + str(len(disciplinas[disciplina.cod].horarios_agrupamento())) + " | " + str(disciplinas[disciplina.cod].max_alunos_agrupamento()))
+                    # print("Agrupamento: " + disciplinas[disciplina.cod].cod + " | " + str(len(disciplinas[disciplina.cod].horarios_agrupamento())) + " | " + str(disciplinas[disciplina.cod].max_alunos_agrupamento()))
                 print("===")
+                print("")
 
             else:
                 disciplinas[codigo+"_"+str(controleTurmas[codigo])]=disciplina
