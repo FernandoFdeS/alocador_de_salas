@@ -40,30 +40,33 @@ class ExtraiHorariosAulaV2:
             salas_preferenciais_dict[index]=salas 
         return salas_preferenciais_dict
     
-    def parse_periodo_duraca(self, date_range):
-        date_range = date_range.strip('()')
-        start_date_str, end_date_str = date_range.split(' - ')
+    def parse_periodo_duraca(self, periodo_duracao):
+        periodo_duracao = periodo_duracao.strip('()')
+        start_date_str, end_date_str = periodo_duracao.split(' - ')
         start_date = datetime.strptime(start_date_str, '%d/%m/%Y')
         end_date = datetime.strptime(end_date_str, '%d/%m/%Y')
         return start_date, end_date
 
-    def verfica_sobreposicao(self, date_range1, date_range2):
-        start1, end1 = self.parse_periodo_duraca(date_range1)
-        start2, end2 = self.parse_periodo_duraca(date_range2)
+    def verfica_sobreposicao(self, periodo_duracao1, periodo_duracao2):
+        start1, end1 = self.parse_periodo_duraca(periodo_duracao1)
+        start2, end2 = self.parse_periodo_duraca(periodo_duracao2)
         return start1 <= end2 and start2 <= end1
 
     def tem_alguma_sobreposicao(self, dict_datas1, dict_datas2):
         dict_datas1=dict_datas1[0]
         dict_datas2=dict_datas2[0]
-        print()
         for chave1,valor1 in dict_datas1.items():
             for chave2,valor2 in dict_datas2.items():
-                if ((valor1 in valor2) or (valor2  in valor1)):
-                    if self.verfica_sobreposicao(chave1, chave2):
-                        print("overlap")
-                        print(chave1,valor1)
-                        print(chave2,valor2)
-                        return True
+                for faixa1 in valor1:
+                    for faixa2 in valor2:
+                        if ((faixa1 in faixa2) or (faixa2  in faixa1)):
+                            if self.verfica_sobreposicao(chave1, chave2):
+                                #Debug
+                                print()
+                                print("overlap")
+                                print(chave1,valor1)
+                                print(chave2,valor2)
+                                return True
         return False
 
 
@@ -77,7 +80,7 @@ class ExtraiHorariosAulaV2:
         # TODO Receber como entrada um dado que indique se as disciplinas de
         # um curso podem ser agrupadas ou nao. Isto deve depender da logica de
         # agrupamento se aplicar ou nao as disciplinas do curso
-        cursos_nao_agrupar=["CIÊNCIA DA COMPUTAÇÃO","ENGENHARIA AMBIENTAL E SANITÁRIA"]
+        cursos_nao_agrupar=["ENGENHARIA AMBIENTAL E SANITÁRIA"]
         # TODO Receber como entrada um dado que indique se determinadas
         # disciplinas podem ser agrupadas ou nao. Isto deve depender da logica
         # de agrupamento se aplicar ou nao a estas disciplinas
@@ -148,19 +151,18 @@ class ExtraiHorariosAulaV2:
                 # ...
                 periodos_duracao=re.findall(padrao_periodo_duracao,horario)
                 horarios_periodo=re.findall(padrao_horarios_aula,horario)
-                periodo_duracao[(periodos_duracao[0])]="".join(horarios_periodo)
+                #Exemplo: Chave -> (12/04/2024 - 14/05/2024) | Valor -> ["4T345","6V1234"] (faixas do periodo de duração)
+                periodo_duracao[(periodos_duracao[0])]=horarios_periodo
+                #periodo_duracao[(periodos_duracao[0])]="".join(horarios_periodo)
 
                 for horario_splitado in horarios_splitado:                    
                     if not horario_splitado[0].isdigit():
                         break
-                    # Pegando os turnos em que as aulas ocorrem (Ex: 6M12345) de cada um dos conjuntos de horários da disciplina
                    
                     if (horario_splitado not in todos_horarios_aula):   
                         todos_horarios_aula.append(horario_splitado)
-             
-              
             
-            # Agora sim, criando os objetos referentes aos horarios das disciplinas
+            # Criando os objetos referentes aos horarios das disciplinas
             string_todos_horarios_aula="".join(todos_horarios_aula)
             horario_aula=dict()
             
@@ -188,7 +190,6 @@ class ExtraiHorariosAulaV2:
                     sp = salas_preferenciais[codigo]
 
             # Criando objeto da disciplina
-            #print(nome_curso,nome_ccr,periodo_duracao)
             disciplina = Disciplina(nome_curso,nome_ccr,ch_ccr,alunos,horario_aula,horario_string,periodo_duracao,sp,fase,str(codigo+"_"+str(controleTurmas[codigo])),fusao)
  
             # Agrupamento
@@ -221,8 +222,8 @@ class ExtraiHorariosAulaV2:
                                 verifica_chave=1
                                 chave_agrupamento=chave
                                 break
+                            #para debug
                             else:
-                                #para debug
                                 print(disciplina.curso,disciplina.cod,disciplinas[agrupamentos[chave]].cod)
                     if vai_agrupar==1 and verifica_chave ==1:
                         break                
@@ -234,7 +235,7 @@ class ExtraiHorariosAulaV2:
 
             if vai_agrupar==1:
                 agrupados+=1
-
+                print("Curso: ",disciplina.nome_completo_curso)
                 print("Esta disciplina: " + disciplina.cod+" | " + str(len(disciplina.horarios)) + " | " + str(disciplina.alunos))
                 print("Outra disciplina: " + agrupamentos[chave_agrupamento] + " | "+ str(len(disciplinas[agrupamentos[chave_agrupamento]].horarios)) + " | " + str(disciplinas[agrupamentos[chave_agrupamento]].alunos))
                 
