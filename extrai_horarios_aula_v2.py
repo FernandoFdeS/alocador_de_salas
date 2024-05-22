@@ -40,6 +40,21 @@ class ExtraiHorariosAulaV2:
             salas_preferenciais_dict[index]=salas 
         return salas_preferenciais_dict
     
+    def verifica_sobreposicao_horario_aula(self,horario1,horario2):
+        padrao_horario = r'(\d+)([A-Za-z])(\d+)'
+        partes_horario1 = re.match(padrao_horario,horario1)
+        dias_horario1,turno_horario1,faixas_horario1 = partes_horario1.groups()
+        partes_horario2 = re.match(padrao_horario,horario2)
+        dias_horario2,turno_horario2,faixas_horario2 = partes_horario2.groups()
+        for dia_horario1 in dias_horario1:
+            for dia_horario2 in dias_horario2:
+                if(dia_horario1==dia_horario2 and turno_horario1 == turno_horario2):
+                    for faixa_horario1 in faixas_horario1:
+                        for faixa_horario2 in faixas_horario2:
+                            if(faixa_horario1 == faixa_horario2):      
+                                return True
+        return False          
+
     def parse_periodo_duraca(self, periodo_duracao):
         periodo_duracao = periodo_duracao.strip('()')
         start_date_str, end_date_str = periodo_duracao.split(' - ')
@@ -59,7 +74,7 @@ class ExtraiHorariosAulaV2:
             for chave2,valor2 in dict_datas2.items():
                 for faixa1 in valor1:
                     for faixa2 in valor2:
-                        if ((faixa1 in faixa2) or (faixa2  in faixa1)):
+                        if(self.verifica_sobreposicao_horario_aula(faixa1,faixa2)):                         
                             if self.verfica_sobreposicao(chave1, chave2):
                                 # #Debug
                                 # print()
