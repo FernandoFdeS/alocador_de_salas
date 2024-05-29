@@ -2,11 +2,11 @@ import os
 import sys
 import threading
 
-# Adicione a raiz do projeto ao caminho do módulo
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) )
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for
 from solve import main
+from envia_email import EmailSender  
 app = Flask(__name__)
 
 global wait
@@ -53,7 +53,15 @@ def process(path_horarios,path_salas,path_salas_preferenciais):
     main(arquivo_horarios=path_horarios,arquivo_salas=path_salas,arquivo_salas_preferenciais=path_salas_preferenciais)
     processamento = True
     print("Enviando para: "+ email)
-    # Aqui vai o envio de e-mail.
+    email_sender = EmailSender()
+    email_destino = 'alocadotron@uffs.edu.br'
+    assunto = 'Alocação de salas'
+    corpo = 'Olá, o processo de alocação foi concluído. Seguem anexo a planilha e a tabela de alocação gerados.'
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    planilha = os.path.join(base_dir, 'static', 'dados', 'planilha_alocacoes.xlsx')
+    tabela = os.path.join(base_dir, 'static', 'dados', 'tabela_alocacoes.xlsx')
+    anexos = [planilha,tabela]
+    email_sender.send_email(email_destino, assunto, corpo, anexos)
 
 
 @app.route('/check_status')
