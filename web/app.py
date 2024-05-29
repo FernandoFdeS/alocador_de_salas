@@ -73,15 +73,15 @@ def check_status():
 
 @app.route('/wait')
 def wait():
-    # Atenção!
-    # Nessa tela de wait é interessante ter um botão para "limpar alocação"
-    # Que exlcui a que foi gerada e permite o usuário fazer uma nova.
-    # Por mais que a alocação seja gerada em segundo plano, nós não temos um controle
-    # De quantas podem ser feitas ao mesmo tempo e nem como a aplicação se comporta quando isso acontece.
-    # Acho que é algo que nem faz sentido, então será feita apenas uma alocação por vez. quando feita o usuário
-    # Pode escolher "esquecer" da alocação feita e poder fazer uma nova, claro, que vai ter uma confirmação exlpicando
-    # Bonitinho 
     return render_template("wait.html")
+
+@app.route('/finish')
+def finish():
+    global processamento
+    global wait
+    processamento = False
+    wait = False
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run()

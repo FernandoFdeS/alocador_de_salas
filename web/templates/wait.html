@@ -50,7 +50,11 @@
                 <p class="mb-1">Se quiser, pode clicar <a href="{{ url_for('static', filename='dados/planilha_alocacoes.xlsx') }}"  download>aqui</a> para baixá-la</p>
                 <p class="mb-2">Também foi gerada uma <a href="{{ url_for('static', filename='dados/tabela_alocacoes.xlsx') }}"  download>tabela de alocações</a></p>
             </div>
-            <i class="fa-solid fa-check  mt-3 fa-xl" style="color: #217709;"></i>
+            <i class="fa-solid fa-check  mt-3 mb-3 fa-xl" style="color: #217709;"></i>
+
+            <form action="finish" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
+                <button class="btn btn-success btn-block" type="submit">Fazer outra alocação</button>
+            </form>
         </div>
     </div>
     <script>
@@ -73,6 +77,10 @@
             });
         }
         checkStatus(); 
+
+        function confirmSubmit() {
+            return confirm("Atenção! Ao confirmar essa ação NÃO SERÁ mais possível ter acesso aos resultados dessa alocação.");
+        }
     </script>
 </body>
 </html>
