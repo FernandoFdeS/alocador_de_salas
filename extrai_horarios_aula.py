@@ -5,7 +5,7 @@ from classes.Fase import Fase
 from classes.Horario import Horario
 from datetime import datetime
 
-class ExtraiHorariosAulaV2:
+class ExtraiHorariosAula:
     def __init__ (self, arquivoHorarios, arquivoSalasPreferenciais):
         self.arquivoHorarios = arquivoHorarios
         self.arquivoSalasPreferenciais = arquivoSalasPreferenciais

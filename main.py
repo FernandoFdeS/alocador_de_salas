@@ -2,7 +2,7 @@ from classes.Horario import Horario
 from classes.Disciplina import Disciplina
 from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
-from extrai_horarios_aula_v2 import ExtraiHorariosAulaV2
+from extrai_horarios_aula import ExtraiHorariosAula
 from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
 from verifica_solucao import VerificaSolucao
@@ -14,7 +14,7 @@ def main():
     salasLista = list(salas.keys())
     
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2("./dados/horarios_2024_1.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula("./dados/horarios_2024_1.xlsx","./dados/salas_preferenciais_2024.1.xlsx").extrai_horarios_aula()
 
     # for d in disciplinas:
     #     print(disciplinas[d].periodoDuracao)

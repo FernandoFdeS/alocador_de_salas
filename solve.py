@@ -2,7 +2,7 @@ from classes.Horario import Horario
 from classes.Disciplina import Disciplina
 from classes.Sala import Sala
 from extrai_salas import ExtraiSalas
-from extrai_horarios_aula_v2 import ExtraiHorariosAulaV2
+from extrai_horarios_aula import ExtraiHorariosAula
 from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
 from verifica_solucao import VerificaSolucao
@@ -15,7 +15,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     salasLista = list(salas.keys())
     # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
-    disciplinas,horarios,fases,cursos = ExtraiHorariosAulaV2(arquivo_horarios,arquivo_salas_preferenciais).extrai_horarios_aula()
+    disciplinas,horarios,fases,cursos = ExtraiHorariosAula(arquivo_horarios,arquivo_salas_preferenciais).extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
