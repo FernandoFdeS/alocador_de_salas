@@ -41,7 +41,7 @@ class GeraPlanilhaSaida:
         df1 = pd.DataFrame(alocacoes, columns=["cod", "nome_ccr", "ch_ccr", "curso", "fase", "horarios", "alunos", "sala"])
         df2 = pd.DataFrame(conflitos, columns=["SALA-TURNO","CODIGO-HORARIO"])
 
-        nome_arquivo = "tabela_alocacoes.xlsx"
+        nome_arquivo = self.caminho+"tabela_alocacoes.xlsx"
         with pd.ExcelWriter(nome_arquivo) as writer:
             df1.to_excel(writer, sheet_name='Alocações', index=False)
             df2.to_excel(writer, sheet_name='Conflitos', index=False)

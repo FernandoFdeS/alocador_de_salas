@@ -5,6 +5,7 @@ from extrai_salas import ExtraiSalas
 from extrai_horarios_aula_v2 import ExtraiHorariosAulaV2
 from gera_matriz_distancia import GeraMatrizDistancia
 from gera_planilha_saida import GeraPlanilhaSaida
+from verifica_solucao import VerificaSolucao
 import gurobipy as gp
 from gurobipy import GRB
 
@@ -81,29 +82,35 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
 
     ## == Restricoes
    
+   ## == Restricoes
+
     # No máximo uma disciplina (turma) pode ser alocada a uma sala em um determinado horário:
     c1 = m.addConstrs(
-        gp.quicksum(x[d, s, h] for d in disciplinas if h in disciplinas[d].horarios) <= 1
+        gp.quicksum(x[d, s, h] for d in disciplinas if h in disciplinas[d].horarios_agrupamento()) <= 1
         for s in salas for h in horarios
     )
 
     # No máximo uma sala pode ser alocada a uma disciplina em um determinado horário
     c2 = m.addConstrs( 
-        gp.quicksum(x[d,s,h] for s in salas ) <= 1 for d in disciplinas for h in disciplinas[d].horarios
+        gp.quicksum(x[d,s,h] for s in salas ) <= 1 for d in disciplinas for h in disciplinas[d].horarios_agrupamento()
     )
 
+    # TODO Melhorar o tratamento dos dados de uma disciplina considerando que
+    # ela pode ser um agrupamento (ex.: uso dos metodos max_alunos_agrupamento
+    # e horarios_agrupamento)
     # Uma sala não pode ser alocada a uma disciplina cujo número de alunos ultrapasse a sua capacidade:
     c3 = m.addConstrs(
-        x[d,s,h] * disciplinas[d].alunos <= salas[s].capacidade for d in disciplinas for s in salas for h in disciplinas[d].horarios)
+        x[d,s,h] * disciplinas[d].max_alunos_agrupamento() <= salas[s].capacidade for d in disciplinas for s in salas for h in disciplinas[d].horarios_agrupamento())
 
 
     # Uma sala é alocada a uma disciplina se a sala é alocada à disciplina em algum horário:
     c4 = m.addConstrs(
-        y[d,s] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios)
+        y[d,s] >= x[d,s,h] for d in disciplinas for s in salas for h in disciplinas[d].horarios_agrupamento())
     
+
     # Uma sala é aloacada a uma fase (e curso) se a sala é aloaca à uma disciplina dessa mesma fase em algum horário
     c5 = m.addConstrs(
-        z[s,f] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso
+        z[s,f] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios_agrupamento() for f in fases if fases[f].fase == disciplinas[d].fase and fases[f].curso == disciplinas[d].curso
     )
 
     # Indica as duplas de salas aloacadas para uma mesma fase que serão usadas no somatório de distância de salas alocadas a determinada fase
@@ -113,7 +120,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
 
     # Uma sala é alocada a um curso se a sala é alocada à uma disciplina desse mesmo curso em algum horário.
     c7 = m.addConstrs(
-        w[s,disciplinas[d].curso] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios 
+        w[s,disciplinas[d].curso] >= x[d,s,h] for d in disciplinas for s in salasLista for h in disciplinas[d].horarios_agrupamento()
     )
 
     # Indica as duplas de salas alocadas para um mesmo curso  que serão usadas no somatório de distância de salas alocadas a determinado curso
@@ -129,5 +136,9 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     else:
         print("Solução -> não <- ótima.")
 
+
+    conflitos = VerificaSolucao(disciplinas,salas,horarios,x).verifica_conflito_turno()
+
+    GeraPlanilhaSaida(disciplinas,salas,horarios,x,"./web/static/dados/","planilha_alocacoes.xlsx").cria_tabela_alocacoes(conflitos)
     GeraPlanilhaSaida(disciplinas,salas,horarios,x,"./web/static/dados/","planilha_alocacoes.xlsx").exporta_alocacoes()
 

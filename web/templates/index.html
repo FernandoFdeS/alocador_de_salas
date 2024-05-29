@@ -40,7 +40,10 @@
                         <a href="{{ url_for('static', filename='dados/salas_preferenciais_exemplo.xlsx') }}" download>Arquivo de exemplo para salas preferenciais</a>
                     </div>
 
-                    <input type="submit" class="btn btn-outline-success col-12 mt-2" >
+                    <label for="email" class="form-label">E-mail <small class="text-muted">(para onde será enviado a alocação)</small>:</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+
+                    <input type="submit" class="btn btn-outline-success col-12 mt-2" id="submit-button" >
                 </form>
             </div>
         </div>
@@ -84,7 +87,9 @@
                 success: function (data) {
                     if (data.wait) {
                         $('#processando').css('display', 'block');
+                        $('#submit-button').attr('disabled',true);
                     } else {
+                        $('#submit-button').attr('disabled',false);
                     }
                 },
             });
