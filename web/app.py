@@ -54,14 +54,13 @@ def process(path_horarios,path_salas,path_salas_preferenciais):
     processamento = True
     print("Enviando para: "+ email)
     email_sender = EmailSender()
-    email_destino = 'alocadotron@uffs.edu.br'
     assunto = 'Alocação de salas'
     corpo = 'Olá, o processo de alocação foi concluído. Seguem anexo a planilha e a tabela de alocação gerados.'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     planilha = os.path.join(base_dir, 'static', 'dados', 'planilha_alocacoes.xlsx')
     tabela = os.path.join(base_dir, 'static', 'dados', 'tabela_alocacoes.xlsx')
     anexos = [planilha,tabela]
-    email_sender.send_email(email_destino, assunto, corpo, anexos)
+    email_sender.send_email(email, assunto, corpo, anexos)
 
 
 @app.route('/check_status')
