@@ -118,10 +118,11 @@ class GeraPlanilhaSaida:
         df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)
         
 
-        df.to_excel(self.nome_arquivo, index=True,engine='openpyxl')
+
+        df.to_excel(self.caminho+self.nome_arquivo, index=True,engine='openpyxl')
 
         # Personalizando a planilha
-        workbook = openpyxl.load_workbook(self.nome_arquivo)
+        workbook = openpyxl.load_workbook(self.caminho+self.nome_arquivo)
         worksheet = workbook.worksheets[0]
         worksheet.merge_cells("C1:H1")
         worksheet.merge_cells("J1:O1")
