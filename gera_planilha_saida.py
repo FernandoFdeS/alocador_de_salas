@@ -79,8 +79,6 @@ class GeraPlanilhaSaida:
             for linha in range(len(linha_salas)):
                 if "#" in coluna_horarios[coluna]:
                     matriz[linha][coluna]="#"
-        
-
 
         for d in self.disciplinas:
             disciplinas_qtd_alocacoes[d]=0
@@ -109,8 +107,7 @@ class GeraPlanilhaSaida:
         vet_nao_alocadas=[]
         for d in disciplinas_nao_alocadas:
             vet_nao_alocadas.append(self.disciplinas[d].formata_saida(self.horarios[h].converte_horario()))
-        qtdNaoAlocadas=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")") 
-        
+        qtdNaoAlocadas=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")")  
         
         # Cria um DataFrame com rótulos personalizados
         while(len(vet_nao_alocadas)<len(linha_salas)):
@@ -122,9 +119,9 @@ class GeraPlanilhaSaida:
         
 
         df.to_excel(self.nome_arquivo, index=True,engine='openpyxl')
-        ## Personalizando a planilha
+
+        # Personalizando a planilha
         workbook = openpyxl.load_workbook(self.nome_arquivo)
-        # Acesse a primeira planilha (índice 0) do arquivo
         worksheet = workbook.worksheets[0]
         worksheet.merge_cells("C1:H1")
         worksheet.merge_cells("J1:O1")
@@ -152,7 +149,7 @@ class GeraPlanilhaSaida:
             for celula in coluna:
                 celula.style = estilo_header
 
-        # Pintando o quadradinho de cima de preto
+        # Pintando os quadradinhos de cima de preto
         preenchimento_preto = PatternFill(start_color="000000", end_color="000000", fill_type="solid")
         ws = workbook.active
         celulas_pretas = ['A1', 'A2', 'B1', 'B2']

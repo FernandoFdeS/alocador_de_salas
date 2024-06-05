@@ -10,17 +10,13 @@ import gurobipy as gp
 from gurobipy import GRB
 
 def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
-    print(arquivo_salas)
     salas = ExtraiSalas(arquivo_salas).extrai_salas()
     salasLista = list(salas.keys())
-    # salas = ExtraiSalas("./dados/salas_testes.csv").extrai_salas()
     matriz_dist = GeraMatrizDistancia(salas).gera_matriz()
     disciplinas,horarios,fases,cursos = ExtraiHorariosAula(arquivo_horarios,arquivo_salas_preferenciais).extrai_horarios_aula()
  
     # Criando o modelo
     m = gp.Model()
-
-    print(len(disciplinas))
 
     # Variaveis de ajuste de peso
     M1 = 250
@@ -59,7 +55,6 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
         for h in disciplinas[d].horarios:
             for s in salas:
                 if s not in disciplinas[d].salasPreferenciais:
-                    #print(s+" não é sala preferencial")
                     vet_salas_preferenciais.append(x[d,s,h])
     
     # Cria vetor das alocacoes das salas
@@ -81,8 +76,6 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     )
 
     ## == Restricoes
-   
-   ## == Restricoes
 
     # No máximo uma disciplina (turma) pode ser alocada a uma sala em um determinado horário:
     c1 = m.addConstrs(
@@ -128,8 +121,18 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
         t[si,sj,c] >= (w[si,c]+w[sj,c] - 1) for si in salasLista for sj in salasLista if salasLista.index(si) < salasLista.index(sj) for c in cursos 
     )
     
-    m.setParam(GRB.Param.TimeLimit, 18000) # Tempo limite de 5 horas
+    m.setParam('VarsName', 1)
+    m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     m.optimize()
+
+    # # Para salvar valores da solução
+    # m.write("solution.sol")
+
+    # # Para utilizar solução salva :
+    # m.Params.MIPGap = 0.05
+    # m.update()
+    # m.read("solution.sol")
+    # m.optimize()
 
     if m.status == gp.GRB.OPTIMAL:
         print("Solução ótima encontrada.")       
