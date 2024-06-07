@@ -28,7 +28,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     # Variaveis
     x = {}
     for d in disciplinas:
-        for h in disciplinas[d].horarios:
+        for h in disciplinas[d].horarios_agrupamento():
             for s in salas:
                 x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
@@ -52,7 +52,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     vet_salas_preferenciais=[]
 
     for d in disciplinas:
-        for h in disciplinas[d].horarios:
+        for h in disciplinas[d].horarios_agrupamento():
             for s in salas:
                 if s not in disciplinas[d].salasPreferenciais:
                     vet_salas_preferenciais.append(x[d,s,h])
@@ -60,7 +60,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     # Cria vetor das alocacoes das salas
     vet_alocacoes=[]
     for d in disciplinas:
-        for h in disciplinas[d].horarios:
+        for h in disciplinas[d].horarios_agrupamento():
             vet_alocacoes.append((1 - gp.quicksum(x[d,s,h] for s in salas)))
 
     # Funcao objetivo
