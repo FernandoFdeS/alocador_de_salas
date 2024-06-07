@@ -16,15 +16,12 @@ class GeraPlanilhaSaida:
         alocacoes=[]
         for d in self.disciplinas:
             salas=[]
-            horarios=[]
             for s in self.salas:
                 for h in self.disciplinas[d].horarios_agrupamento():
                     if(round(self.x[d,s,h].X))==1:
                         if s not in salas:
                             salas.append(s)
-                        # if self.horarios[h].converte_horario() not in horarios:
-                        #     horarios.append(self.horarios[h].converte_horario())
-        
+            # Adiciona informações da disciplina "pai"
             alocacoes.append([
                 d,
                 self.disciplinas[d].nome_ccr,
@@ -36,8 +33,19 @@ class GeraPlanilhaSaida:
                 salas],
                 )
             
-        
-            
+            # Adiciona informações das disciplinas "filho", caso algum agrupamento tenha sido feito
+            for agrupamentos in self.disciplinas[d].agrupamento:
+                alocacoes.append([
+                    agrupamentos.cod,
+                    agrupamentos.nome_ccr,
+                    agrupamentos.ch_ccr,
+                    agrupamentos.nome_completo_curso,
+                    agrupamentos.fase,
+                    agrupamentos.horarioString[0],
+                    agrupamentos.alunos,
+                    salas],
+                )
+                        
         df1 = pd.DataFrame(alocacoes, columns=["cod", "nome_ccr", "ch_ccr", "curso", "fase", "horarios", "alunos", "sala"])
         df2 = pd.DataFrame(conflitos, columns=["SALA-TURNO","CODIGO-HORARIO"])
 
@@ -94,7 +102,7 @@ class GeraPlanilhaSaida:
             else:
                 del disciplinas_nao_alocadas[d]
             for s in self.salas:
-                for h in self.disciplinas[d].horarios:
+                for h in self.disciplinas[d].horarios_agrupamento():
                     if(round(self.x[d,s,h].X))==1:
                         linha = linha_salas.index(s)
                         coluna=(coluna_horarios.index(self.horarios[h].converte_horario()))
@@ -107,6 +115,10 @@ class GeraPlanilhaSaida:
         vet_nao_alocadas=[]
         for d in disciplinas_nao_alocadas:
             vet_nao_alocadas.append(self.disciplinas[d].formata_saida(self.horarios[h].converte_horario()))
+            for agrupamentos in d.agrupamentos:
+                vet_nao_alocadas.append(agrupamentos.formata_saida(self.horarios[h].converte_horario()))
+
+
         qtdNaoAlocadas=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")")  
         
         # Cria um DataFrame com rótulos personalizados

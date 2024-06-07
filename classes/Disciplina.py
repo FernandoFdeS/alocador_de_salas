@@ -66,19 +66,37 @@ class Disciplina:
             return ("FUSAO"+ self.nome+" ("+self.cod+")")
         
         if(len(self.agrupamento)>0):
-            string_final = self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod
+            string_final = self.abreviacao(self.curso)+" - "+str(self.fase)+" ("
+            tag_agrupado = 0
+            # Verificando se a disciplina "pai" possui o horario_planilha
+            for horario in self.horarios:
+                    faixa=horario.split("_")[2]
+                    dia=horario.split("_")[1]
+                    obj=Horario(int(dia),int(faixa))
+                    if(obj.converte_horario()==horario_planilha):
+                        string_final+= self.cod
+                        tag_agrupado+=1
+                        break
+            
+            # Verificando se alguma das disciplinas "filho" tem o horario_planilha como horario
             for agrupamento in self.agrupamento:
                 for horario in agrupamento.horarios:
                     faixa=horario.split("_")[2]
                     dia=horario.split("_")[1]
                     obj=Horario(int(dia),int(faixa))
                     if(obj.converte_horario()==horario_planilha):
-                        string_final+= " - AGRUPAMENTO "+agrupamento.cod
+                        if(tag_agrupado==0):
+                            string_final+= agrupamento.cod 
+                        else:    
+                            string_final+= " - " + agrupamento.cod 
+                        tag_agrupado+=1
                         break
                     else:
                         del obj
+
             string_final+=") "
-            #print(string_final)
+            if(tag_agrupado>=2):
+                string_final+=" AGRUPAMENTO "
             return string_final
         
         if self.fase != 0:

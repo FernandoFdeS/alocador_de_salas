@@ -61,6 +61,7 @@ class VerificaSolucao:
                     print("Atenção!")
                     print("Conflito identificado nas alocações da SALA-TURNO:  ",salaTurno)
                     print("DISCIPLINA-FAIXA_HORARIO conflitantes:  ",blocoHorarios)
+                    print("Não esqueça de verificar se as disciplinas envolvidas no conflito tem agrupamentos.")
                     print()
 
         print("Solução verificada.")

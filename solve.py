@@ -30,7 +30,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     for d in disciplinas:
         for h in disciplinas[d].horarios_agrupamento():
             for s in salas:
-                x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d}, {s}, {h}]")
+                x[d, s, h] = m.addVar(vtype=gp.GRB.BINARY, name=f"x[{d},{s},{h}]")
     y = m.addVars(disciplinas,salas,vtype=gp.GRB.INTEGER, name="y")
     w = m.addVars(salasLista,cursos,vtype=gp.GRB.BINARY,name="w")
     t = {}
@@ -38,7 +38,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
         for sj in salasLista:
             if salasLista.index(si)<salasLista.index(sj):
                 for c in cursos:
-                    t[si,sj,c] = m.addVar(vtype=gp.GRB.BINARY,name=f"t[{si}, {sj}, {c}]")
+                    t[si,sj,c] = m.addVar(vtype=gp.GRB.BINARY,name=f"t[{si},{sj},{c}]")
 
     z = m.addVars(salasLista,fases,vtype=gp.GRB.BINARY,name="v")
     v = {}
@@ -46,7 +46,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
         for sj in salasLista:
             if salasLista.index(si)<salasLista.index(sj):
                 for f in fases:
-                    v[si,sj,f] = m.addVar(vtype=gp.GRB.BINARY,name=f"v[{si}, {sj}, {f}]")
+                    v[si,sj,f] = m.addVar(vtype=gp.GRB.BINARY,name=f"v[{si},{sj},{f}]")
 
     # Cria vetor de variaveis das salas preferenciais
     vet_salas_preferenciais=[]
@@ -125,7 +125,7 @@ def main(arquivo_horarios,arquivo_salas,arquivo_salas_preferenciais):
     m.setParam(GRB.Param.TimeLimit, 25200) # Tempo limite de 7 horas
     m.optimize()
 
-    # # Para salvar valores da solução
+    # Para salvar valores da solução
     # m.write("solution.sol")
 
     # # Para utilizar solução salva :

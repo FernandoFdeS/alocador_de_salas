@@ -239,10 +239,9 @@ class ExtraiHorariosAula:
 
             if vai_agrupar==1:
                 agrupados+=1
-                # print("Curso: ",disciplina.nome_completo_curso)
-                # print("Disciplina 1: " + disciplina.cod+" | "+str(disciplina.horarioString)) 
-                # print("Disciplina 2: " + agrupamentos[chave_agrupamento] + " | "+str(disciplinas[agrupamentos[chave_agrupamento]].horarioString))
-                
+                print("Curso: ",disciplina.nome_completo_curso)
+                print("Disciplina 1: " + disciplina.cod+" | "+str(disciplina.horarioString)) 
+                print("Disciplina 2: " + agrupamentos[chave_agrupamento] + " | "+str(disciplinas[agrupamentos[chave_agrupamento]].horarioString))
                 if((len(disciplinas[agrupamentos[chave_agrupamento]].horarios))>=len(disciplina.horarios)):
                     disciplinas[agrupamentos[chave_agrupamento]].agrupamento.append(disciplina)
                 else:
