@@ -34,9 +34,9 @@ Com as dependências instaladas podemos partir para a configuração da aplicaç
 
   
 
--  Copie o arquivo `.env copy` e o renomeie para `.env`
+-  Copie o arquivo `.env copy`, o renomeie para `.env` e preencha os campos presentes no arquivo
 
--  Também é necessário configurar o Gurobi, para informações mais detalhadas sua configuração e licenças de uso acesse: https://support.gurobi.com/hc/en-us/articles/14799677517585-Getting-Started-with-Gurobi-Optimizer.
+-  Também é necessário configurar o Gurobi, para informações mais detalhadas sobre sua instalação, configuração e licenças de uso acesse: https://support.gurobi.com/hc/en-us/articles/14799677517585-Getting-Started-with-Gurobi-Optimizer.
 
   
 
