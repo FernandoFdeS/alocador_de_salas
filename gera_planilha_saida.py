@@ -55,8 +55,7 @@ class GeraPlanilhaSaida:
             df2.to_excel(writer, sheet_name='Conflitos', index=False)
     
     def exporta_alocacoes(self): 
-        disciplinas_nao_alocadas = self.disciplinas.copy()
-        # Adicionar aqui disciplinas_nao_alocadas as diciplinas agrupadas tmb
+        disciplinas_nao_alocadas=[]
         disciplinas_qtd_alocacoes = dict()
         
         # Coluna de horarios utilizado para criação da matriz usada para geração do aqruivo final
@@ -89,7 +88,6 @@ class GeraPlanilhaSaida:
 
         for d in self.disciplinas:
             disciplinas_qtd_alocacoes[d]=0
-            print(d)
             for s in self.salas:
                 for h in self.disciplinas[d].horarios:
                     if(round(self.x[d,s,h].X))==1:
@@ -100,15 +98,23 @@ class GeraPlanilhaSaida:
                     for h in agrupamentos.horarios:
                         if(round(self.x[d,s,h].X))==1:
                             disciplinas_qtd_alocacoes[agrupamentos.cod] += 1
-        
-        print(disciplinas_qtd_alocacoes)
 
         # Preenche a matriz das alocações que sera utilizada no arquivo de saida
         for d in self.disciplinas:
+            tem_alocacao_completa = True # A disciplina ou algum de seus agrupamentos teve todos os horarios alocados?
             if disciplinas_qtd_alocacoes[d] != len(self.disciplinas[d].horarios):
-                continue
-            else:
-                del disciplinas_nao_alocadas[d]
+                tem_alocacao_completa = False
+                disciplinas_nao_alocadas.append(self.disciplinas[d].formata_individual())
+
+            if len(self.disciplinas[d].agrupamento) > 0 :
+                for agrupamento in self.disciplinas[d].agrupamento:
+                    if(disciplinas_qtd_alocacoes[agrupamento.cod] != len(agrupamento.horarios)):
+                        disciplinas_nao_alocadas.append(agrupamento.formata_individual())
+                    else:
+                        tem_alocacao_completa = True
+                        
+            if(not tem_alocacao_completa):
+               continue
 
             for s in self.salas:
                 for h in self.disciplinas[d].horarios_agrupamento():
@@ -118,30 +124,26 @@ class GeraPlanilhaSaida:
                         if(matriz[linha][coluna]=='-'):
                             matriz[linha][coluna] = self.disciplinas[d].formata_saida(self.horarios[h].converte_horario())
                         elif (self.disciplinas[d].formata_saida(self.horarios[h].converte_horario()) not in matriz[linha][coluna]):
-                            matriz[linha][coluna] = matriz[linha][coluna] +" | "+self.disciplinas[d].formata_saida(self.horarios[h].converte_horario())+" COMPARTILHAMENTO"
-        
-        # Gera vetor de disciplinas não alocadas para ser usado no arquivo de saida
-        vet_nao_alocadas=[]
-        totalNaoAlocadas=0
-        for d in disciplinas_nao_alocadas:
-            vet_nao_alocadas.append(self.disciplinas[d].formata_saida(self.horarios[h].converte_horario()))
-            totalNaoAlocadas=totalNaoAlocadas+1
-            for agrupamentos in self.disciplinas[d].agrupamento:
-                vet_nao_alocadas.append(agrupamentos.formata_saida(self.horarios[h].converte_horario()))
-                totalNaoAlocadas=totalNaoAlocadas+1
+                            matriz[linha][coluna] = matriz[linha][coluna] +" | "+self.disciplinas[d].formata_saida(self.horarios[h].converte_horario())+" COMPARTILHAMENTO"         
+
+        qtdNaoAlocadas=("Não Alocadas ("+str(len(disciplinas_nao_alocadas))+")")  
+
+        # Verifica se todas as disciplinas foram alocadas
+        if(len(disciplinas_nao_alocadas))==0:
+            print("Alocações realizadas com sucesso!")
+        else:
+            print("Disciplinas alocadas: "+str((len(disciplinas_qtd_alocacoes)-len(disciplinas_nao_alocadas)))+"/"+str(len(disciplinas_qtd_alocacoes)))
+            print("Disciplinas não alocadas/parcialmente alocadas: "+str(len(disciplinas_nao_alocadas)))
+        print("Gerando planilha e tabela de alocações...")
 
 
-        qtdNaoAlocadas=("Não Alocadas ("+str(totalNaoAlocadas)+")")  
-        
         # Cria um DataFrame com rótulos personalizados
-        while(totalNaoAlocadas)<len(linha_salas):
-            vet_nao_alocadas.append("-")
-            totalNaoAlocadas=totalNaoAlocadas+1
-        while(totalNaoAlocadas)>len(linha_salas):
+        while(len(disciplinas_nao_alocadas))<len(linha_salas):
+            disciplinas_nao_alocadas.append("-")
+        while(len(disciplinas_nao_alocadas))>len(linha_salas):
             linha_salas.append("-")
-        indexes = pd.MultiIndex.from_arrays([vet_nao_alocadas,linha_salas],names=[qtdNaoAlocadas,'Salas'])
-        df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)
-        
+        indexes = pd.MultiIndex.from_arrays([disciplinas_nao_alocadas,linha_salas],names=[qtdNaoAlocadas,'Salas'])
+        df = pd.DataFrame(matriz, columns=coluna_horarios_csv, index=indexes)        
 
 
         df.to_excel(self.caminho+self.nome_arquivo, index=True,engine='openpyxl')
@@ -278,10 +280,3 @@ class GeraPlanilhaSaida:
         workbook.save(self.caminho+self.nome_arquivo)
 
         workbook.close()
-
-        # Verifica se todas as disciplinas foram alocadas
-        if(len(disciplinas_nao_alocadas))==0:
-            print("Alocações realizadas com sucesso!")
-        else:
-            print("Atenção! Não foi possível alocar todas as disciplinas.")
-

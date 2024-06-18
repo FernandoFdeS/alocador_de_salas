@@ -103,6 +103,10 @@ class Disciplina:
             return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
         else:
             return (self.abreviacao(self.curso)+" - opt ("+self.cod+")")
+        
+    def formata_individual(self): # Retorna a disciplina individualmente formatada
+        return (self.abreviacao(self.curso)+" - "+str(self.fase)+" ("+self.cod+")")
+
 
     def max_alunos_agrupamento(self):
         if (len(self.agrupamento) == 0):
